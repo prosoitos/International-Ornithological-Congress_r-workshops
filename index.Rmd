@@ -1,0 +1,14 @@
+---
+title: "International Ornithological Congress 2018: R workshops"
+author: Marie-Helene Burle
+---
+
+## Workshops
+
+1. [R best practices - Workshop description](r_best-practices_description.html)
+2. [R best practices](r_best-practices.html)
+3. [Functional programming in R (with purrr)](r_functional-programming_description.html)
+4. [Functional programming in R (with purrr) - Workshop description](r_functional-programming.html)
+
+```{r, child="_page_built_on.Rmd"}
+```
