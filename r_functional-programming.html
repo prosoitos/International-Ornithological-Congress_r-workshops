@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-05 Thu 02:28 -->
+<!-- 2018-04-10 Tue 23:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Functional programming in R (with purrr)</title>
@@ -13,395 +13,398 @@
 <!--/*--><![CDATA[/*><!--*/
 @media all
 {
-/* @import url(http://fonts.googleapis.com/css?family=Inconsolata); */
-/* @import url(http://fonts.googleapis.com/css?family=Open Sans Condensed Light); */
-/* @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700); */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-video {
-  display: inline-block;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden] {
-  display: none;
-}
-html {
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 95%;
-  -ms-text-size-adjust: 95%;
-}
-body {
-  margin: 0;
-}
-a:focus {
-  outline: thin dotted;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-dfn {
-  font-style: italic;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, serif;
-  font-size: 1em;
-}
-pre,
-code {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 0;
-}
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-legend {
-  border: 0;
-  padding: 0;
-}
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
-button,
-input {
-  line-height: normal;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-input[disabled] {
-  cursor: default;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-input[type="search"] {
-  -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-textarea {
-  overflow: auto;
-  vertical-align: top;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-html {
-  font-family: 'Lato', sans-serif;
-  font-size: 110%;
-}
-pre,
-code {
-  font-family: 'Inconsolata', sans-serif;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-}
-h1 {
-  line-height: 45px;
-}
-h2 {
-  line-height: 35px;
-}
-h3 {
-  line-height: 32px;
-}
-h4 {
-  line-height: 30px;
-}
-h5 {
-  line-height: 28px;
-}
-h6 {
-  line-height: 26px;
-}
-html {
-  background-color: #faf9f1;
-  color: #242b2f;
-  margin: 1em;
-  line-height: 24px;
-}
-body {
-  background-color: #faf9f1;
-  margin: 0px auto 0px 150px;
-  max-width: 21.5cm;
-  /* border: 1pt solid #93a1a1; */
-  /* border: 1pt solid #d9d9d9; */
-  /* border: 1pt solid #c9cfcf; */
-  /* border-radius: 10px; */
-  padding: 1em;
-}
-/* code { */
-/*   background-color: #eee8d5; */
-/*   padding: 2px; */
-/* } */
-a {
-  color: #b58900;
-}
-a:visited {
-  color: #cb4b16;
-}
-a:hover {
-  color: #e65719;
-}
-h1 {
-  color: #890c0c;
-}
-h2 {
-  color: #094043;
-}
-h3 {
-  color: #0f6b70;
-}
-h4 {
-  color: #13866c;
-}
-h5 {
-  color: #528d25;
-}
-h6 {
-  color: #9d9d15;
-}
-pre {
-  background-color: #f1f1f1;
-  color: #262626;
-  padding: 0.8em;
-  font-family: 'Inconsolata';
-  font-size: 95%;
-  line-height: 22px;
-  /* border: 1pt solid #d9d9d9; */
-  border: 0.5pt solid #d9d9d9;
-  border-radius: 5px;
-  box-shadow: 0pt 0pt 0pt #eee8d5;
-  /* letter-spacing: 1.1px; */
-}
-code {
-  background-color: #f1f1f1;
-  color: #262626;
-  padding: 0.1em;
-  font-family: 'Inconsolata';
-  font-size: 95%;
-  line-height: 22px;
-  border: 0.5pt solid #e6e6e6;
-  /* border-radius: 5px; */
-  box-shadow: 0pt 0pt 0pt #eee8d5;
-  /* letter-spacing: 1.1px; */
-}
-.org-ess-numbers {
-    color: #e28200;
-}
-.org-comment-delimiter {
+  /* @import url(http://fonts.googleapis.com/css?family=Inconsolata); */
+  /* @import url(http://fonts.googleapis.com/css?family=Open Sans Condensed Light); */
+  /* @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700); */
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  nav,
+  section,
+  summary {
+    display: block;
+  }
+  audio,
+  canvas,
+  video {
+    display: inline-block;
+  }
+  audio:not([controls]) {
+    display: none;
+    height: 0;
+  }
+  [hidden] {
+    display: none;
+  }
+  html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 95%;
+    -ms-text-size-adjust: 95%;
+  }
+  body {
+    margin: 0;
+  }
+  a:focus {
+    outline: thin dotted;
+  }
+  a:active,
+  a:hover {
+    outline: 0;
+  }
+  abbr[title] {
+    border-bottom: 1px dotted;
+  }
+  b,
+  strong {
+    font-weight: bold;
+  }
+  dfn {
+    font-style: italic;
+  }
+  mark {
+    background: #ff0;
+    color: #000;
+  }
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: monospace, serif;
+    font-size: 1em;
+  }
+  pre,
+  code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+  }
+  small {
+    font-size: 80%; 
+  }
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sup {
+    top: -0.5em;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  img {
+    border: 0;
+  }
+  svg:not(:root) {
+    overflow: hidden;
+  }
+  figure {
+    margin: 0;
+  }
+  fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+  }
+  legend {
+    border: 0;
+    padding: 0;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+  }
+  button,
+  input {
+    line-height: normal;
+  }
+  button,
+  html input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+  }
+  button[disabled],
+  input[disabled] {
+    cursor: default;
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+  input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  button::-moz-focus-inner,
+  input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+  textarea {
+    overflow: auto;
+    vertical-align: top;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  html {
+    font-family: 'Lato', sans-serif;
+    font-size: 110%;
+  }
+  pre,
+  code {
+    font-family: 'Inconsolata', sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+  }
+  h1 {
+    line-height: 50px;
+    padding: 20px 0px 10px 0px;
+  }
+  h2 {
+    line-height: 35px;
+    padding: 20px 0px 0px 0px;
+  }
+  h3 {
+    line-height: 31px;
+    padding: 15px 0px 0px 0px;
+  }
+  h4 {
+    line-height: 25px;
+  }
+  h5 {
+    line-height: 20px;    
+  }
+  h6 {
+    line-height: 15px;
+  }
+  html {
+    background-color: #faf9f1;
+    color: #242b2f;
+    margin: 1em;
+    line-height: 24px;
+  }
+  body {
+    background-color: #faf9f1;
+    margin: 0px auto 0px 150px;
+    max-width: 21.5cm;
+    /* border: 1pt solid #93a1a1; */
+    /* border: 1pt solid #d9d9d9; */
+    /* border: 1pt solid #c9cfcf; */
+    /* border-radius: 10px; */
+    padding: 1em;
+  }
+  /* code { */
+  /*   background-color: #eee8d5; */
+  /*   padding: 2px; */
+  /* } */
+  a {
+    color: #b58900;
+  }
+  a:visited {
+    color: #cb4b16;
+  }
+  a:hover {
+    color: #e65719;
+  }
+  h1 {
+    color: #890c0c;
+  }
+  h2 {
+    color: #19334d;
+  }
+  h3 {
+    color: #336699;
+  }
+  h4 {
+    color: #6699cc;
+  }
+  h5 {
+    color: #666666;
+  }
+  h6 {
+    color: #808080;
+  }
+  pre {
+    background-color: #f1f1f1;
+    color: #262626;
+    padding: 0.8em;
+    font-family: 'Inconsolata';
+    font-size: 95%;
+    line-height: 22px;
+    /* border: 1pt solid #d9d9d9; */
+    border: 0.5pt solid #d9d9d9;
+    border-radius: 5px;
+    box-shadow: 0pt 0pt 0pt #eee8d5;
+    /* letter-spacing: 1.1px; */
+  }
+  code {
+    background-color: #f1f1f1;
+    color: #262626;
+    padding: 0.1em;
+    font-family: 'Inconsolata';
+    font-size: 95%;
+    line-height: 22px;
+    border: 0.5pt solid #e6e6e6;
+    /* border-radius: 5px; */
+    box-shadow: 0pt 0pt 0pt #eee8d5;
+    /* letter-spacing: 1.1px; */
+  }
+  .org-ess-numbers {
+    color: #e28200; 
+  }
+  .org-comment-delimiter {
     color: #8c8c8c;
-}
-.org-comment {
+  }
+  .org-comment {
     color: #8c8c8c;
-}
-.org-string {
+  }
+  .org-string {
     color: #013b6d;
-}
-.org-ess-function-call {
+  }
+  .org-ess-function-call {
     color: #bf4040;
     /* font-weight: bolder; */
-}
-.org-ess-operator {
+  }
+  .org-ess-operator {
     color: #0b5e56;
-}
-.org-ess-assignment {
+  }
+  .org-ess-assignment {
     color: #0b5e56;
-}
-.org-ess-paren {
+  }
+  .org-ess-paren {
     color: #0b5e56;
-}
-.org-ess-XopX {
+  }
+  .org-ess-XopX {
     color: #0b5e56;
-}
-/* pre, */
-/* code { */
-/*   background-color: #faf9f1; */
-/* } */
-h1 {
-  font-size: 2.2em;
-  text-align: center;
-}
-h2 {
-  font-size: 1.6em;
-}
-h3 {
-  font-size: 1.5em;
-}
-h4 {
-  font-size: 1.4em;
-}
-h5 {
-  font-size: 1.3em;
-}
-h6 {
-  font-size: 1.2em;
-}
-.tag {
-  background-color: #eee8d5;
-  color: #d33682;
-  padding: 0 0.2em;
-}
-.todo,
-.next,
-.done {
-  color: #faf9f1;
-  background-color: #dc322f;
-  padding: 0 0.2em;
-}
-.tag {
-  -webkit-border-radius: 0.35em;
-  -moz-border-radius: 0.35em;
-  border-radius: 0.35em;
-}
-.TODO {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #2aa198;
-}
-.NEXT {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.ACTIVE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.DONE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-.WAITING {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #cb4b16;
-}
-.HOLD {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.NOTE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.CANCELLED {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
+  }
+  /* pre, */
+  /* code { */
+  /*   background-color: #faf9f1; */
+  /* } */
+  h1 {
+    font-size: 2.2em;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+  h4 {
+    font-size: 1.4em;
+  }
+  h5 {
+    font-size: 1.3em;
+  }
+  h6 {
+    font-size: 1.2em;
+  }
+  .tag {
+    background-color: #eee8d5;
+    color: #d33682;
+    padding: 0 0.2em;
+  }
+  .todo,
+  .next,
+  .done {
+    color: #faf9f1;
+    background-color: #dc322f;
+    padding: 0 0.2em;
+  }
+  .tag {
+    -webkit-border-radius: 0.35em;
+    -moz-border-radius: 0.35em;
+    border-radius: 0.35em;
+  }
+  .TODO {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #2aa198;
+  }
+  .NEXT {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #268bd2;
+  }
+  .ACTIVE {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #268bd2;
+  }
+  .DONE {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #859900;
+  }
+  .WAITING {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #cb4b16;
+  }
+  .HOLD {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #d33682;
+  }
+  .NOTE {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #d33682;
+  }
+  .CANCELLED {
+    -webkit-border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    border-radius: 0.2em;
+    background-color: #859900;
+  }
 
- /* TOC inspired by http://jashkenas.github.com/coffee-script */
+  /* TOC inspired by http://jashkenas.github.com/coffee-script */
   #table-of-contents {
     font-size: 10pt;
     position: fixed;
     right: 0em;
     top: 0em;
     background: #faf9f1;
-    color: #666666;
+    color: #596a73;
     /* -webkit-box-shadow: 0 0 1em #777777; */
     /* -moz-box-shadow: 0 0 1em #777777; */
     -webkit-border-bottom-left-radius: 10px;
@@ -410,23 +413,23 @@ h6 {
     /* ensure doesn't flow off the screen when expanded */
     max-height: 80%;
     overflow: auto; }
-    #table-of-contents h2 {
-      font-size: 12pt;
-      max-width: 25em;
-      font-weight: bold;
-      color: #666666;
-      padding-right: 3em;
-      padding-left: 0.8em;
-      padding-top: 1em;
-      padding-bottom: 0em;
-      text-align: left;}
-    #table-of-contents #text-table-of-contents {
-      display: none;
-      text-align: left; }
-    #table-of-contents:hover #text-table-of-contents {
-      display: block;
-      padding: 0.5em;
-      margin-top: -1.5em; }
+  #table-of-contents h2 {
+    font-size: 12pt;
+    max-width: 25em;
+    font-weight: bold;
+    color: #596a73;
+    padding-right: 3em;
+    padding-left: 0.8em;
+    padding-top: 1em;
+    padding-bottom: 0em;
+    text-align: left;}
+  #table-of-contents #text-table-of-contents {
+    display: none;
+    text-align: left; }
+  #table-of-contents:hover #text-table-of-contents {
+    display: block;
+    padding: 0.5em;
+    margin-top: -1.5em; }
 
   .rss_box {}
   .rss_title, rss_title a {}
@@ -498,7 +501,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<p style="color:#666666"><b>Marie-Hélène Burle</b><br>April 05, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 10, 2018</span>
 </div>
 <div id="content">
 <h1 class="title">Functional programming in R (with purrr)</h1>
@@ -506,28 +509,679 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgad8af78">What is functional programming?</a></li>
-<li><a href="#orge918e47">The Purrr package</a></li>
+<li><a href="#org73674df">Introduction</a>
+<ul>
+<li><a href="#org0ab6061">What is functional programming?</a></li>
+<li><a href="#orgebebf0e">Iterations</a></li>
+<li><a href="#org80636ac">The purrr package</a>
+<ul>
+<li><a href="#orgcc28a92">Goal</a></li>
+<li><a href="#org1d2e8b7">Logistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org80311d3">Let's dive in</a>
+<ul>
+<li><a href="#org8b354df">The modify functions: apply functions to indexed elements of an object</a>
+<ul>
+<li>
+<ul>
+<li><a href="#orgd23091d">Load packages</a></li>
+<li><a href="#org805f344">Create some fake banding data</a></li>
+</ul>
+</li>
+<li><a href="#org39cf7e2">Magrittr digression: less used piping treasures</a></li>
+</ul>
+</li>
+<li><a href="#org8f7c438">The map functions: apply functions to elements of a vector</a></li>
+<li><a href="#org9aa9990">The walk functions: apply side effects to lists</a></li>
+</ul>
+</li>
+<li><a href="#org5f5f788">Your turn!</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#org1b1f860">Create new fake data</a></li>
+<li><a href="#org33483f4">Apply functions to each variable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgaf35008">Formulas: a shorter notation for anonymous functions</a>
+<ul>
+<li><a href="#orge041b54">Referring to elements</a></li>
+</ul>
+</li>
+<li><a href="#orgbba9c98">A little summary of the family of the map functions</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org462482b">How many lists we are using in the input</a></li>
+<li><a href="#org3e369fc">The class of the output we want</a></li>
+<li><a href="#org2d97ba6">How we want to select the input</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org054d33b">Nested data frames</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgad8af78" class="outline-2">
-<h2 id="orgad8af78">What is functional programming?</h2>
-<div class="outline-text-2" id="text-orgad8af78">
+<div id="outline-container-org73674df" class="outline-2">
+<h2 id="org73674df">Introduction</h2>
+<div class="outline-text-2" id="text-org73674df">
+</div>
+<div id="outline-container-org0ab6061" class="outline-3">
+<h3 id="org0ab6061">What is functional programming?</h3>
+<div class="outline-text-3" id="text-org0ab6061">
 <p>
-It is a programming paradigm based on the evaluation of functions. This is opposed to <i>imperative programming</i><br />
+It is a programming paradigm based on the evaluation of functions. This is opposed to <i>imperative programming</i>. Some languages are based strictly on functional programming (e.g. Haskell), others<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orge918e47" class="outline-2">
-<h2 id="orge918e47">The Purrr package</h2>
-<div class="outline-text-2" id="text-orge918e47">
+<div id="outline-container-orgebebf0e" class="outline-3">
+<h3 id="orgebebf0e">Iterations</h3>
+<div class="outline-text-3" id="text-orgebebf0e">
+<p>
+Repetition of a process (e.g. applying the same function to several variables).<br />
+</p>
+
+<p>
+Classic methods:<br />
+</p>
+<ul class="org-ul">
+<li>loops<br /></li>
+<li><code class="src src-R">apply</code> functions family<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org80636ac" class="outline-3">
+<h3 id="org80636ac">The purrr package</h3>
+<div class="outline-text-3" id="text-org80636ac">
+<p>
+One of the <code class="src src-R">tidyverse</code> core packages, <code class="src src-R">purrr</code> was written a few years ago by <a href="https://github.com/lionel-">Lionel Henry</a> (also the maintainer), <a href="http://hadley.nz/">Hadley Wickham</a>, and <a href="https://www.rstudio.com/">RStudio inc.</a> <br />
+</p>
+</div>
+
+<div id="outline-container-orgcc28a92" class="outline-4">
+<h4 id="orgcc28a92">Goal</h4>
+<div class="outline-text-4" id="text-orgcc28a92">
+<p>
+<code class="src src-R">Purrr</code> is a set of tools allowing consistent functional programming in R in a <code class="src src-R">tidyverse</code> style (using <code class="src src-R">magrittr</code> pipes and following the same naming conventions found in other <code class="src src-R">tidyverse</code> packages).<br />
+</p>
+
+<p>
+As Hadley Wickham says, in many ways, <code class="src src-R">purrr</code> is the equivalent of the <code class="src src-R">dplyr</code>, but while <code class="src src-R">dplyr</code> focuses on data frames, <code class="src src-R">purrr</code> works on vectors: it works on the elements of atomic vectors, lists, and data frames.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1d2e8b7" class="outline-4">
+<h4 id="org1d2e8b7">Logistics</h4>
+<div class="outline-text-4" id="text-org1d2e8b7">
+<p>
+Install it with:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-function-call">install.packages</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"tidyverse"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+<span class="org-comment-delimiter">## </span><span class="org-comment">or</span>
+<span class="org-ess-function-call">install.packages</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"purrr"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
+
+<p>
+Load it with:<br />
+</p>
+
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-modifiers">library</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>tidyverse<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
-
+<span class="org-comment-delimiter">## </span><span class="org-comment">or</span>
+<span class="org-ess-modifiers">library</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>purrr<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
+</div>
+
+<p>
+As always, once the package is loaded, you can get information on the package with:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">?purrr
+</pre>
+</div>
+
+<p>
+and on any of its functions with:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">?<span class="org-ess-keyword">function</span>
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">e.g. for the map function</span>
+?map
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org80311d3" class="outline-2">
+<h2 id="org80311d3">Let's dive in</h2>
+<div class="outline-text-2" id="text-org80311d3">
+</div>
+<div id="outline-container-org8b354df" class="outline-3">
+<h3 id="org8b354df">The modify functions: apply functions to indexed elements of an object</h3>
+<div class="outline-text-3" id="text-org8b354df">
+<p>
+Let's create some very simple data.<br />
+</p>
+</div>
+
+<div id="outline-container-orgd23091d" class="outline-5">
+<h5 id="orgd23091d">Load packages</h5>
+<div class="outline-text-5" id="text-orgd23091d">
+<p>
+First, let's load the packages that we will use. It is always a good idea to write all the packages that you will be using at the top of the script. This will help others, using your script, to know what is required to run it.<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-modifiers">library</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>tidyverse<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>   <span class="org-comment-delimiter"># </span><span class="org-comment">we will use purrr and other core packages</span>
+<span class="org-ess-modifiers">library</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>magrittr<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>    <span class="org-comment-delimiter"># </span><span class="org-comment">we will use several types of pipes</span>
+<span class="org-ess-modifiers">library</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>patchwork<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>   <span class="org-comment-delimiter"># </span><span class="org-comment">this is a cool package to plot several graphs together</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org805f344" class="outline-5">
+<h5 id="org805f344">Create some fake banding data</h5>
+<div class="outline-text-5" id="text-org805f344">
+<p>
+Let's create some imaginary bird banding data:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">banding <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-function-call">data.frame</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>
+  bird <span class="org-ess-operator">=</span> <span class="org-ess-function-call">paste0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"bird"</span>, <span class="org-ess-numbers">1</span>:<span class="org-ess-numbers">50</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  sex <span class="org-ess-operator">=</span> <span class="org-ess-function-call">sample</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-function-call">c</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">(</span></span><span class="org-string">"F"</span>, <span class="org-string">"M"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">)</span></span>, <span class="org-ess-numbers">50</span>, replace <span class="org-ess-operator">=</span> <span class="org-ess-f-t">T</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  population <span class="org-ess-operator">=</span> <span class="org-ess-function-call">sample</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>LETTERS<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">[</span></span><span class="org-ess-numbers">1</span>:<span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">]</span></span>, <span class="org-ess-numbers">50</span>, replace <span class="org-ess-operator">=</span> <span class="org-ess-f-t">T</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  mass <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">43</span>, <span class="org-ess-numbers">4</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  tarsus <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">27</span>, <span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  wing <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">112</span>, <span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+
+banding
+
+banding <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
+</pre>
+</div>
+
+<p>
+As is the case with data frames, we can see that the 3 string variables (bird, sex, and population) have been converted to factors. What if we decide to convert all those factors into character vectors. How would you do that?<br />
+</p>
+
+<p>
+Now, this is how this can be done very easily with one of the modify function:<br />
+</p>
+
+<p>
+The modify family includes <code class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>, <code class="src src-R"><span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>, <code class="src src-R"><span class="org-ess-function-call">modify_at</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>, and <code class="src src-R">modify_depth</code>. That last one will make sense later.<br />
+</p>
+
+<p>
+Wait: what were all these weird looking pipes??<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org39cf7e2" class="outline-4">
+<h4 id="org39cf7e2">Magrittr digression: less used piping treasures</h4>
+<div class="outline-text-4" id="text-org39cf7e2">
+<p>
+<code class="src src-R"><span class="org-ess-XopX">%&lt;&gt;%</span></code> pipes the left expression to the right, and then back to the left. Instead of a right arrow, think of it as an arrow going from left to right, making a turn and going back to its starting place again.<br />
+</p>
+
+<p>
+The code<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">banding <span class="org-ess-XopX">%&lt;&gt;%</span>
+  <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.factor, as.character<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%T&gt;%</span>
+  <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
+</pre>
+</div>
+
+<p>
+that we used above, is equivalent to<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">banding <span class="org-ess-assignment">&lt;-</span>
+  banding <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.factor, as.character<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%T&gt;%</span>
+  <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
+</pre>
+</div>
+
+<p>
+<code class="src src-R"><span class="org-ess-XopX">%T%</span></code> pipes the effect of the left expression to the right, but does not pipe the object itself (so the object is "free" to be used by another pipe). This is very useful when you want to produce to output from one object. Or produce a side effect (e.g. printing) without interrupting a pipeline. I like to think of the "T" as a branching which represents the 2 outputs produced by a single object.<br />
+</p>
+
+<p>
+Try replacing <code class="src src-R"><span class="org-ess-XopX">%T%</span></code> with the regular pipe <code class="src src-R"><span class="org-ess-XopX">%&gt;%</span></code> in our code and see what happens. Can you explain it?<br />
+</p>
+
+<p>
+There are other pipes in <a href="https://github.com/tidyverse/magrittr">this amazing package</a>. You should explore them at your own time!<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8f7c438" class="outline-3">
+<h3 id="org8f7c438">The map functions: apply functions to elements of a vector</h3>
+<div class="outline-text-3" id="text-org8f7c438">
+<div class="org-src-container">
+<pre class="src src-R">graphs <span class="org-ess-assignment">&lt;-</span>
+  banding <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">split</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.$population<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>~ <span class="org-ess-function-call">ggplot</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>., <span class="org-ess-function-call">aes</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">(</span></span>tarsus, mass<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-operator">+</span> <span class="org-ess-function-call">geom_point</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">()</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+
+graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">[</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">[</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">]</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">]</span></span> <span class="org-ess-operator">+</span> graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">[</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">[</span></span><span class="org-ess-numbers">2</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">]</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">]</span></span> <span class="org-ess-operator">+</span> graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">[</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">[</span></span><span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">]</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">]</span></span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9aa9990" class="outline-3">
+<h3 id="org9aa9990">The walk functions: apply side effects to lists</h3>
+<div class="outline-text-3" id="text-org9aa9990">
+<div class="org-src-container">
+<pre class="src src-R">paths <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-function-call">paste0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"population_"</span>, <span class="org-ess-function-call">names</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>, <span class="org-string">".png"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+
+<span class="org-ess-function-call">walk2</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>paths, graphs, ggsave<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5f5f788" class="outline-2">
+<h2 id="org5f5f788">Your turn!</h2>
+<div class="outline-text-2" id="text-org5f5f788">
+</div>
+<div id="outline-container-org1b1f860" class="outline-5">
+<h5 id="org1b1f860">Create new fake data</h5>
+<div class="outline-text-5" id="text-org1b1f860">
+<p>
+This time, imagine that bird1 to bird5 are kept in captivity. Their mass is monitored regularly to make sure they are not loosing weight.<br />
+</p>
+
+<p>
+How can we create such data?<br />
+</p>
+
+<p>
+We could, of course, write it a tedious way:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">mass <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-function-call">data.frame</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>
+  bird1 <span class="org-ess-operator">=</span> <span class="org-ess-function-call">runif</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">15</span>, <span class="org-ess-numbers">35</span>, <span class="org-ess-numbers">55</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  bird2 <span class="org-ess-operator">=</span> <span class="org-ess-function-call">runif</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">15</span>, <span class="org-ess-numbers">35</span>, <span class="org-ess-numbers">55</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  bird3 <span class="org-ess-operator">=</span> <span class="org-ess-function-call">runif</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">15</span>, <span class="org-ess-numbers">35</span>, <span class="org-ess-numbers">55</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  bird4 <span class="org-ess-operator">=</span> <span class="org-ess-function-call">runif</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">15</span>, <span class="org-ess-numbers">35</span>, <span class="org-ess-numbers">55</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  bird5 <span class="org-ess-operator">=</span> <span class="org-ess-function-call">runif</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">15</span>, <span class="org-ess-numbers">35</span>, <span class="org-ess-numbers">55</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
+
+<p>
+But Hadley Wickham's rule is that we should never copy-paste more than twice. Uh hum&#x2026; we have 5 copies of the same line of code already :P And if we wanted to create a larger data frame, we could have many more than that!<br />
+</p>
+
+<p>
+If you wanted to use the <code class="src src-R">map</code> function to get to the same result, how would you do this?<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org33483f4" class="outline-5">
+<h5 id="org33483f4">Apply functions to each variable</h5>
+<div class="outline-text-5" id="text-org33483f4">
+<p>
+How could you calculate the mean for each bird?<br />
+</p>
+
+<p>
+<b>Spend 5 min to think about this. Feel free to chat with whoever you'd like to.</b><br />
+</p>
+
+<p>
+Similarly, you can calculate the variance, the sum, look for the largest value or apply any other function.<br />
+</p>
+
+<p>
+<b>Spend 30 s to write this.</b><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaf35008" class="outline-3">
+<h3 id="orgaf35008">Formulas: a shorter notation for anonymous functions</h3>
+<div class="outline-text-3" id="text-orgaf35008">
+<p>
+With one element<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-keyword">function</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> x <span class="org-ess-operator">+</span> <span class="org-ess-numbers">3</span>
+</pre>
+</div>
+
+<p>
+can be written as:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">~ . <span class="org-ess-operator">+</span> <span class="org-ess-numbers">3</span>
+</pre>
+</div>
+
+<p>
+<b>Your turn: write the following anonymous function as a formula</b><br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-keyword">function</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-function-call">mean</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-operator">+</span> <span class="org-ess-numbers">3</span>
+</pre>
+</div>
+
+<p>
+With 2 elements,<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-keyword">function</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x, y<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> x <span class="org-ess-operator">+</span> y
+</pre>
+</div>
+
+<p>
+can be shortened to<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">~ .x <span class="org-ess-operator">+</span> .y
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orge041b54" class="outline-4">
+<h4 id="orge041b54">Referring to elements</h4>
+<div class="outline-text-4" id="text-orge041b54">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th align="left">1st element</th>
+<th align="left">&#xa0;</th>
+<th align="left">2nd element</th>
+<th align="left">&#xa0;</th>
+<th align="left">3rd element</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>.</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>.x</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>.y</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>..1</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>..2</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>..3</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+etc.<br />
+</p>
+
+<p>
+<b>Your turn: write the following anonymous function as a formula</b><br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-keyword">function</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x1, x2, y<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-function-call">lm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>y ~ x1 <span class="org-ess-operator">+</span> x2<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbba9c98" class="outline-3">
+<h3 id="orgbba9c98">A little summary of the family of the map functions</h3>
+<div class="outline-text-3" id="text-orgbba9c98">
+<p>
+We will use different <code class="src src-R">map</code> (or <code class="src src-R">walk</code>, if we want the side effects) function depending on:<br />
+</p>
+</div>
+
+<div id="outline-container-org462482b" class="outline-5">
+<h5 id="org462482b">How many lists we are using in the input</h5>
+<div class="outline-text-5" id="text-org462482b">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th align="left">number of arguments in input</th>
+<th align="left">&#xa0;</th>
+<th align="left">&#xa0;</th>
+<th align="left">purrr function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map</code> or <code>walk</code></td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map2</code> or <code>walk2</code></td>
+</tr>
+
+<tr>
+<td class="org-right">more</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>pmap</code> or <code>pwalk</code></td>
+</tr>
+</tbody>
+</table>
+
+<br>
+</div>
+</div>
+
+<div id="outline-container-org3e369fc" class="outline-5">
+<h5 id="org3e369fc">The class of the output we want</h5>
+<div class="outline-text-5" id="text-org3e369fc">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th align="left">class we want for the output</th>
+<th align="left">&#xa0;</th>
+<th align="left">&#xa0;</th>
+<th align="left">purrr function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">list</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map</code></td>
+</tr>
+
+<tr>
+<td class="org-left">double</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_dbl</code></td>
+</tr>
+
+<tr>
+<td class="org-left">integer</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_int</code></td>
+</tr>
+
+<tr>
+<td class="org-left">character</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_chr</code></td>
+</tr>
+
+<tr>
+<td class="org-left">logical</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_lgl</code></td>
+</tr>
+
+<tr>
+<td class="org-left">data frame (by row-binding)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_dfr</code></td>
+</tr>
+
+<tr>
+<td class="org-left">data frame (by column-binding)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_dfc</code></td>
+</tr>
+</tbody>
+</table>
+
+<br>
+</div>
+</div>
+
+<div id="outline-container-org2d97ba6" class="outline-5">
+<h5 id="org2d97ba6">How we want to select the input</h5>
+<div class="outline-text-5" id="text-org2d97ba6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th align="left">selecting input based on</th>
+<th align="left">&#xa0;</th>
+<th align="left">&#xa0;</th>
+<th align="left">purrr function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">condition</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_if</code></td>
+</tr>
+
+<tr>
+<td class="org-left">location</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>map_at</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org054d33b" class="outline-3">
+<h3 id="org054d33b">Nested data frames</h3>
+<div class="outline-text-3" id="text-org054d33b">
+<p>
+These are the most important <code class="src src-R">purrr</code> functions. But there are others that you should explore :)<br />
+</p>
 </div>
 </div>
 </div>

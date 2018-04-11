@@ -4,18 +4,319 @@
 #+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
 #+OPTIONS: html-preamble:t html-postamble:nil
 
+#+PROPERTY: header-args:R :session R:purrr :eval no :exports code :tangle yes :comments link
+
 #+TITLE:   Functional programming in R (with purrr)
 #+DATE:	   {{{time(%B %d\, %Y)}}}
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-* What is functional programming?
+* Introduction
 
-It is a programming paradigm based on the evaluation of functions. This is opposed to /imperative programming/
+** What is functional programming?
 
-* The Purrr package
+It is a programming paradigm based on the evaluation of functions. This is opposed to /imperative programming/. Some languages are based strictly on functional programming (e.g. Haskell), others 
+
+** Iterations
+
+Repetition of a process (e.g. applying the same function to several variables).
+
+Classic methods:
+- loops
+- src_R[:eval no]{apply} functions family
+
+** The purrr package
+
+One of the src_R[:eval no]{tidyverse} core packages, src_R[:eval no]{purrr} was written a few years ago by [[https://github.com/lionel-][Lionel Henry]] (also the maintainer), [[http://hadley.nz/][Hadley Wickham]], and [[https://www.rstudio.com/][RStudio inc.]] 
+
+*** Goal
+
+src_R[:eval no]{Purrr} is a set of tools allowing consistent functional programming in R in a src_R[:eval no]{tidyverse} style (using src_R[:eval no]{magrittr} pipes and following the same naming conventions found in other src_R[:eval no]{tidyverse} packages).
+
+As Hadley Wickham says, in many ways, src_R[:eval no]{purrr} is the equivalent of the src_R[:eval no]{dplyr}, but while src_R[:eval no]{dplyr} focuses on data frames, src_R[:eval no]{purrr} works on vectors: it works on the elements of atomic vectors, lists, and data frames.
+
+*** Logistics
+
+Install it with:
+
+#+BEGIN_SRC R
+install.packages("tidyverse")
+## or
+install.packages("purrr")
+#+END_SRC
+
+Load it with:
 
 #+BEGIN_SRC R
 library(tidyverse)
-
+## or
+library(purrr)
 #+END_SRC
+
+As always, once the package is loaded, you can get information on the package with:
+
+#+BEGIN_SRC R
+?purrr
+#+END_SRC
+
+and on any of its functions with:
+
+#+BEGIN_SRC R
+?function
+
+## e.g. for the map function
+?map
+#+END_SRC
+
+* Let's dive in
+
+** The modify functions: apply functions to indexed elements of an object
+
+Let's create some very simple data.
+
+**** Load packages
+
+First, let's load the packages that we will use. It is always a good idea to write all the packages that you will be using at the top of the script. This will help others, using your script, to know what is required to run it.
+
+#+BEGIN_SRC R
+library(tidyverse)   # we will use purrr and other core packages
+library(magrittr)    # we will use several types of pipes
+library(patchwork)   # this is a cool package to plot several graphs together
+#+END_SRC
+
+**** Create some fake banding data
+
+Let's create some imaginary bird banding data:
+
+#+BEGIN_SRC R
+banding <- data.frame(
+  bird = paste0("bird", 1:50),
+  sex = sample(c("F", "M"), 50, replace = T),
+  population = sample(LETTERS[1:3], 50, replace = T),
+  mass = rnorm(50, 43, 4),
+  tarsus = rnorm(50, 27, 1),
+  wing = rnorm(50, 112, 3)
+)
+
+banding
+
+banding %>% str()
+#+END_SRC
+
+As is the case with data frames, we can see that the 3 string variables (bird, sex, and population) have been converted to factors. What if we decide to convert all those factors into character vectors. How would you do that?
+
+Now, this is how this can be done very easily with one of the modify function:
+
+#+BEGIN_SRC R :exports none
+banding %<>%
+  modify_if(is.factor, as.character) %T>%
+  str()
+#+END_SRC
+
+The modify family includes src_R[:eval no]{modify()}, src_R[:eval no]{modify_if()}, src_R[:eval no]{modify_at()}, and src_R[:eval no]{modify_depth}. That last one will make sense later.
+
+Wait: what were all these weird looking pipes??
+
+*** Magrittr digression: less used piping treasures
+
+src_R[:eval no]{%<>%} pipes the left expression to the right, and then back to the left. Instead of a right arrow, think of it as an arrow going from left to right, making a turn and going back to its starting place again.
+
+The code
+
+#+BEGIN_SRC R
+banding %<>%
+  modify_if(is.factor, as.character) %T>%
+  str()
+#+END_SRC
+
+that we used above, is equivalent to
+
+#+BEGIN_SRC R
+banding <-
+  banding %>%
+  modify_if(is.factor, as.character) %T>%
+  str()
+#+END_SRC
+
+src_R[:eval no]{%T%} pipes the effect of the left expression to the right, but does not pipe the object itself (so the object is "free" to be used by another pipe). This is very useful when you want to produce to output from one object. Or produce a side effect (e.g. printing) without interrupting a pipeline. I like to think of the "T" as a branching which represents the 2 outputs produced by a single object.
+
+Try replacing src_R[:eval no]{%T%} with the regular pipe src_R[:eval no]{%>%} in our code and see what happens. Can you explain it?
+
+There are other pipes in [[https://github.com/tidyverse/magrittr][this amazing package]]. You should explore them at your own time!
+
+** The map functions: apply functions to elements of a vector
+
+#+BEGIN_SRC R
+graphs <-
+  banding %>%
+  split(.$population) %>%
+  map(~ ggplot(., aes(tarsus, mass)) + geom_point())
+
+graphs[[1]] + graphs[[2]] + graphs[[3]]
+#+END_SRC
+
+** The walk functions: apply side effects to lists
+
+#+BEGIN_SRC R
+paths <- paste0("population_", names(graphs), ".png")
+
+walk2(paths, graphs, ggsave)
+#+END_SRC
+
+* Your turn!
+
+**** Create new fake data
+
+This time, imagine that bird1 to bird5 are kept in captivity. Their mass is monitored regularly to make sure they are not loosing weight.
+
+How can we create such data?
+
+We could, of course, write it a tedious way:
+
+#+BEGIN_SRC R
+mass <- data.frame(
+  bird1 = runif(15, 35, 55) %>% round(1),
+  bird2 = runif(15, 35, 55) %>% round(1),
+  bird3 = runif(15, 35, 55) %>% round(1),
+  bird4 = runif(15, 35, 55) %>% round(1),
+  bird5 = runif(15, 35, 55) %>% round(1)
+)
+#+END_SRC
+
+But Hadley Wickham's rule is that we should never copy-paste more than twice. Uh hum... we have 5 copies of the same line of code already :P And if we wanted to create a larger data frame, we could have many more than that!
+
+If you wanted to use the src_R[:eval no]{map} function to get to the same result, how would you do this?
+
+#+BEGIN_SRC R :exports none
+n_birds <- 1:15
+
+df <-
+  map(n_birds, ~ runif(10, 35, 55) %>% round(1)) %>%
+  data.frame() %>%
+  set_names(map(n_birds, ~ paste0("bird", .)))
+
+df
+
+df %>% str()
+#+END_SRC
+
+**** Apply functions to each variable
+
+How could you calculate the mean for each bird?
+
+*Spend 5 min to think about this. Feel free to chat with whoever you'd like to.*
+
+#+BEGIN_SRC R :exports none
+map_dbl(df, mean)
+#+END_SRC
+
+Similarly, you can calculate the variance, the sum, look for the largest value or apply any other function.
+
+*Spend 30 s to write this.*
+
+#+BEGIN_SRC R :exports none
+map_dbl(df, var)
+map_dbl(df, sum)
+map_dbl(df, max)
+#+END_SRC
+
+** Formulas: a shorter notation for anonymous functions
+
+With one element
+
+#+BEGIN_SRC R
+function(x) x + 3
+#+END_SRC
+
+can be written as:
+
+#+BEGIN_SRC R
+~ . + 3
+#+END_SRC
+
+*Your turn: write the following anonymous function as a formula*
+
+#+BEGIN_SRC R
+function(x) mean(x) + 3
+#+END_SRC
+
+#+BEGIN_SRC R :exports none
+~ mean(.) + 3
+#+END_SRC
+
+With 2 elements,
+
+#+BEGIN_SRC R
+function(x, y) x + y
+#+END_SRC
+
+can be shortened to
+
+#+BEGIN_SRC R
+~ .x + .y
+#+END_SRC
+
+*** Referring to elements
+
+| 1st element |   | 2nd element |   | 3rd element |
+|-------------+---+-------------+---+-------------|
+| =.=         |   |             |   |             |
+| =.x=        |   | =.y=        |   |             |
+| =..1=       |   | =..2=       |   | =..3=       |
+
+etc.
+
+*Your turn: write the following anonymous function as a formula*
+
+#+BEGIN_SRC R
+function(x1, x2, y) lm(y ~ x1 + x2)
+#+END_SRC
+
+#+BEGIN_SRC R :exports none
+~ lm(..3 ~ ..1 + ..2)
+#+END_SRC
+
+** A little summary of the family of the map functions
+
+We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want the side effects) function depending on:
+
+**** How many lists we are using in the input
+
+| number of arguments in input |   |   | purrr function    |
+|------------------------------+---+---+-------------------|
+|                            1 |   |   | =map= or =walk=   |
+|                            2 |   |   | =map2= or =walk2= |
+|                         more |   |   | =pmap= or =pwalk= |
+
+#+HTML: <br>
+
+**** The class of the output we want
+
+| class we want for the output   |   |   | purrr function |
+|--------------------------------+---+---+----------------|
+| list                           |   |   | =map=          |
+| double                         |   |   | =map_dbl=      |
+| integer                        |   |   | =map_int=      |
+| character                      |   |   | =map_chr=      |
+| logical                        |   |   | =map_lgl=      |
+| data frame (by row-binding)    |   |   | =map_dfr=      |
+| data frame (by column-binding) |   |   | =map_dfc=      |
+
+#+HTML: <br>
+
+**** How we want to select the input
+
+| selecting input based on |   |   | purrr function |
+|--------------------------+---+---+----------------|
+| condition                |   |   | =map_if=       |
+| location                 |   |   | =map_at=       |
+
+** Nested data frames
+
+
+
+These are the most important src_R[:eval no]{purrr} functions. But there are others that you should explore :)
+
+
+
+
