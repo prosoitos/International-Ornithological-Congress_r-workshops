@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-10 Tue 23:19 -->
+<!-- 2018-04-10 Tue 23:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Functional programming in R (with purrr)</title>
@@ -509,86 +509,86 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org73674df">Introduction</a>
+<li><a href="#orgf056909">Introduction</a>
 <ul>
-<li><a href="#org0ab6061">What is functional programming?</a></li>
-<li><a href="#orgebebf0e">Iterations</a></li>
-<li><a href="#org80636ac">The purrr package</a>
+<li><a href="#org77bfbe3">What is functional programming?</a></li>
+<li><a href="#orge629364">Iterations</a></li>
+<li><a href="#org35ff7f5">The purrr package</a>
 <ul>
-<li><a href="#orgcc28a92">Goal</a></li>
-<li><a href="#org1d2e8b7">Logistics</a></li>
+<li><a href="#org42b7f56">Goal</a></li>
+<li><a href="#org3599762">Logistics</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org80311d3">Let's dive in</a>
+<li><a href="#org221656a">Let's dive in</a>
 <ul>
-<li><a href="#org8b354df">The modify functions: apply functions to indexed elements of an object</a>
+<li><a href="#org42cb9f1">The modify functions: apply functions to indexed elements of an object</a>
 <ul>
 <li>
 <ul>
-<li><a href="#orgd23091d">Load packages</a></li>
-<li><a href="#org805f344">Create some fake banding data</a></li>
+<li><a href="#orgd9584b8">Load packages</a></li>
+<li><a href="#org4e56c0e">Create some fake banding data</a></li>
 </ul>
 </li>
-<li><a href="#org39cf7e2">Magrittr digression: less used piping treasures</a></li>
+<li><a href="#orgbaa9ca3">Magrittr digression: less used piping treasures</a></li>
 </ul>
 </li>
-<li><a href="#org8f7c438">The map functions: apply functions to elements of a vector</a></li>
-<li><a href="#org9aa9990">The walk functions: apply side effects to lists</a></li>
+<li><a href="#org8a1e872">The map functions: apply functions to elements of a vector</a></li>
+<li><a href="#orgb400ba6">The walk functions: apply side effects to lists</a></li>
 </ul>
 </li>
-<li><a href="#org5f5f788">Your turn!</a>
+<li><a href="#orgf1c3a6d">Your turn!</a>
 <ul>
 <li>
 <ul>
 <li>
 <ul>
-<li><a href="#org1b1f860">Create new fake data</a></li>
-<li><a href="#org33483f4">Apply functions to each variable</a></li>
+<li><a href="#org788c193">Create new fake data</a></li>
+<li><a href="#orge5b935e">Apply functions to each variable</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgaf35008">Formulas: a shorter notation for anonymous functions</a>
+<li><a href="#orgab5adc0">Formulas: a shorter notation for anonymous functions</a>
 <ul>
-<li><a href="#orge041b54">Referring to elements</a></li>
+<li><a href="#orga916bee">Referring to elements</a></li>
 </ul>
 </li>
-<li><a href="#orgbba9c98">A little summary of the family of the map functions</a>
+<li><a href="#org9134dff">A little summary of the family of the map functions</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org462482b">How many lists we are using in the input</a></li>
-<li><a href="#org3e369fc">The class of the output we want</a></li>
-<li><a href="#org2d97ba6">How we want to select the input</a></li>
+<li><a href="#org33d52cd">How many lists we are using in the input</a></li>
+<li><a href="#org5d4dc40">The class of the output we want</a></li>
+<li><a href="#orgd6ef4da">How we want to select the input</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org054d33b">Nested data frames</a></li>
+<li><a href="#org4458978">Nested data frames</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org73674df" class="outline-2">
-<h2 id="org73674df">Introduction</h2>
-<div class="outline-text-2" id="text-org73674df">
+<div id="outline-container-orgf056909" class="outline-2">
+<h2 id="orgf056909">Introduction</h2>
+<div class="outline-text-2" id="text-orgf056909">
 </div>
-<div id="outline-container-org0ab6061" class="outline-3">
-<h3 id="org0ab6061">What is functional programming?</h3>
-<div class="outline-text-3" id="text-org0ab6061">
+<div id="outline-container-org77bfbe3" class="outline-3">
+<h3 id="org77bfbe3">What is functional programming?</h3>
+<div class="outline-text-3" id="text-org77bfbe3">
 <p>
 It is a programming paradigm based on the evaluation of functions. This is opposed to <i>imperative programming</i>. Some languages are based strictly on functional programming (e.g. Haskell), others<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgebebf0e" class="outline-3">
-<h3 id="orgebebf0e">Iterations</h3>
-<div class="outline-text-3" id="text-orgebebf0e">
+<div id="outline-container-orge629364" class="outline-3">
+<h3 id="orge629364">Iterations</h3>
+<div class="outline-text-3" id="text-orge629364">
 <p>
 Repetition of a process (e.g. applying the same function to several variables).<br />
 </p>
@@ -603,17 +603,17 @@ Classic methods:<br />
 </div>
 </div>
 
-<div id="outline-container-org80636ac" class="outline-3">
-<h3 id="org80636ac">The purrr package</h3>
-<div class="outline-text-3" id="text-org80636ac">
+<div id="outline-container-org35ff7f5" class="outline-3">
+<h3 id="org35ff7f5">The purrr package</h3>
+<div class="outline-text-3" id="text-org35ff7f5">
 <p>
 One of the <code class="src src-R">tidyverse</code> core packages, <code class="src src-R">purrr</code> was written a few years ago by <a href="https://github.com/lionel-">Lionel Henry</a> (also the maintainer), <a href="http://hadley.nz/">Hadley Wickham</a>, and <a href="https://www.rstudio.com/">RStudio inc.</a> <br />
 </p>
 </div>
 
-<div id="outline-container-orgcc28a92" class="outline-4">
-<h4 id="orgcc28a92">Goal</h4>
-<div class="outline-text-4" id="text-orgcc28a92">
+<div id="outline-container-org42b7f56" class="outline-4">
+<h4 id="org42b7f56">Goal</h4>
+<div class="outline-text-4" id="text-org42b7f56">
 <p>
 <code class="src src-R">Purrr</code> is a set of tools allowing consistent functional programming in R in a <code class="src src-R">tidyverse</code> style (using <code class="src src-R">magrittr</code> pipes and following the same naming conventions found in other <code class="src src-R">tidyverse</code> packages).<br />
 </p>
@@ -624,9 +624,9 @@ As Hadley Wickham says, in many ways, <code class="src src-R">purrr</code> is th
 </div>
 </div>
 
-<div id="outline-container-org1d2e8b7" class="outline-4">
-<h4 id="org1d2e8b7">Logistics</h4>
-<div class="outline-text-4" id="text-org1d2e8b7">
+<div id="outline-container-org3599762" class="outline-4">
+<h4 id="org3599762">Logistics</h4>
+<div class="outline-text-4" id="text-org3599762">
 <p>
 Install it with:<br />
 </p>
@@ -674,21 +674,21 @@ and on any of its functions with:<br />
 </div>
 </div>
 
-<div id="outline-container-org80311d3" class="outline-2">
-<h2 id="org80311d3">Let's dive in</h2>
-<div class="outline-text-2" id="text-org80311d3">
+<div id="outline-container-org221656a" class="outline-2">
+<h2 id="org221656a">Let's dive in</h2>
+<div class="outline-text-2" id="text-org221656a">
 </div>
-<div id="outline-container-org8b354df" class="outline-3">
-<h3 id="org8b354df">The modify functions: apply functions to indexed elements of an object</h3>
-<div class="outline-text-3" id="text-org8b354df">
+<div id="outline-container-org42cb9f1" class="outline-3">
+<h3 id="org42cb9f1">The modify functions: apply functions to indexed elements of an object</h3>
+<div class="outline-text-3" id="text-org42cb9f1">
 <p>
 Let's create some very simple data.<br />
 </p>
 </div>
 
-<div id="outline-container-orgd23091d" class="outline-5">
-<h5 id="orgd23091d">Load packages</h5>
-<div class="outline-text-5" id="text-orgd23091d">
+<div id="outline-container-orgd9584b8" class="outline-5">
+<h5 id="orgd9584b8">Load packages</h5>
+<div class="outline-text-5" id="text-orgd9584b8">
 <p>
 First, let's load the packages that we will use. It is always a good idea to write all the packages that you will be using at the top of the script. This will help others, using your script, to know what is required to run it.<br />
 </p>
@@ -702,9 +702,9 @@ First, let's load the packages that we will use. It is always a good idea to wri
 </div>
 </div>
 
-<div id="outline-container-org805f344" class="outline-5">
-<h5 id="org805f344">Create some fake banding data</h5>
-<div class="outline-text-5" id="text-org805f344">
+<div id="outline-container-org4e56c0e" class="outline-5">
+<h5 id="org4e56c0e">Create some fake banding data</h5>
+<div class="outline-text-5" id="text-org4e56c0e">
 <p>
 Let's create some imaginary bird banding data:<br />
 </p>
@@ -743,9 +743,9 @@ Wait: what were all these weird looking pipes??<br />
 </div>
 </div>
 
-<div id="outline-container-org39cf7e2" class="outline-4">
-<h4 id="org39cf7e2">Magrittr digression: less used piping treasures</h4>
-<div class="outline-text-4" id="text-org39cf7e2">
+<div id="outline-container-orgbaa9ca3" class="outline-4">
+<h4 id="orgbaa9ca3">Magrittr digression: less used piping treasures</h4>
+<div class="outline-text-4" id="text-orgbaa9ca3">
 <p>
 <code class="src src-R"><span class="org-ess-XopX">%&lt;&gt;%</span></code> pipes the left expression to the right, and then back to the left. Instead of a right arrow, think of it as an arrow going from left to right, making a turn and going back to its starting place again.<br />
 </p>
@@ -788,9 +788,9 @@ There are other pipes in <a href="https://github.com/tidyverse/magrittr">this am
 </div>
 </div>
 
-<div id="outline-container-org8f7c438" class="outline-3">
-<h3 id="org8f7c438">The map functions: apply functions to elements of a vector</h3>
-<div class="outline-text-3" id="text-org8f7c438">
+<div id="outline-container-org8a1e872" class="outline-3">
+<h3 id="org8a1e872">The map functions: apply functions to elements of a vector</h3>
+<div class="outline-text-3" id="text-org8a1e872">
 <div class="org-src-container">
 <pre class="src src-R">graphs <span class="org-ess-assignment">&lt;-</span>
   banding <span class="org-ess-XopX">%&gt;%</span>
@@ -803,9 +803,9 @@ graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">[
 </div>
 </div>
 
-<div id="outline-container-org9aa9990" class="outline-3">
-<h3 id="org9aa9990">The walk functions: apply side effects to lists</h3>
-<div class="outline-text-3" id="text-org9aa9990">
+<div id="outline-container-orgb400ba6" class="outline-3">
+<h3 id="orgb400ba6">The walk functions: apply side effects to lists</h3>
+<div class="outline-text-3" id="text-orgb400ba6">
 <div class="org-src-container">
 <pre class="src src-R">paths <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-function-call">paste0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"population_"</span>, <span class="org-ess-function-call">names</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>, <span class="org-string">".png"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
@@ -816,13 +816,13 @@ graphs<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">[
 </div>
 </div>
 
-<div id="outline-container-org5f5f788" class="outline-2">
-<h2 id="org5f5f788">Your turn!</h2>
-<div class="outline-text-2" id="text-org5f5f788">
+<div id="outline-container-orgf1c3a6d" class="outline-2">
+<h2 id="orgf1c3a6d">Your turn!</h2>
+<div class="outline-text-2" id="text-orgf1c3a6d">
 </div>
-<div id="outline-container-org1b1f860" class="outline-5">
-<h5 id="org1b1f860">Create new fake data</h5>
-<div class="outline-text-5" id="text-org1b1f860">
+<div id="outline-container-org788c193" class="outline-5">
+<h5 id="org788c193">Create new fake data</h5>
+<div class="outline-text-5" id="text-org788c193">
 <p>
 This time, imagine that bird1 to bird5 are kept in captivity. Their mass is monitored regularly to make sure they are not loosing weight.<br />
 </p>
@@ -856,9 +856,9 @@ If you wanted to use the <code class="src src-R">map</code> function to get to t
 </div>
 </div>
 
-<div id="outline-container-org33483f4" class="outline-5">
-<h5 id="org33483f4">Apply functions to each variable</h5>
-<div class="outline-text-5" id="text-org33483f4">
+<div id="outline-container-orge5b935e" class="outline-5">
+<h5 id="orge5b935e">Apply functions to each variable</h5>
+<div class="outline-text-5" id="text-orge5b935e">
 <p>
 How could you calculate the mean for each bird?<br />
 </p>
@@ -877,9 +877,9 @@ Similarly, you can calculate the variance, the sum, look for the largest value o
 </div>
 </div>
 
-<div id="outline-container-orgaf35008" class="outline-3">
-<h3 id="orgaf35008">Formulas: a shorter notation for anonymous functions</h3>
-<div class="outline-text-3" id="text-orgaf35008">
+<div id="outline-container-orgab5adc0" class="outline-3">
+<h3 id="orgab5adc0">Formulas: a shorter notation for anonymous functions</h3>
+<div class="outline-text-3" id="text-orgab5adc0">
 <p>
 With one element<br />
 </p>
@@ -926,9 +926,9 @@ can be shortened to<br />
 </div>
 </div>
 
-<div id="outline-container-orge041b54" class="outline-4">
-<h4 id="orge041b54">Referring to elements</h4>
-<div class="outline-text-4" id="text-orge041b54">
+<div id="outline-container-orga916bee" class="outline-4">
+<h4 id="orga916bee">Referring to elements</h4>
+<div class="outline-text-4" id="text-orga916bee">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -995,17 +995,17 @@ etc.<br />
 </div>
 </div>
 
-<div id="outline-container-orgbba9c98" class="outline-3">
-<h3 id="orgbba9c98">A little summary of the family of the map functions</h3>
-<div class="outline-text-3" id="text-orgbba9c98">
+<div id="outline-container-org9134dff" class="outline-3">
+<h3 id="org9134dff">A little summary of the family of the map functions</h3>
+<div class="outline-text-3" id="text-org9134dff">
 <p>
 We will use different <code class="src src-R">map</code> (or <code class="src src-R">walk</code>, if we want the side effects) function depending on:<br />
 </p>
 </div>
 
-<div id="outline-container-org462482b" class="outline-5">
-<h5 id="org462482b">How many lists we are using in the input</h5>
-<div class="outline-text-5" id="text-org462482b">
+<div id="outline-container-org33d52cd" class="outline-5">
+<h5 id="org33d52cd">How many lists we are using in the input</h5>
+<div class="outline-text-5" id="text-org33d52cd">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1054,9 +1054,9 @@ We will use different <code class="src src-R">map</code> (or <code class="src sr
 </div>
 </div>
 
-<div id="outline-container-org3e369fc" class="outline-5">
-<h5 id="org3e369fc">The class of the output we want</h5>
-<div class="outline-text-5" id="text-org3e369fc">
+<div id="outline-container-org5d4dc40" class="outline-5">
+<h5 id="org5d4dc40">The class of the output we want</h5>
+<div class="outline-text-5" id="text-org5d4dc40">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1133,9 +1133,9 @@ We will use different <code class="src src-R">map</code> (or <code class="src sr
 </div>
 </div>
 
-<div id="outline-container-org2d97ba6" class="outline-5">
-<h5 id="org2d97ba6">How we want to select the input</h5>
-<div class="outline-text-5" id="text-org2d97ba6">
+<div id="outline-container-orgd6ef4da" class="outline-5">
+<h5 id="orgd6ef4da">How we want to select the input</h5>
+<div class="outline-text-5" id="text-orgd6ef4da">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1176,9 +1176,9 @@ We will use different <code class="src src-R">map</code> (or <code class="src sr
 </div>
 </div>
 
-<div id="outline-container-org054d33b" class="outline-3">
-<h3 id="org054d33b">Nested data frames</h3>
-<div class="outline-text-3" id="text-org054d33b">
+<div id="outline-container-org4458978" class="outline-3">
+<h3 id="org4458978">Nested data frames</h3>
+<div class="outline-text-3" id="text-org4458978">
 <p>
 These are the most important <code class="src src-R">purrr</code> functions. But there are others that you should explore :)<br />
 </p>
