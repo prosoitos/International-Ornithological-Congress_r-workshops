@@ -33,7 +33,7 @@ The workshop material can be found [[https://prosoitos.github.io/International-O
 - Nested data frames,
 - A little detour to some less used pipes of the src_R[:eval no]{magrittr} package.
 
-The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming.html][here]].
+The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html][here]].
 
 * Audience for the workshop
 

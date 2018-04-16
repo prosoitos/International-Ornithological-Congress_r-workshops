@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-16 Mon 11:36 -->
+<!-- 2018-04-16 Mon 14:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><span style="font-size: 85%;">R workshop for the</span><br>International Ornithological Congress<br><span style="font-size: 85%;">Vancouver, 2018</span></title>
@@ -269,8 +269,10 @@
     box-shadow: 0pt 0pt 0pt #eee8d5;
   }
   blockquote {			/*for block quote*/
-    font: 14px/22px normal helvetica, sans-serif;
-    margin: 10px 0px 10px 50px;
+    /* font: 14px/22px normal helvetica, sans-serif; /\*original line*\/ */
+    line-height: 22px;
+    font-style: italic;
+    margin: 30px 0px 30px 50px;
     padding-left: 15px;
     border-left: 3px solid #ccc;
   }
@@ -291,7 +293,7 @@
     font-family: 'IM Fell English';
     font-size: 110%;
     font-style: italic;
-    /* margin-left: 30px; */
+    /* margin-left: 30px;		/\*keep this line to have the verses indented*\/ */
     line-height: 25px;
   }
   div[class="org-center"] {	/*for block center*/
@@ -545,13 +547,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9f47c8b">Topics covered</a>
+<li><a href="#org1a47806">Topics covered</a>
 <ul>
-<li><a href="#org443d6e7">Part 1 (very briefly): best practices in R</a></li>
-<li><a href="#orgf82babe">Part 2: Functional programming in R</a></li>
+<li><a href="#org956d77e">Part 1 (very briefly): best practices in R</a></li>
+<li><a href="#org45c4830">Part 2: Functional programming in R</a></li>
 </ul>
 </li>
-<li><a href="#org1149020">Audience for the workshop</a></li>
+<li><a href="#org4b70153">Audience for the workshop</a></li>
 </ul>
 </div>
 </div>
@@ -567,13 +569,13 @@ Having code that works is great of course. But having code that is more efficien
 This tutorial follows the recommendations and "views" of the <code class="src src-R">tidyverse</code>, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming with <code class="src src-R">purrr</code>.<br />
 </p>
 
-<div id="outline-container-org9f47c8b" class="outline-2">
-<h2 id="org9f47c8b">Topics covered</h2>
-<div class="outline-text-2" id="text-org9f47c8b">
+<div id="outline-container-org1a47806" class="outline-2">
+<h2 id="org1a47806">Topics covered</h2>
+<div class="outline-text-2" id="text-org1a47806">
 </div>
-<div id="outline-container-org443d6e7" class="outline-3">
-<h3 id="org443d6e7">Part 1 (very briefly): best practices in R</h3>
-<div class="outline-text-3" id="text-org443d6e7">
+<div id="outline-container-org956d77e" class="outline-3">
+<h3 id="org956d77e">Part 1 (very briefly): best practices in R</h3>
+<div class="outline-text-3" id="text-org956d77e">
 <ul class="org-ul">
 <li>Self-contained projects for reproducibility (as described by <a href="https://github.com/jennybc">Jenny Bryan</a>),<br /></li>
 <li>Formatting for better readability (as described by <a href="http://hadley.nz/">Hadley Wickham</a>).<br /></li>
@@ -585,9 +587,9 @@ The workshop material can be found <a href="https://prosoitos.github.io/Internat
 </div>
 </div>
 
-<div id="outline-container-orgf82babe" class="outline-3">
-<h3 id="orgf82babe">Part 2: Functional programming in R</h3>
-<div class="outline-text-3" id="text-orgf82babe">
+<div id="outline-container-org45c4830" class="outline-3">
+<h3 id="org45c4830">Part 2: Functional programming in R</h3>
+<div class="outline-text-3" id="text-org45c4830">
 <ul class="org-ul">
 <li>Introduction to functional programming,<br /></li>
 <li>How to apply functions to many elements with <code class="src src-R">purrr</code> (alternative to loops),<br /></li>
@@ -596,15 +598,15 @@ The workshop material can be found <a href="https://prosoitos.github.io/Internat
 </ul>
 
 <p>
-The workshop material can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming.html">here</a>.<br />
+The workshop material can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html">here</a>.<br />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1149020" class="outline-2">
-<h2 id="org1149020">Audience for the workshop</h2>
-<div class="outline-text-2" id="text-org1149020">
+<div id="outline-container-org4b70153" class="outline-2">
+<h2 id="org4b70153">Audience for the workshop</h2>
+<div class="outline-text-2" id="text-org4b70153">
 <ul class="org-ul">
 <li>Intermediate R users comfortable with basic data manipulation, simple functions, and loops,<br /></li>
 <li>Advanced users familiar with functional programming using the <code class="src src-R">apply</code> functions family and interested in discovering the "purrring" way.<br /></li>
