@@ -4,47 +4,48 @@
 #+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
 #+OPTIONS: html-preamble:t html-postamble:nil
 
+#+PROPERTY: header-args:R :session R:purrr :eval no :exports code :tangle yes :comments link
+
 #+TITLE:   @@html:<span style="font-size: 85%;">@@R workshop for the@@html:</span>@@@@html:<br>@@International Ornithological Congress@@html:<br>@@@@html:<span style="font-size: 85%;">@@Vancouver, 2018@@html:</span>@@
 #+DATE:	   {{{time(%B %d\, %Y)}}}
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-Most of us, biologists, do not learn R properly. We do not have a computing science background. Some of us /might/ have access to R courses. A really lucky few have access to R courses making use of modern packages. But for the most part, we don't. So we learn R as we go. And we become good at problem solving. But do we ever become good at solving R problems /well/?
+Most of us, biologists, do not learn R properly: we do not have a computing science background, the lucky ones have access to R courses, and a really lucky few have access to R courses making use of modern packages. But for the most part, we learn R as we go, on our own. So we become good at problem solving. But do we ever become good at solving R problems /well/?
 
-# Having a code that works is amazing of course. But having code that is more efficient, easier to read, less prone to errors, shorter, clearer, cleaner, is better. And making a better use of R's characteristics as a coding language is even better.
+Having code that works is great of course. But having code that is more efficient, easier to read, less prone to errors, shorter, clearer, cleaner, and which makes a better use of R's characteristics as a coding language, is better.
 
-The tutorial will start with a short introduction to best practices in R for reproducibility and readability. Both influenced by Hadley Wickham and Jenny Bryan.
+This tutorial follows the recommendations and "views" of the src_R[:eval no]{tidyverse}, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming with src_R[:eval no]{purrr}.
 
-I will then 
+* Topics covered
 
-* Topic covered
+** Part 1 (very briefly): best practices in R
 
-** Part 1 (briefly): best practices in R
-
-- Self-contained projects for reproducibility
-- Formatting
-
-** Part 2: Functional programming in R (with purrr)
+- Self-contained projects for reproducibility (as described by [[https://github.com/jennybc][Jenny Bryan]]),
+- Formatting for better readability (as described by [[http://hadley.nz/][Hadley Wickham]]).
 
 The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html][here]].
 
-* Audience for the workshop
+** Part 2: Functional programming in R
 
-- Intermediate R users comfortable with basic data manipulation, simple functions, and loops
-- Advanced users familiar with functional programming using the `apply` functions family and interested in discovering the "purrring" way.
+- Introduction to functional programming,
+- How to apply functions to many elements with src_R[:eval no]{purrr} (alternative to loops),
+- Nested data frames,
+- A little detour to some less used pipes of the src_R[:eval no]{magrittr} package.
 
 The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming.html][here]].
 
-/About myself
+* Audience for the workshop
 
-I am a PhD candidate in the [[https://www.sfu.ca/biology/wildberg/NewCWEPage/CWEnewTestHome.htm][Centre for Wildlife Ecology]] at [[https://www.sfu.ca/][Simon Fraser University (SFU)]], an R peer at the [[https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html][SFU Research Commons]], a [[https://www.lib.sfu.ca/about/branches-depts/slc/slc-who/grad-facilitators/undergraduate-writing][Graduate Writing Facilitator]] at the [[https://www.lib.sfu.ca/about/branches-depts/slc][SFU Student Learning Commons]], and a certified [[https://software-carpentry.org/][Software]] and [[http://www.datacarpentry.org/][Data Carpentry]] instructor./
+- Intermediate R users comfortable with basic data manipulation, simple functions, and loops,
+- Advanced users familiar with functional programming using the src_R[:eval no]{apply} functions family and interested in discovering the "purrring" way.
 
+#+HTML: <br>
 
-
-
-- import excel files directly
-- create fake data to test scripts
-- discover more of src_R[:eval no]{magrittr} than the classic pipe
-
-
-
+#+BEGIN_VERSE
+About myself:
+I am a PhD candidate in the [[https://www.sfu.ca/biology/wildberg/NewCWEPage/CWEnewTestHome.htm][Centre for Wildlife Ecology]] at [[https://www.sfu.ca/][Simon Fraser University]], 
+an R Peer at the [[https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html][Research Commons]], 
+a [[https://www.lib.sfu.ca/about/branches-depts/slc/slc-who/grad-facilitators/undergraduate-writing][Graduate Writing Facilitator]] at the [[https://www.lib.sfu.ca/about/branches-depts/slc][Student Learning Commons]], 
+and a certified [[https://software-carpentry.org/][Software Carpentry]] and [[http://www.datacarpentry.org/][Data Carpentry]] instructor.
+#+END_VERSE

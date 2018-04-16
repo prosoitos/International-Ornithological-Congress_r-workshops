@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-10 Tue 23:39 -->
+<!-- 2018-04-16 Mon 11:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><span style="font-size: 85%;">R workshop for the</span><br>International Ornithological Congress<br><span style="font-size: 85%;">Vancouver, 2018</span></title>
@@ -13,9 +13,6 @@
 <!--/*--><![CDATA[/*><!--*/
 @media all
 {
-  /* @import url(http://fonts.googleapis.com/css?family=Inconsolata); */
-  /* @import url(http://fonts.googleapis.com/css?family=Open Sans Condensed Light); */
-  /* @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700); */
   article,
   aside,
   details,
@@ -223,11 +220,7 @@
     /* border: 1pt solid #c9cfcf; */
     /* border-radius: 10px; */
     padding: 1em;
-  }
-  /* code { */
-  /*   background-color: #eee8d5; */
-  /*   padding: 2px; */
-  /* } */
+  } 
   a {
     color: #b58900;
   }
@@ -255,30 +248,73 @@
   h6 {
     color: #808080;
   }
-  pre {
+  pre[class="src src-R"] {	/*for blocks src R*/
     background-color: #f1f1f1;
     color: #262626;
     padding: 0.8em;
-    font-family: 'Inconsolata';
     font-size: 95%;
     line-height: 22px;
-    /* border: 1pt solid #d9d9d9; */
     border: 0.5pt solid #d9d9d9;
     border-radius: 5px;
     box-shadow: 0pt 0pt 0pt #eee8d5;
-    /* letter-spacing: 1.1px; */
   }
-  code {
+  code {			/*for inline code*/
     background-color: #f1f1f1;
     color: #262626;
-    padding: 0.1em;
-    font-family: 'Inconsolata';
+    padding: 0em 0.2em 0em 0.2em;
     font-size: 95%;
     line-height: 22px;
     border: 0.5pt solid #e6e6e6;
-    /* border-radius: 5px; */
+    border-radius: 3px;
     box-shadow: 0pt 0pt 0pt #eee8d5;
-    /* letter-spacing: 1.1px; */
+  }
+  blockquote {			/*for block quote*/
+    font: 14px/22px normal helvetica, sans-serif;
+    margin: 10px 0px 10px 50px;
+    padding-left: 15px;
+    border-left: 3px solid #ccc;
+  }
+  pre[class="example"] {	/*for block example*/
+    background-color: #f0efe7;
+    font-family: 'Rokkitt';
+    width: max-content;
+    color: #3e3e3e;
+    padding: 0.6em 0.8em 0.6em 0.8em;
+    /* font-size: 95%; */
+    line-height: 22px;
+    border: 0.5pt solid #ebeae0;
+    border-radius: 5px;
+    box-shadow: 0pt 0pts 0pt #eee8d5;
+  }
+  p[class="verse"] {		/*for block verse*/
+    color: #262626;
+    font-family: 'IM Fell English';
+    font-size: 110%;
+    font-style: italic;
+    /* margin-left: 30px; */
+    line-height: 25px;
+  }
+  div[class="org-center"] {	/*for block center*/
+    margin: auto;
+    line-height: 22px;
+    width: max-content;
+  }
+  div[class="ASCII"] {		/*for block center*/
+    font-family: 'Montez';
+    line-height: 26px;
+    font-size: 130%;
+  }
+  div[class="VERBATIM"] {	/*for block center*/
+    /* background-color: #f5f4eb; */
+    font-family: 'Anonymous Pro';
+    margin: auto;
+    width: max-content;
+    color: #000000;
+    /* padding: 0.05em 0.8em 0.05em 0.8em; */
+    font-size: 88%;
+    line-height: 20px;
+    /* border: 0.5pt solid #d9d9d9; */
+    /* border-radius: 5px; */
   }
   .org-ess-numbers {
     color: #e28200; 
@@ -307,11 +343,7 @@
   }
   .org-ess-XopX {
     color: #0b5e56;
-  }
-  /* pre, */
-  /* code { */
-  /*   background-color: #faf9f1; */
-  /* } */
+  }  
   h1 {
     font-size: 2.2em;
     text-align: center;
@@ -407,12 +439,13 @@
     color: #596a73;
     /* -webkit-box-shadow: 0 0 1em #777777; */
     /* -moz-box-shadow: 0 0 1em #777777; */
-    -webkit-border-bottom-left-radius: 10px;
-    -moz-border-radius-bottomleft: 10px;
+    /* -webkit-border-bottom-left-radius: 10px; */
+    /* -moz-border-radius-bottomleft: 10px; */
     text-align: right;
     /* ensure doesn't flow off the screen when expanded */
     max-height: 80%;
-    overflow: auto; }
+    overflow: auto;
+  }
   #table-of-contents h2 {
     font-size: 12pt;
     max-width: 25em;
@@ -422,14 +455,17 @@
     padding-left: 0.8em;
     padding-top: 1em;
     padding-bottom: 0em;
-    text-align: left;}
+    text-align: left;
+  }
   #table-of-contents #text-table-of-contents {
     display: none;
-    text-align: left; }
+    text-align: left;
+  }
   #table-of-contents:hover #text-table-of-contents {
     display: block;
     padding: 0.5em;
-    margin-top: -1.5em; }
+    margin-top: -1.5em;
+  }
 
   .rss_box {}
   .rss_title, rss_title a {}
@@ -501,7 +537,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 10, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 16, 2018</span>
 </div>
 <div id="content">
 <h1 class="title"><span style="font-size: 85%;">R workshop for the</span><br>International Ornithological Congress<br><span style="font-size: 85%;">Vancouver, 2018</span></h1>
@@ -509,80 +545,80 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0bf6ff4">Topic covered</a>
+<li><a href="#org9f47c8b">Topics covered</a>
 <ul>
-<li><a href="#org530d6aa">Part 1 (briefly): best practices in R</a></li>
-<li><a href="#org65af9dd">Part 2: Functional programming in R (with purrr)</a></li>
+<li><a href="#org443d6e7">Part 1 (very briefly): best practices in R</a></li>
+<li><a href="#orgf82babe">Part 2: Functional programming in R</a></li>
 </ul>
 </li>
-<li><a href="#org9a59383">Audience for the workshop</a></li>
+<li><a href="#org1149020">Audience for the workshop</a></li>
 </ul>
 </div>
 </div>
 <p>
-Most of us, biologists, do not learn R properly. We do not have a computing science background. Some of us <i>might</i> have access to R courses. A really lucky few have access to R courses making use of modern packages. But for the most part, we don't. So we learn R as we go. And we become good at problem solving. But do we ever become good at solving R problems <i>well</i>?<br />
+Most of us, biologists, do not learn R properly: we do not have a computing science background, the lucky ones have access to R courses, and a really lucky few have access to R courses making use of modern packages. But for the most part, we learn R as we go, on our own. So we become good at problem solving. But do we ever become good at solving R problems <i>well</i>?<br />
 </p>
 
 <p>
-The tutorial will start with a short introduction to best practices in R for reproducibility and readability. Both influenced by Hadley Wickham and Jenny Bryan.<br />
+Having code that works is great of course. But having code that is more efficient, easier to read, less prone to errors, shorter, clearer, cleaner, and which makes a better use of R's characteristics as a coding language, is better.<br />
 </p>
 
 <p>
-I will then<br />
+This tutorial follows the recommendations and "views" of the <code class="src src-R">tidyverse</code>, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming with <code class="src src-R">purrr</code>.<br />
 </p>
 
-<div id="outline-container-org0bf6ff4" class="outline-2">
-<h2 id="org0bf6ff4">Topic covered</h2>
-<div class="outline-text-2" id="text-org0bf6ff4">
+<div id="outline-container-org9f47c8b" class="outline-2">
+<h2 id="org9f47c8b">Topics covered</h2>
+<div class="outline-text-2" id="text-org9f47c8b">
 </div>
-<div id="outline-container-org530d6aa" class="outline-3">
-<h3 id="org530d6aa">Part 1 (briefly): best practices in R</h3>
-<div class="outline-text-3" id="text-org530d6aa">
+<div id="outline-container-org443d6e7" class="outline-3">
+<h3 id="org443d6e7">Part 1 (very briefly): best practices in R</h3>
+<div class="outline-text-3" id="text-org443d6e7">
 <ul class="org-ul">
-<li>Self-contained projects for reproducibility<br /></li>
-<li>Formatting<br /></li>
+<li>Self-contained projects for reproducibility (as described by <a href="https://github.com/jennybc">Jenny Bryan</a>),<br /></li>
+<li>Formatting for better readability (as described by <a href="http://hadley.nz/">Hadley Wickham</a>).<br /></li>
 </ul>
-</div>
-</div>
 
-<div id="outline-container-org65af9dd" class="outline-3">
-<h3 id="org65af9dd">Part 2: Functional programming in R (with purrr)</h3>
-<div class="outline-text-3" id="text-org65af9dd">
 <p>
 The workshop material can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html">here</a>.<br />
 </p>
 </div>
 </div>
-</div>
 
-<div id="outline-container-org9a59383" class="outline-2">
-<h2 id="org9a59383">Audience for the workshop</h2>
-<div class="outline-text-2" id="text-org9a59383">
+<div id="outline-container-orgf82babe" class="outline-3">
+<h3 id="orgf82babe">Part 2: Functional programming in R</h3>
+<div class="outline-text-3" id="text-orgf82babe">
 <ul class="org-ul">
-<li>Intermediate R users comfortable with basic data manipulation, simple functions, and loops<br /></li>
-<li>Advanced users familiar with functional programming using the `apply` functions family and interested in discovering the "purrring" way.<br /></li>
+<li>Introduction to functional programming,<br /></li>
+<li>How to apply functions to many elements with <code class="src src-R">purrr</code> (alternative to loops),<br /></li>
+<li>Nested data frames,<br /></li>
+<li>A little detour to some less used pipes of the <code class="src src-R">magrittr</code> package.<br /></li>
 </ul>
 
 <p>
 The workshop material can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming.html">here</a>.<br />
 </p>
+</div>
+</div>
+</div>
 
-<p>
-/About myself<br />
-</p>
-
-<p>
-I am a PhD candidate in the <a href="https://www.sfu.ca/biology/wildberg/NewCWEPage/CWEnewTestHome.htm">Centre for Wildlife Ecology</a> at <a href="https://www.sfu.ca/">Simon Fraser University (SFU)</a>, an R peer at the <a href="https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html">SFU Research Commons</a>, a <a href="https://www.lib.sfu.ca/about/branches-depts/slc/slc-who/grad-facilitators/undergraduate-writing">Graduate Writing Facilitator</a> at the <a href="https://www.lib.sfu.ca/about/branches-depts/slc">SFU Student Learning Commons</a>, and a certified <a href="https://software-carpentry.org/">Software</a> and <a href="http://www.datacarpentry.org/">Data Carpentry</a> instructor./<br />
-</p>
-
-
-
-
+<div id="outline-container-org1149020" class="outline-2">
+<h2 id="org1149020">Audience for the workshop</h2>
+<div class="outline-text-2" id="text-org1149020">
 <ul class="org-ul">
-<li>import excel files directly<br /></li>
-<li>create fake data to test scripts<br /></li>
-<li>discover more of than the classic pipe<br /></li>
+<li>Intermediate R users comfortable with basic data manipulation, simple functions, and loops,<br /></li>
+<li>Advanced users familiar with functional programming using the <code class="src src-R">apply</code> functions family and interested in discovering the "purrring" way.<br /></li>
 </ul>
+
+<br>
+
+<p class="verse">
+About myself:<br />
+I am a PhD candidate in the <a href="https://www.sfu.ca/biology/wildberg/NewCWEPage/CWEnewTestHome.htm">Centre for Wildlife Ecology</a> at <a href="https://www.sfu.ca/">Simon Fraser University</a>,<br />
+an R Peer at the <a href="https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html">Research Commons</a>,<br />
+a <a href="https://www.lib.sfu.ca/about/branches-depts/slc/slc-who/grad-facilitators/undergraduate-writing">Graduate Writing Facilitator</a> at the <a href="https://www.lib.sfu.ca/about/branches-depts/slc">Student Learning Commons</a>,<br />
+and a certified <a href="https://software-carpentry.org/">Software Carpentry</a> and <a href="http://www.datacarpentry.org/">Data Carpentry</a> instructor.<br />
+</p>
 </div>
 </div>
 </div>
