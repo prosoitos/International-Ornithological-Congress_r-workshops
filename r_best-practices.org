@@ -1,21 +1,69 @@
 #+OPTIONS: title:t date:t author:t email:t
-#+OPTIONS: toc:t h:6 num:nil |:t todo:nil
+#+OPTIONS: toc:t h:6 num:t |:t todo:nil
 #+OPTIONS: *:t -:t ::t <:t \n:t e:t creator:nil
 #+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
 #+OPTIONS: html-preamble:t html-postamble:nil
+
+#+PROPERTY: header-args:R :session R:best-prac :results output :exports code :tangle yes :comments link :eval no
 
 #+TITLE:   Best practices in R
 #+DATE:	   {{{time(%B %d\, %Y)}}}
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-* Self contained project
+* Self contained projects
+
+#+BEGIN_QUOTE
+Work in projects.
+#+END_QUOTE
+
+If you use RStudio, create RStudio projects. If you don't, still create projects.
+
+→ Create a folder that will contain the entirety of your project.
+
+** Project structure
+
+A project structure could look like this:
+
+#+BEGIN_EXAMPLE
+/project_root    - /data      - /raw
+                                    - /clean
+                     - /results
+                     - /docs
+                     - /bin
+                     - /src
+                     - /ms
+#+END_EXAMPLE
+
+** Relative paths
+
+All paths used in any of your scripts should be relative to the project root. Why? Because that way, anyone who has access to your project (collaboration through GitHub, GitLab, Bitbucket, etc. or someone to whom you would give the project in a stick) can run it.
+
+There are various ways to do this. But my favourite is to use the package [[https://github.com/r-lib/here][here]] from [[https://github.com/krlmlr][Kirill Müller]]. The function src_R[:eval no]{here} starts from the working directory and walks the directory path up until it finds a src_R[:eval no]{.Rproj} file (if you use RStudio projects), a src_R[:eval no]{.git} or src_R[:eval no]{.svn} folder (if you version control your projects), a src_R[:eval no]{.projectile} file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file src_R[:eval no]{.here} in your project root with the function src_R[:eval no]{set_here()} (this should be unnecessary for the vast majority of people).
+
+From there on, you will refer to /any/ file in your project by src_R[:eval no]{here("file-path-from-project-root")}.
+
+Now, you can move the project anywhere and the paths will still work, while any absolute path would get broken the minute you move the project to another machine.
+
+The project functions as a self-contained unit (of course, R and your R libraries live elsewhere. But these will be called properly on another machine so it is not an issue).
+
+Example script:
 
 #+BEGIN_SRC R
-library(here)
+library(tidyverse) # for readxl
+library(here)      # obviously you have to install the package first
+
+my_var <- read_excel(here("data/raw/my-super-data.xlsx"))
 #+END_SRC
 
 * Clean session
 
+Never save your workspace upon closing a session (beware of RStudio settings!) and restart your R session frequently. This is the only way to make sure your script actually works and you aren't seeing the result of a combination of unreproducible bits of code from past sessions.
 
 * Formatting
+
+[[http://hadley.nz/][Hadley Wickham]] wrote a [[http://style.tidyverse.org/][short book]] on R formatting. You do not have to agree with his formatting style as there is no official R formatting rule. However, with the increasing popularity of the src_R[:eval no]{tidyverse} and his efforts to standardize what is otherwise totally chaotic in R, adopting his style might be a good idea.
+
+*In any event, whatever style you choose, the most important point is to be consistent.*
+
+If you edit someone else's code, follow /their/ style so that the document remains consistent.
