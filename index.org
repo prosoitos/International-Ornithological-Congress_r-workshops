@@ -21,7 +21,8 @@ This tutorial follows the recommendations and "views" of the src_R[:eval no]{tid
 
 ** Part 1 (very briefly): best practices in R
 
-- Self-contained projects for reproducibility (as described by [[https://github.com/jennybc][Jenny Bryan]]),
+- Self-contained projects for portability (as described by [[https://github.com/jennybc][Jenny Bryan]]),
+- Clean sessions for reproducibility
 - Formatting for better readability (as suggested by [[http://hadley.nz/][Hadley Wickham]]).
 
 The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html][here]].

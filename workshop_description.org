@@ -1,0 +1,38 @@
+#+OPTIONS: title:t date:nil author:nil email:nil
+#+OPTIONS: toc:nil h:3 num:nil |:t todo:nil
+#+OPTIONS: *:t -:t ::t <:t \n:t e:t creator:nil
+#+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
+
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+#+LATEX_HEADER: \usepackage[inline]{enumitem}
+#+LATEX_HEADER: \setlength{\parindent}{0cm}
+#+LATEX_HEADER: \renewcommand{\arraystretch}{1.5}
+
+\pagenumbering{gobble}
+
+#+TITLE:   R workshop description for IOC Vancouver 2018
+#+DATE:	   {{{time(%B %d\, %Y)}}}
+#+AUTHOR:  Marie-Hélène Burle
+#+EMAIL:   msb2@sfu.ca
+
+* Goal
+
+Learn to code more efficiently and develop better R practices. In particular, learn to replace loops and lengthy code by clean and effective functions using the /purrr/ package.
+
+* Audience
+
+Intermediate and advanced R users.
+
+* Program
+
+#+ATTR_LATEX: :environment itemize*
+- Tips for better reproducibility, portability, and code readability.
+- Introduction to functional programming with the /tidyverse/ package /purrr/.
+
+For more information, please visit the [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/][workshop webpage]].
+
+\thinsp
+
+------------------------------
+/Contact: Marie-Helene Burle, msb2@sfu.ca/
+
