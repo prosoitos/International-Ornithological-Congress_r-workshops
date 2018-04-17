@@ -13,15 +13,15 @@
 
 * Self contained projects
 
-#+BEGIN_QUOTE
+#+BEGIN_VERBATIM
 Work in projects.
-#+END_QUOTE
+#+END_VERBATIM
 
 If you use RStudio, create RStudio projects. If you don't, still create projects.
 
 → Create a folder that will contain the entirety of your project.
 
-** Project structure
+** Example possible project structure
 
 A project structure could look like this:
 
@@ -37,9 +37,20 @@ A project structure could look like this:
 
 ** Relative paths
 
-All paths used in any of your scripts should be relative to the project root. Why? Because that way, anyone who has access to your project (collaboration through GitHub, GitLab, Bitbucket, etc. or someone to whom you would give the project in a stick) can run it.
+All paths used in any of your scripts should be relative to the project root. Why? Because that way, your project is /portable/. Something crucial for collaborations through GitHub, GitLab, Bitbucket, etc., or for someone to whom you would give the project, and, let's not forget, for future you.
 
-There are various ways to do this. But my favourite is to use the package [[https://github.com/r-lib/here][here]] from [[https://github.com/krlmlr][Kirill Müller]]. The function src_R[:eval no]{here} starts from the working directory and walks the directory path up until it finds a src_R[:eval no]{.Rproj} file (if you use RStudio projects), a src_R[:eval no]{.git} or src_R[:eval no]{.svn} folder (if you version control your projects), a src_R[:eval no]{.projectile} file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file src_R[:eval no]{.here} in your project root with the function src_R[:eval no]{set_here()} (this should be unnecessary for the vast majority of people).
+As [[https://github.com/jennybc][Jenny Bryan]] put it in her excellent [[https://www.tidyverse.org/articles/2017/12/workflow-vs-script/][blog]] about this example code with an absolute path:
+
+#+BEGIN_SRC R
+setwd("/Users/jenny/cuddly_broccoli/verbose_funicular/foofy/data")
+df <- read.delim("raw_foofy_data.csv")
+#+END_SRC
+
+#+BEGIN_QUOTE
+"The chance of the setwd() command having the desired effect – making the file paths work – for anyone besides its author is 0%. It’s also unlikely to work for the author one or two years or computers from now. "
+#+END_QUOTE
+
+There are various ways to use relative paths, but my favourite is to use the package [[https://github.com/r-lib/here][here]] from [[https://github.com/krlmlr][Kirill Müller]]. The function src_R[:eval no]{here()} starts from the working directory and walks up the directory path until it finds a src_R[:eval no]{.Rproj} file (if you use RStudio projects), a src_R[:eval no]{.git} or src_R[:eval no]{.svn} folder (if you version control your projects), a src_R[:eval no]{.projectile} file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file src_R[:eval no]{.here} in your project root with the function src_R[:eval no]{set_here()} (this should be unnecessary for the vast majority of people).
 
 From there on, you will refer to /any/ file in your project by src_R[:eval no]{here("file-path-from-project-root")}.
 
@@ -59,6 +70,8 @@ my_var <- read_excel(here("data/raw/my-super-data.xlsx"))
 * Clean session
 
 Never save your workspace upon closing a session (beware of RStudio settings!) and restart your R session frequently. This is the only way to make sure your script actually works and you aren't seeing the result of a combination of unreproducible bits of code from past sessions.
+
+Also, do not add anything in your src_R[:eval no]{.Rprofile} that would affect your code in any way, such as setting options, creating functions, loading packages, etc.
 
 * Formatting
 

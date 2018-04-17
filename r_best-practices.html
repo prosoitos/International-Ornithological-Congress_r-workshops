@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-16 Mon 17:32 -->
+<!-- 2018-04-17 Tue 01:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Best practices in R</title>
@@ -301,22 +301,31 @@
     line-height: 22px;
     width: max-content;
   }
-  div[class="ASCII"] {		/*for block center*/
+  div[class="ASCII"] {		/*for block ascii*/
     font-family: 'Montez';
     line-height: 26px;
     font-size: 130%;
   }
-  div[class="VERBATIM"] {	/*for block center*/
-    /* background-color: #f5f4eb; */
-    font-family: 'Anonymous Pro';
-    margin: auto;
-    width: max-content;
-    color: #000000;
-    /* padding: 0.05em 0.8em 0.05em 0.8em; */
-    font-size: 88%;
-    line-height: 20px;
-    /* border: 0.5pt solid #d9d9d9; */
-    /* border-radius: 5px; */
+  /* div[class="VERBATIM"] {	/\*for block verbatim*\/ */
+  /*   /\* background-color: #f5f4eb; *\/ */
+  /*   font-family: 'Anonymous Pro'; */
+  /*   margin: auto; */
+  /*   width: max-content; */
+  /*   color: #000000; */
+  /*   /\* padding: 0.05em 0.8em 0.05em 0.8em; *\/ */
+  /*   font-size: 88%; */
+  /*   line-height: 20px; */
+  /*   /\* border: 0.5pt solid #d9d9d9; *\/ */
+  /*   /\* border-radius: 5px; *\/ */
+  /* } */
+  div[class="VERBATIM"] {	/*for block verbatim*/
+    line-height: 22px;
+    /* font-weight: bold; */
+    margin: 45px 0px 45px 200px;
+    /* padding-left: 10px; */
+    /* border-left: 3px solid #890c0c; */
+    font-size: 135%;
+    color: #7c6262;
   }
   .org-ess-numbers {
     color: #e28200; 
@@ -539,7 +548,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 16, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 17, 2018</span>
 </div>
 <div id="content">
 <h1 class="title">Best practices in R</h1>
@@ -547,26 +556,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org977b012">1. Self contained projects</a>
+<li><a href="#org4a7d3a5">1. Self contained projects</a>
 <ul>
-<li><a href="#org6a96751">1.1. Project structure</a></li>
-<li><a href="#org4d4a732">1.2. Relative paths</a></li>
+<li><a href="#org9577d1e">1.1. Example possible project structure</a></li>
+<li><a href="#orgeec4eaf">1.2. Relative paths</a></li>
 </ul>
 </li>
-<li><a href="#orgcef8ce8">2. Clean session</a></li>
-<li><a href="#org3d3bcad">3. Formatting</a></li>
+<li><a href="#orgf4ffd2a">2. Clean session</a></li>
+<li><a href="#org23cafbc">3. Formatting</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org977b012" class="outline-2">
-<h2 id="org977b012"><span class="section-number-2">1</span> Self contained projects</h2>
+<div id="outline-container-org4a7d3a5" class="outline-2">
+<h2 id="org4a7d3a5"><span class="section-number-2">1</span> Self contained projects</h2>
 <div class="outline-text-2" id="text-1">
-<blockquote>
+<div class="VERBATIM">
 <p>
 Work in projects.<br />
 </p>
-</blockquote>
+
+</div>
 
 <p>
 If you use RStudio, create RStudio projects. If you don't, still create projects.<br />
@@ -577,8 +587,8 @@ If you use RStudio, create RStudio projects. If you don't, still create projects
 </p>
 </div>
 
-<div id="outline-container-org6a96751" class="outline-3">
-<h3 id="org6a96751"><span class="section-number-3">1.1</span> Project structure</h3>
+<div id="outline-container-org9577d1e" class="outline-3">
+<h3 id="org9577d1e"><span class="section-number-3">1.1</span> Example possible project structure</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 A project structure could look like this:<br />
@@ -596,15 +606,31 @@ A project structure could look like this:<br />
 </div>
 </div>
 
-<div id="outline-container-org4d4a732" class="outline-3">
-<h3 id="org4d4a732"><span class="section-number-3">1.2</span> Relative paths</h3>
+<div id="outline-container-orgeec4eaf" class="outline-3">
+<h3 id="orgeec4eaf"><span class="section-number-3">1.2</span> Relative paths</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-All paths used in any of your scripts should be relative to the project root. Why? Because that way, anyone who has access to your project (collaboration through GitHub, GitLab, Bitbucket, etc. or someone to whom you would give the project in a stick) can run it.<br />
+All paths used in any of your scripts should be relative to the project root. Why? Because that way, your project is <i>portable</i>. Something crucial for collaborations through GitHub, GitLab, Bitbucket, etc., or for someone to whom you would give the project, and, let's not forget, for future you.<br />
 </p>
 
 <p>
-There are various ways to do this. But my favourite is to use the package <a href="https://github.com/r-lib/here">here</a> from <a href="https://github.com/krlmlr">Kirill Müller</a>. The function <code class="src src-R">here</code> starts from the working directory and walks the directory path up until it finds a <code class="src src-R">.Rproj</code> file (if you use RStudio projects), a <code class="src src-R">.git</code> or <code class="src src-R">.svn</code> folder (if you version control your projects), a <code class="src src-R">.projectile</code> file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file <code class="src src-R">.here</code> in your project root with the function <code class="src src-R"><span class="org-ess-function-call">set_here</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> (this should be unnecessary for the vast majority of people).<br />
+As <a href="https://github.com/jennybc">Jenny Bryan</a> put it in her excellent <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">blog</a> about this example code with an absolute path:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-function-call">setwd</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"/Users/jenny/cuddly_broccoli/verbose_funicular/foofy/data"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+df <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-function-call">read.delim</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"raw_foofy_data.csv"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
+
+<blockquote>
+<p>
+"The chance of the setwd() command having the desired effect – making the file paths work – for anyone besides its author is 0%. It’s also unlikely to work for the author one or two years or computers from now. "<br />
+</p>
+</blockquote>
+
+<p>
+There are various ways to use relative paths, but my favourite is to use the package <a href="https://github.com/r-lib/here">here</a> from <a href="https://github.com/krlmlr">Kirill Müller</a>. The function <code class="src src-R"><span class="org-ess-function-call">here</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> starts from the working directory and walks up the directory path until it finds a <code class="src src-R">.Rproj</code> file (if you use RStudio projects), a <code class="src src-R">.git</code> or <code class="src src-R">.svn</code> folder (if you version control your projects), a <code class="src src-R">.projectile</code> file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file <code class="src src-R">.here</code> in your project root with the function <code class="src src-R"><span class="org-ess-function-call">set_here</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> (this should be unnecessary for the vast majority of people).<br />
 </p>
 
 <p>
@@ -634,17 +660,21 @@ my_var <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-functi
 </div>
 </div>
 
-<div id="outline-container-orgcef8ce8" class="outline-2">
-<h2 id="orgcef8ce8"><span class="section-number-2">2</span> Clean session</h2>
+<div id="outline-container-orgf4ffd2a" class="outline-2">
+<h2 id="orgf4ffd2a"><span class="section-number-2">2</span> Clean session</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Never save your workspace upon closing a session (beware of RStudio settings!) and restart your R session frequently. This is the only way to make sure your script actually works and you aren't seeing the result of a combination of unreproducible bits of code from past sessions.<br />
 </p>
+
+<p>
+Also, do not add anything in your <code class="src src-R">.Rprofile</code> that would affect your code in any way, such as setting options, creating functions, loading packages, etc.<br />
+</p>
 </div>
 </div>
 
-<div id="outline-container-org3d3bcad" class="outline-2">
-<h2 id="org3d3bcad"><span class="section-number-2">3</span> Formatting</h2>
+<div id="outline-container-org23cafbc" class="outline-2">
+<h2 id="org23cafbc"><span class="section-number-2">3</span> Formatting</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <a href="http://hadley.nz/">Hadley Wickham</a> wrote a <a href="http://style.tidyverse.org/">short book</a> on R formatting. You do not have to agree with his formatting style as there is no official R formatting rule. However, with the increasing popularity of the <code class="src src-R">tidyverse</code> and his efforts to standardize what is otherwise totally chaotic in R, adopting his style might be a good idea.<br />
