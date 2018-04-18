@@ -175,7 +175,10 @@ banding <-
 
 src_R[:eval no]{%T%} pipes the effect of the left expression to the right, but does not pipe the object itself (so the object is "free" to be used by another pipe). This is very useful when you want to produce to output from one object. Or produce a side effect (e.g. printing) without interrupting a pipeline. I like to think of the "T" as a branching which represents the 2 outputs produced by a single object.
 
-Try replacing src_R[:eval no]{%T%} with the regular pipe src_R[:eval no]{%>%} in our code and see what happens. Can you explain it?
+#+BEGIN_VERBATIM
+Try replacing src_R[:eval no]{%T%} with the regular pipe src_R[:eval no]{%>%} in our code and see what happens.
+Can you explain it?
+#+END_VERBATIM
 
 There are other pipes in [[https://github.com/tidyverse/magrittr][this amazing package]]. You should explore them at your own time!
 
