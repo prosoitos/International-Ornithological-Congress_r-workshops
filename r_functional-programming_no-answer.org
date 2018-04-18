@@ -103,7 +103,10 @@ banding %>% str()
 
 As is the case with data frames, we can see that the 3 string variables (bird, sex, and population) have been converted to factors. What if we decide to convert all those factors into character vectors.
 
-*How would you do this? Spend 5 minutes writing code you would usually use.*
+#+BEGIN_VERBATIM
+How would you do this?
+Spend 5 minutes writing code you would usually use.
+#+END_VERBATIM
 
 To modify the elements of a list, you can use the modify functions family:
 
@@ -124,6 +127,14 @@ modify_at(.x, .at, .f, ...)
 .at    a character vector of names or a numeric vector of positions.
        Only the elements corresponding to .at will be modified
 #+END_EXAMPLE
+
+For every element of src_R[:eval no]{.x}, apply src_R[:eval no]{.f}, and return a modified version of src_R[:eval no]{.x}.
+
+So basically, in its simplest form, we have:
+
+#+BEGIN_MONO
+modify(list, function)
+#+END_MONO
 
 *** Apply to our example
 
@@ -172,7 +183,10 @@ There are other pipes in [[https://github.com/tidyverse/magrittr][this amazing p
 
 Now, let's imagine that we want to plot the effect of tarsus length on mass, but that we want to graph each population separately.
 
-*How would you do this? Spend 5 minutes writing code you would usually use.*
+#+BEGIN_VERBATIM
+How would you do this?
+Spend 5 minutes writing code you would usually use.
+#+END_VERBATIM
 
 To apply functions to elements of a list, you can use the src_R[:eval no]{map} functions family:
 
@@ -193,6 +207,14 @@ map_at(.x, .at, .f, ...)
 .at    a character vector of names or a numeric vector of positions.
        Only the elements corresponding to .at will be modified
 #+END_EXAMPLE
+
+For every element of src_R[:eval no]{.x}, apply src_R[:eval no]{.f}.
+
+What we have, in the simplest case, is:
+
+#+BEGIN_MONO
+map(list, function)
+#+END_MONO
 
 *** Apply to our example
 
@@ -215,7 +237,10 @@ graphs[[1]] + graphs[[2]] + graphs[[3]]
 
 Now that we have our 3 graphs, we want to save them to 3 files.
 
-*How would you do this? Spend 5 minutes writing code you would usually use.*
+#+BEGIN_VERBATIM
+How would you do this?
+Spend 5 minutes writing code you would usually use.
+#+END_VERBATIM
 
 To apply side effects to elements of a list, we use the src_R[:eval no]{walk} functions family:
 
@@ -256,7 +281,7 @@ walk2(.x, .y, .f, ...)
 ...       additional arguments passed to .f
 #+END_EXAMPLE
 
-*Give it a try! Try to write a function using src_R[:eval no]{walk2} that will allow us to save the elements of src_R[:eval no]{graphs} into the elements of src_R[:eval no]{paths} using src_R[:eval no]{ggsave}. Don't hesitate to look up the help file for src_R[:eval no]{ggsave} with src_R[:eval no]{?ggsave} if you don't remember how to use it!*
+Give it a try! Try to write a function using src_R[:eval no]{walk2} that will allow us to save the elements of src_R[:eval no]{graphs} into the elements of src_R[:eval no]{paths} using src_R[:eval no]{ggsave}. Don't hesitate to look up the help file for src_R[:eval no]{ggsave} with src_R[:eval no]{?ggsave} if you don't remember how to use it!
 
 #+BEGIN_SRC R :exports none
 walk2(paths, graphs, ggsave)
@@ -284,7 +309,10 @@ mass <- data.frame(
 
 But Hadley Wickham's rule is that we should never copy-paste more than twice. Uh hum... we have 5 copies of the same line of code already :P And if we wanted to create a larger data frame, we could have many more than that!
 
-*Using the src_R[:eval no]{map()} function to get to the same result, how would you do this? Spend 5 min brainstorming on this and feel free to talk to each other!*
+#+BEGIN_VERBATIM
+Using the src_R[:eval no]{map()} function to get to the same result, how would you do this?
+Spend 5 min brainstorming on this and feel free to talk to each other!
+#+END_VERBATIM
 
 #+BEGIN_SRC R :exports none
 n_birds <- 1:15
@@ -303,7 +331,10 @@ df %>% str()
 
 How could you calculate the mean for each bird?
 
-*Spend 3 min to think about how to do this using src_R[:eval no]{map()}. Feel free to chat with whoever you'd like to.*
+#+BEGIN_VERBATIM
+Spend 3 min to think about how to do this using src_R[:eval no]{map()}.
+Feel free to chat with whoever you'd like to.
+#+END_VERBATIM
 
 #+BEGIN_SRC R :exports none
 map(df, mean)
@@ -317,7 +348,9 @@ map(df, mean)
 
 Similarly, you can calculate the variance, the sum, look for the largest value, or apply any other function to our data.
 
-*Spend 2 min writing codes for these.*
+#+BEGIN_VERBATIM
+Spend 2 min writing codes for these.
+#+END_VERBATIM
 
 #+BEGIN_SRC R :exports none
 map_dbl(df, var)
@@ -325,7 +358,7 @@ map_dbl(df, sum)
 map_dbl(df, max)
 #+END_SRC
 
-* Summary of the map functions family
+* Summary of the map and walk functions family
 
 We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want the side effects) function depending on:
 
@@ -341,6 +374,7 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 
 | class we want for the output   |   |   | purrr function |
 |--------------------------------+---+---+----------------|
+| nothing                        |   |   | =walk=         |
 | list                           |   |   | =map=          |
 | double                         |   |   | =map_dbl=      |
 | integer                        |   |   | =map_int=      |
@@ -348,6 +382,15 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 | logical                        |   |   | =map_lgl=      |
 | data frame (by row-binding)    |   |   | =map_dfr=      |
 | data frame (by column-binding) |   |   | =map_dfc=      |
+
+#+HTML: <br>
+
+This is all very consistent. And as Jenny Bryan [[https://speakerdeck.com/jennybc/data-rectangling][presents it]]:
+#+BEGIN_QUOTE
+"src_R[:eval no]{walk()} can be thought of as src_R[:eval no]{map_nothing()}
+
+src_R[:eval no]{map()} can be thought of as src_R[:eval no]{map_list()}"
+#+END_QUOTE
 
 ** How we want to select the input
 
@@ -370,7 +413,9 @@ can be written as:
 ~ . + 3
 #+END_SRC
 
-*Your turn: write the following anonymous function as a formula*
+#+BEGIN_VERBATIM
+Your turn: write the following anonymous function as a formula.
+#+END_VERBATIM
 
 #+BEGIN_SRC R
 function(x) mean(x) + 3
@@ -402,7 +447,9 @@ can be shortened to:
 
 etc.
 
-*Your turn: write the following anonymous function as a formula*
+#+BEGIN_VERBATIM
+Your turn: write the following anonymous function as a formula.
+#+END_VERBATIM
 
 #+BEGIN_SRC R
 function(x1, x2, y) lm(y ~ x1 + x2)
@@ -419,6 +466,10 @@ A nested data frame is a data frame of data frames: some of the cells of this ma
 #+BEGIN_SRC R
 
 #+END_SRC
+
+* List columns
+
+A list column is a data frame in which some of the columns are made of lists instead of atomic vectors.
 
 * Conclusion
 
