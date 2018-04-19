@@ -6,7 +6,7 @@
 
 #+PROPERTY: header-args:R :session R:purrr :eval no :exports code :tangle yes :comments link
 
-#+TITLE:   @@html:<span style="font-size: 85%;">@@R workshop for the@@html:</span>@@@@html:<br>@@International Ornithological Congress@@html:<br>@@@@html:<span style="font-size: 85%;">@@Vancouver, 2018@@html:</span>@@
+#+TITLE:   @@html:<span style="font-size: 60%; color: #460606;">@@R workshop for the@@html:</span>@@@@html:<span style="font-size: 75%; color: #460606;">@@ International Ornithological Congress 2018@@html:</span>@@@@html:</span>@@@@html:<br>@@Better practices in R,@@html:<br>@@no more copy-paste, no more loops
 #+DATE:	   {{{time(%B %d\, %Y)}}}
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
@@ -15,11 +15,9 @@ Most of us biologists, do not learn R properly: we do not have a computing scien
 
 Having code that works is great of course. But having code that is more efficient, easier to read, less prone to errors, shorter, clearer, cleaner, and which makes a better use of R's characteristics as a coding language, is certainly a whole lot better.
 
-This tutorial follows the recommendations and "views" of the src_R[:eval no]{tidyverse}, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming using the src_R[:eval no]{tidyverse} package src_R[:eval no]{purrr}.
+# This tutorial follows the recommendations and "views" of the src_R[:eval no]{tidyverse}, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming using the src_R[:eval no]{tidyverse} package src_R[:eval no]{purrr}.
 
-* Topics covered
-
-** Part 1 (very briefly): best practices in R
+* Part 1 (very briefly): Best practices in R
 
 - Self-contained projects for portability (as described by [[https://github.com/jennybc][Jenny Bryan]]),
 - Clean sessions for reproducibility
@@ -27,19 +25,13 @@ This tutorial follows the recommendations and "views" of the src_R[:eval no]{tid
 
 The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html][here]].
 
-** Part 2: Functional programming in R using purrr
+* Part 2: Functional programming in R with purrr
 
 - Introduction to functional programming,
-- How to apply functions to many elements with src_R[:eval no]{purrr} (alternative to loops),
-- Nested data frames,
-- A little detour to some less used pipes of the src_R[:eval no]{magrittr} package.
+- How to apply functions to many elements with some of the main src_R[:eval no]{purrr} functions,
+- Bonus sidetrack: a few of the less used pipes of the src_R[:eval no]{magrittr} package.
 
-The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html][here]].
-
-* Audience for the workshop
-
-- Intermediate R users comfortable with basic data manipulation, simple functions, and loops,
-- Advanced users familiar with functional programming using the src_R[:eval no]{apply} functions family and interested in discovering the "purrring" way.
+The workshop material (without exercise solutions) can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html][here]].
 
 #+HTML: <br>
 

@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-17 Tue 10:46 -->
+<!-- 2018-04-19 Thu 04:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title><span style="font-size: 85%;">R workshop for the</span><br>International Ornithological Congress<br><span style="font-size: 85%;">Vancouver, 2018</span></title>
+<title><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Marie-Hélène Burle" />
 <style type="text/css">
@@ -301,27 +301,43 @@
     line-height: 22px;
     width: max-content;
   }
-  div[class="ASCII"] {		/*for block ascii*/
+  div[class="HAND"] {		/*for block ascii*/
     font-family: 'Montez';
     line-height: 26px;
     font-size: 130%;
   }
-  /* div[class="VERBATIM"] {	/\*for block verbatim*\/ */
-  /*   /\* background-color: #f5f4eb; *\/ */
-  /*   font-family: 'Anonymous Pro'; */
-  /*   margin: auto; */
-  /*   width: max-content; */
-  /*   color: #000000; */
-  /*   /\* padding: 0.05em 0.8em 0.05em 0.8em; *\/ */
-  /*   font-size: 88%; */
-  /*   line-height: 20px; */
-  /*   /\* border: 0.5pt solid #d9d9d9; *\/ */
-  /*   /\* border-radius: 5px; *\/ */
-  /* } */
+  div[class="MONO"] {	/*for block verbatim*/
+    /* font-family: 'Anonymous Pro'; */
+    font-family: 'Roboto Slab Thin';
+    margin: auto;
+    width: max-content;
+    color: #000000;
+    padding: 0.3 0.8em 0.3 0.8em;
+    font-size: 95%;
+    line-height: 20px;
+    /* margin: 0 0 0 5px; */
+    /* border: 0.5pt solid #d9d9d9; */
+    /* border-radius: 5px; */
+    /* font-size: 95%; */
+  }
   div[class="VERBATIM"] {	/*for block verbatim*/
-    line-height: 22px;
+    /* background-color: #f4faff; */
+    line-height: 27px;
+    font-family: 'Linden Hill';
     /* font-weight: bold; */
-    margin: 45px 0px 45px 200px;
+    margin: 45px 50px 45px 100px;
+    /* padding-left: 10px; */
+    /* border-left: 3px solid #890c0c; */
+    font-size: 120%;
+    color: #303b52;
+    padding: 0 0 0 15px;
+    border-left: 0.5px solid #425170;
+    width: max-content;
+  }
+  div[class="EMPHASIS"] {	/*for block verbatim*/
+    line-height: 27px;
+    /* font-weight: bold; */
+    margin: 45px 0px 45px 150px;
     /* padding-left: 10px; */
     /* border-left: 3px solid #890c0c; */
     font-size: 135%;
@@ -548,21 +564,16 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 17, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 19, 2018</span>
 </div>
 <div id="content">
-<h1 class="title"><span style="font-size: 85%;">R workshop for the</span><br>International Ornithological Congress<br><span style="font-size: 85%;">Vancouver, 2018</span></h1>
+<h1 class="title"><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1074d19">Topics covered</a>
-<ul>
-<li><a href="#org0d54d1b">Part 1 (very briefly): best practices in R</a></li>
-<li><a href="#org86f0bc1">Part 2: Functional programming in R using purrr</a></li>
-</ul>
-</li>
-<li><a href="#orgb010051">Audience for the workshop</a></li>
+<li><a href="#org2c63a8a">Part 1 (very briefly): Best practices in R</a></li>
+<li><a href="#org682e750">Part 2: Functional programming in R with purrr</a></li>
 </ul>
 </div>
 </div>
@@ -574,17 +585,9 @@ Most of us biologists, do not learn R properly: we do not have a computing scien
 Having code that works is great of course. But having code that is more efficient, easier to read, less prone to errors, shorter, clearer, cleaner, and which makes a better use of R's characteristics as a coding language, is certainly a whole lot better.<br />
 </p>
 
-<p>
-This tutorial follows the recommendations and "views" of the <code class="src src-R">tidyverse</code>, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming using the <code class="src src-R">tidyverse</code> package <code class="src src-R">purrr</code>.<br />
-</p>
-
-<div id="outline-container-org1074d19" class="outline-2">
-<h2 id="org1074d19">Topics covered</h2>
-<div class="outline-text-2" id="text-org1074d19">
-</div>
-<div id="outline-container-org0d54d1b" class="outline-3">
-<h3 id="org0d54d1b">Part 1 (very briefly): best practices in R</h3>
-<div class="outline-text-3" id="text-org0d54d1b">
+<div id="outline-container-org2c63a8a" class="outline-2">
+<h2 id="org2c63a8a">Part 1 (very briefly): Best practices in R</h2>
+<div class="outline-text-2" id="text-org2c63a8a">
 <ul class="org-ul">
 <li>Self-contained projects for portability (as described by <a href="https://github.com/jennybc">Jenny Bryan</a>),<br /></li>
 <li>Clean sessions for reproducibility<br /></li>
@@ -597,30 +600,18 @@ The workshop material can be found <a href="https://prosoitos.github.io/Internat
 </div>
 </div>
 
-<div id="outline-container-org86f0bc1" class="outline-3">
-<h3 id="org86f0bc1">Part 2: Functional programming in R using purrr</h3>
-<div class="outline-text-3" id="text-org86f0bc1">
+<div id="outline-container-org682e750" class="outline-2">
+<h2 id="org682e750">Part 2: Functional programming in R with purrr</h2>
+<div class="outline-text-2" id="text-org682e750">
 <ul class="org-ul">
 <li>Introduction to functional programming,<br /></li>
-<li>How to apply functions to many elements with <code class="src src-R">purrr</code> (alternative to loops),<br /></li>
-<li>Nested data frames,<br /></li>
-<li>A little detour to some less used pipes of the <code class="src src-R">magrittr</code> package.<br /></li>
+<li>How to apply functions to many elements with some of the main <code class="src src-R">purrr</code> functions,<br /></li>
+<li>Bonus sidetrack: a few of the less used pipes of the <code class="src src-R">magrittr</code> package.<br /></li>
 </ul>
 
 <p>
-The workshop material can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html">here</a>.<br />
+The workshop material (without exercise solutions) can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html">here</a>.<br />
 </p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgb010051" class="outline-2">
-<h2 id="orgb010051">Audience for the workshop</h2>
-<div class="outline-text-2" id="text-orgb010051">
-<ul class="org-ul">
-<li>Intermediate R users comfortable with basic data manipulation, simple functions, and loops,<br /></li>
-<li>Advanced users familiar with functional programming using the <code class="src src-R">apply</code> functions family and interested in discovering the "purrring" way.<br /></li>
-</ul>
 
 <br>
 
