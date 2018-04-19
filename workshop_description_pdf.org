@@ -1,0 +1,79 @@
+#+OPTIONS: title:t date:nil author:nil email:nil
+#+OPTIONS: toc:nil h:3 num:nil |:t todo:nil
+#+OPTIONS: *:t -:t ::t <:t \n:t e:t creator:nil
+#+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
+
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+#+LATEX_HEADER: \usepackage[inline]{enumitem}
+#+LATEX_HEADER: \setlength{\parindent}{0cm}
+#+LATEX_HEADER: \renewcommand{\arraystretch}{1.5}
+
+#+PROPERTY: header-args:R :session R:purrr :eval no :exports code :tangle yes :comments link
+
+\pagenumbering{gobble}
+
+#+TITLE:   R workshop: no more copy-paste. No more loops. And no more 'apply'.
+#+DATE:	   {{{time(%B %d\, %Y)}}}
+#+AUTHOR:  Marie-Hélène Burle
+#+EMAIL:   msb2@sfu.ca
+
+* Goal
+
+Learn to code more efficiently and develop better R practices. In particular, learn to replace repetitions, loops and lengthy code by clean and effective functions using the package /purrr/. /Purrr/ is the /tidyverse/ equivalent to the /apply/ functions, but it has more tools and it is more consistent.
+
+For loop method:
+
+#+BEGIN_SRC R
+max <- vector("double", ncol(mtcars))
+
+for (i in seq_along(mtcars)) {
+  max[[i]] <- max(mtcars[[i]])
+}
+
+setNames(max, names(mtcars))
+#+END_SRC
+
+Purrr method:
+
+#+BEGIN_SRC R
+map_dbl(mtcars, max)
+#+END_SRC
+
+* Targeted audience
+
+- Intermediate R users comfortable with basic data manipulation and simple functions,
+- Advanced users familiar with functional programming using the src_R[:eval no]{apply} functions family and interested in discovering the "purrring" way.
+
+* Program
+
+#+ATTR_LATEX: :environment itemize*
+- Tips for better reproducibility, portability, and code readability.
+- Introduction to functional programming with the /tidyverse/ package /purrr/.
+
+For more information, please visit the [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/][workshop webpage]].
+
+* Software requirements
+
+In order to make the best of this workshop, please bring a laptop with the following installed:
+
+#+ATTR_LATEX: :environment itemize*
+- the *latest* R version (if you usually run R in RStudio, make sure that you have the latest RStudio as well),
+- the *latest* version of the /tidyverse/ package,
+- the *latest* version of the /patchwork/ package.
+
+At the time of this writing, /patchwork/ is not yet on CRAN and can be installed by running:
+
+#+BEGIN_SRC R
+install.packages("devtools")                    # if you haven't installed it already
+devtools::install_github("thomasp85/patchwork")
+#+END_SRC
+
+Please make sure everything is running before coming. Thank you!
+
+No data file is needed for this workshop.
+
+\thinsp
+
+------------------------------
+/Contact: Marie-Helene Burle, msb2@sfu.ca/
+
