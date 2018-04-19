@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-18 Wed 01:52 -->
+<!-- 2018-04-19 Thu 04:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Functional programming in R (with purrr)</title>
@@ -564,7 +564,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 18, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 19, 2018</span>
 </div>
 <div id="content">
 <h1 class="title">Functional programming in R (with purrr)</h1>
@@ -572,74 +572,71 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcfe20ff">1. Introduction</a>
+<li><a href="#orgde7b211">1. Introduction</a>
 <ul>
-<li><a href="#org712b595">1.1. What is functional programming?</a></li>
-<li><a href="#org6ac957b">1.2. Iterations</a></li>
-<li><a href="#org8669f31">1.3. The purrr package</a>
+<li><a href="#org4e9a308">1.1. What is functional programming?</a></li>
+<li><a href="#orgdab46a5">1.2. Iterations</a></li>
+<li><a href="#org14fc060">1.3. The purrr package</a>
 <ul>
-<li><a href="#org3cff721">1.3.1. Goal</a></li>
-<li><a href="#org4b9ce90">1.3.2. Logistics</a></li>
+<li><a href="#org1f605b9">1.3.1. Goal</a></li>
+<li><a href="#orgeeb5e2c">1.3.2. Logistics</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgad3e635">2. Let's dive in</a>
+<li><a href="#org16e1806">2. Let's dive in</a>
 <ul>
-<li><a href="#orgeee8552">2.1. Load packages</a></li>
-<li><a href="#orgc18520e">2.2. Create some fake banding data</a></li>
-<li><a href="#orge875d04">2.3. Modify: modify elements of a list</a>
+<li><a href="#orgc93f2a8">2.1. Load packages</a></li>
+<li><a href="#org3443a70">2.2. Create some fake banding data</a></li>
+<li><a href="#org46d534d">2.3. Modify: modify elements of a list</a>
 <ul>
-<li><a href="#org4583a9b">2.3.1. Usage</a></li>
-<li><a href="#org3bf8a15">2.3.2. Apply to our example</a></li>
-<li><a href="#org290676b">2.3.3. Magrittr digression: less used piping treasures</a></li>
+<li><a href="#org6400d7f">2.3.1. Usage</a></li>
+<li><a href="#org4ffb0f5">2.3.2. Apply to our example</a></li>
+<li><a href="#orgf8c4569">2.3.3. Magrittr digression: less used piping treasures</a></li>
 </ul>
 </li>
-<li><a href="#org8e474fa">2.4. Map: apply functions to elements of a list</a>
+<li><a href="#org80643b5">2.4. Map: apply functions to elements of a list</a>
 <ul>
-<li><a href="#org9ee3246">2.4.1. Usage</a></li>
-<li><a href="#orgd063e81">2.4.2. Apply to our example</a></li>
+<li><a href="#org7a134ff">2.4.1. Usage</a></li>
+<li><a href="#org58ecc91">2.4.2. Apply to our example</a></li>
 </ul>
 </li>
-<li><a href="#orgcb66ab4">2.5. Walk: apply side effects to elements of a list</a>
+<li><a href="#org3f3d9d5">2.5. Walk: apply side effects to elements of a list</a>
 <ul>
-<li><a href="#org6cc4f56">2.5.1. Usage</a></li>
-<li><a href="#org7d93a3e">2.5.2. Apply to our example</a></li>
+<li><a href="#orgd0a9a08">2.5.1. Usage</a></li>
+<li><a href="#orgd8aa72d">2.5.2. Apply to our example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgbdf2965">3. Your turn!</a>
+<li><a href="#orgba00a87">3. Your turn!</a>
 <ul>
-<li><a href="#org776f106">3.1. Create new fake data</a></li>
-<li><a href="#org794880f">3.2. Apply functions to each variable</a></li>
+<li><a href="#orga5dec93">3.1. Create new fake data</a></li>
+<li><a href="#org3372a14">3.2. Apply functions to each variable</a></li>
 </ul>
 </li>
-<li><a href="#org71b697c">4. Summary of the map and walk functions family</a>
+<li><a href="#org6492418">4. Summary of the map and walk functions family</a></li>
+<li><a href="#org7ee9a78">5. Formulas: a shorter notation for anonymous functions</a>
 <ul>
-<li><a href="#org094efd9">4.1. How many lists we are using in the input</a></li>
-<li><a href="#orgf030ce5">4.2. The class of the output we want</a></li>
-<li><a href="#orgc2293e9">4.3. How we want to select the input</a></li>
-</ul>
-</li>
-<li><a href="#orge2dd2ca">5. Formulas: a shorter notation for anonymous functions</a>
+<li><a href="#orge90187f">5.1. With one element</a></li>
+<li><a href="#orgd1054d6">5.2. With 2 elements</a>
 <ul>
-<li><a href="#org741f9e1">5.1. Referring to elements</a></li>
+<li><a href="#org72b9bff">5.2.1. Referring to elements</a></li>
 </ul>
 </li>
-<li><a href="#org31402c7">6. Nested data frames</a></li>
-<li><a href="#orgfbcfbe6">7. List columns</a></li>
-<li><a href="#orgc281c68">8. Conclusion</a></li>
+</ul>
+</li>
+<li><a href="#org1ad91c3">6. Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgcfe20ff" class="outline-2">
-<h2 id="orgcfe20ff"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orgde7b211" class="outline-2">
+<h2 id="orgde7b211"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org712b595" class="outline-3">
-<h3 id="org712b595"><span class="section-number-3">1.1</span> What is functional programming?</h3>
+<div id="outline-container-org4e9a308" class="outline-3">
+<h3 id="org4e9a308"><span class="section-number-3">1.1</span> What is functional programming?</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 It is a programming paradigm based on the evaluation of functions. This is opposed to <i>imperative  programming</i>. Some languages are based strictly on functional programming (e.g. Haskell), others<br />
@@ -647,8 +644,8 @@ It is a programming paradigm based on the evaluation of functions. This is oppos
 </div>
 </div>
 
-<div id="outline-container-org6ac957b" class="outline-3">
-<h3 id="org6ac957b"><span class="section-number-3">1.2</span> Iterations</h3>
+<div id="outline-container-orgdab46a5" class="outline-3">
+<h3 id="orgdab46a5"><span class="section-number-3">1.2</span> Iterations</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Repetition of a process (e.g. applying the same function to several variables).<br />
@@ -664,16 +661,16 @@ Classic methods:<br />
 </div>
 </div>
 
-<div id="outline-container-org8669f31" class="outline-3">
-<h3 id="org8669f31"><span class="section-number-3">1.3</span> The purrr package</h3>
+<div id="outline-container-org14fc060" class="outline-3">
+<h3 id="org14fc060"><span class="section-number-3">1.3</span> The purrr package</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 One of the <code class="src src-R">tidyverse</code> core packages, <code class="src src-R">purrr</code> was written a few years ago by <a href="https://github.com/lionel-">Lionel Henry</a> (also the maintainer), <a href="http://hadley.nz/">Hadley Wickham</a>, and <a href="https://www.rstudio.com/">RStudio inc.</a> <br />
 </p>
 </div>
 
-<div id="outline-container-org3cff721" class="outline-4">
-<h4 id="org3cff721"><span class="section-number-4">1.3.1</span> Goal</h4>
+<div id="outline-container-org1f605b9" class="outline-4">
+<h4 id="org1f605b9"><span class="section-number-4">1.3.1</span> Goal</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <p>
 <code class="src src-R">Purrr</code> is a set of tools allowing consistent functional programming in R in a <code class="src src-R">tidyverse</code> style (using <code class="src src-R">magrittr</code> pipes and following the same naming conventions found in other <code class="src src-R">tidyverse</code> packages).<br />
@@ -685,8 +682,8 @@ As Hadley Wickham says, in many ways, <code class="src src-R">purrr</code> is th
 </div>
 </div>
 
-<div id="outline-container-org4b9ce90" class="outline-4">
-<h4 id="org4b9ce90"><span class="section-number-4">1.3.2</span> Logistics</h4>
+<div id="outline-container-orgeeb5e2c" class="outline-4">
+<h4 id="orgeeb5e2c"><span class="section-number-4">1.3.2</span> Logistics</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <p>
 Install it with:<br />
@@ -735,12 +732,12 @@ and on any of its functions with:<br />
 </div>
 </div>
 
-<div id="outline-container-orgad3e635" class="outline-2">
-<h2 id="orgad3e635"><span class="section-number-2">2</span> Let's dive in</h2>
+<div id="outline-container-org16e1806" class="outline-2">
+<h2 id="org16e1806"><span class="section-number-2">2</span> Let's dive in</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgeee8552" class="outline-3">
-<h3 id="orgeee8552"><span class="section-number-3">2.1</span> Load packages</h3>
+<div id="outline-container-orgc93f2a8" class="outline-3">
+<h3 id="orgc93f2a8"><span class="section-number-3">2.1</span> Load packages</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 First, let's load the packages that we will use. It is always a good idea to write all the packages that you will be using at the top of the script. This will help others, using your script, to know what is required to run it.<br />
@@ -755,8 +752,8 @@ First, let's load the packages that we will use. It is always a good idea to wri
 </div>
 </div>
 
-<div id="outline-container-orgc18520e" class="outline-3">
-<h3 id="orgc18520e"><span class="section-number-3">2.2</span> Create some fake banding data</h3>
+<div id="outline-container-org3443a70" class="outline-3">
+<h3 id="org3443a70"><span class="section-number-3">2.2</span> Create some fake banding data</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Let's create some imaginary bird banding data:<br />
@@ -767,9 +764,9 @@ Let's create some imaginary bird banding data:<br />
   bird <span class="org-ess-operator">=</span> <span class="org-ess-function-call">paste0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"bird"</span>, <span class="org-ess-numbers">1</span>:<span class="org-ess-numbers">50</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
   sex <span class="org-ess-operator">=</span> <span class="org-ess-function-call">sample</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-function-call">c</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">(</span></span><span class="org-string">"F"</span>, <span class="org-string">"M"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">)</span></span>, <span class="org-ess-numbers">50</span>, replace <span class="org-ess-operator">=</span> <span class="org-ess-f-t">T</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
   population <span class="org-ess-operator">=</span> <span class="org-ess-function-call">sample</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>LETTERS<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">[</span></span><span class="org-ess-numbers">1</span>:<span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">]</span></span>, <span class="org-ess-numbers">50</span>, replace <span class="org-ess-operator">=</span> <span class="org-ess-f-t">T</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
-  mass <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">43</span>, <span class="org-ess-numbers">4</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
-  tarsus <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">27</span>, <span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
-  wing <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">112</span>, <span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  mass <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">43</span>, <span class="org-ess-numbers">4</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  tarsus <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">27</span>, <span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+  wing <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">112</span>, <span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
 <span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 banding
@@ -780,8 +777,8 @@ banding <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-c
 </div>
 </div>
 
-<div id="outline-container-orge875d04" class="outline-3">
-<h3 id="orge875d04"><span class="section-number-3">2.3</span> Modify: modify elements of a list</h3>
+<div id="outline-container-org46d534d" class="outline-3">
+<h3 id="org46d534d"><span class="section-number-3">2.3</span> Modify: modify elements of a list</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 As is the case with data frames, we can see that the 3 string variables (bird, sex, and population) have been converted to factors. What if we decide to convert all those factors into character vectors.<br />
@@ -796,12 +793,12 @@ Spend 5 minutes writing code you would usually use.<br />
 </div>
 
 <p>
-To modify the elements of a list, you can use the modify functions family:<br />
+To modify the elements of a list, you can use the <code class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> functions family.<br />
 </p>
 </div>
 
-<div id="outline-container-org4583a9b" class="outline-4">
-<h4 id="org4583a9b"><span class="section-number-4">2.3.1</span> Usage</h4>
+<div id="outline-container-org6400d7f" class="outline-4">
+<h4 id="org6400d7f"><span class="section-number-4">2.3.1</span> Usage</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
@@ -837,12 +834,19 @@ modify(list, function)<br />
 </div>
 </div>
 
-<div id="outline-container-org3bf8a15" class="outline-4">
-<h4 id="org3bf8a15"><span class="section-number-4">2.3.2</span> Apply to our example</h4>
+<div id="outline-container-org4ffb0f5" class="outline-4">
+<h4 id="org4ffb0f5"><span class="section-number-4">2.3.2</span> Apply to our example</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 Now, this is how all factors in our data frame can be converted into character vectors using <code class="src src-R"><span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>:<br />
 </p>
+
+<div class="org-src-container">
+<pre class="src src-R">banding <span class="org-ess-XopX">%&lt;&gt;%</span>
+  <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.factor, as.character<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%T&gt;%</span>
+  <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
+</pre>
+</div>
 
 <p>
 The modify family includes <code class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>, <code class="src src-R"><span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>, <code class="src src-R"><span class="org-ess-function-call">modify_at</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>, and <code class="src src-R">modify_depth</code>. That last one will make sense later.<br />
@@ -856,15 +860,15 @@ Wait: what were all these weird looking pipes??<br />
 </div>
 </div>
 
-<div id="outline-container-org290676b" class="outline-4">
-<h4 id="org290676b"><span class="section-number-4">2.3.3</span> Magrittr digression: less used piping treasures</h4>
+<div id="outline-container-orgf8c4569" class="outline-4">
+<h4 id="orgf8c4569"><span class="section-number-4">2.3.3</span> Magrittr digression: less used piping treasures</h4>
 <div class="outline-text-4" id="text-2-3-3">
 <p>
 <code class="src src-R"><span class="org-ess-XopX">%&lt;&gt;%</span></code> pipes the left expression to the right, and then back to the left. Instead of a right arrow, think of it as an arrow going from left to right, making a turn and going back to its starting place again.<br />
 </p>
 
 <p>
-The code<br />
+The code:<br />
 </p>
 
 <div class="org-src-container">
@@ -875,7 +879,7 @@ The code<br />
 </div>
 
 <p>
-that we used above, is equivalent to<br />
+that we used above, is equivalent to:<br />
 </p>
 
 <div class="org-src-container">
@@ -905,8 +909,8 @@ There are other pipes in <a href="https://github.com/tidyverse/magrittr">this am
 </div>
 </div>
 
-<div id="outline-container-org8e474fa" class="outline-3">
-<h3 id="org8e474fa"><span class="section-number-3">2.4</span> Map: apply functions to elements of a list</h3>
+<div id="outline-container-org80643b5" class="outline-3">
+<h3 id="org80643b5"><span class="section-number-3">2.4</span> Map: apply functions to elements of a list</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 Now, let's imagine that we want to plot the effect of tarsus length on mass, but that we want to graph each population separately.<br />
@@ -921,12 +925,12 @@ Spend 5 minutes writing code you would usually use.<br />
 </div>
 
 <p>
-To apply functions to elements of a list, you can use the <code class="src src-R">map</code> functions family:<br />
+To apply functions to elements of a list, you can use the <code class="src src-R">map</code> functions family.<br />
 </p>
 </div>
 
-<div id="outline-container-org9ee3246" class="outline-4">
-<h4 id="org9ee3246"><span class="section-number-4">2.4.1</span> Usage</h4>
+<div id="outline-container-org7a134ff" class="outline-4">
+<h4 id="org7a134ff"><span class="section-number-4">2.4.1</span> Usage</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
@@ -962,8 +966,8 @@ map(list, function)<br />
 </div>
 </div>
 
-<div id="outline-container-orgd063e81" class="outline-4">
-<h4 id="orgd063e81"><span class="section-number-4">2.4.2</span> Apply to our example</h4>
+<div id="outline-container-org58ecc91" class="outline-4">
+<h4 id="org58ecc91"><span class="section-number-4">2.4.2</span> Apply to our example</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <p>
 This is how we can do this, using <code class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>:<br />
@@ -989,8 +993,8 @@ And using the amazingly easily package <a href="https://github.com/thomasp85/pat
 </div>
 </div>
 
-<div id="outline-container-orgcb66ab4" class="outline-3">
-<h3 id="orgcb66ab4"><span class="section-number-3">2.5</span> Walk: apply side effects to elements of a list</h3>
+<div id="outline-container-org3f3d9d5" class="outline-3">
+<h3 id="org3f3d9d5"><span class="section-number-3">2.5</span> Walk: apply side effects to elements of a list</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 Now that we have our 3 graphs, we want to save them to 3 files.<br />
@@ -1005,12 +1009,12 @@ Spend 5 minutes writing code you would usually use.<br />
 </div>
 
 <p>
-To apply side effects to elements of a list, we use the <code class="src src-R">walk</code> functions family:<br />
+To apply side effects to elements of a list, we use the <code class="src src-R">walk</code> functions family.<br />
 </p>
 </div>
 
-<div id="outline-container-org6cc4f56" class="outline-4">
-<h4 id="org6cc4f56"><span class="section-number-4">2.5.1</span> Usage</h4>
+<div id="outline-container-orgd0a9a08" class="outline-4">
+<h4 id="orgd0a9a08"><span class="section-number-4">2.5.1</span> Usage</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">walk</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
@@ -1025,8 +1029,8 @@ To apply side effects to elements of a list, we use the <code class="src src-R">
 </div>
 </div>
 
-<div id="outline-container-org7d93a3e" class="outline-4">
-<h4 id="org7d93a3e"><span class="section-number-4">2.5.2</span> Apply to our example</h4>
+<div id="outline-container-orgd8aa72d" class="outline-4">
+<h4 id="orgd8aa72d"><span class="section-number-4">2.5.2</span> Apply to our example</h4>
 <div class="outline-text-4" id="text-2-5-2">
 <p>
 We already have a list of graphs: <code class="src src-R">graphs</code>. Now, we can create a list of paths where we want to save them:<br />
@@ -1061,20 +1065,25 @@ Here is how <code class="src src-R">walk2</code> works (it is the same for <code
 ...       additional arguments passed to .f
 </pre>
 
+<div class="VERBATIM">
 <p>
-Give it a try! Try to write a function using <code class="src src-R">walk2</code> that will allow us to save the elements of <code class="src src-R">graphs</code> into the elements of <code class="src src-R">paths</code> using <code class="src src-R">ggsave</code>. Don't hesitate to look up the help file for <code class="src src-R">ggsave</code> with <code class="src src-R">?ggsave</code> if you don't remember how to use it!<br />
+Give it a try:<br />
+use <code class="src src-R">walk2</code> to save the elements of <code class="src src-R">graphs</code> into the elements of <code class="src src-R">paths</code> using <code class="src src-R">ggsave</code>.<br />
+Don't hesitate to look up the help file for <code class="src src-R">ggsave</code> with <code class="src src-R">?ggsave</code> if you don't remember how to use it!<br />
 </p>
+
+</div>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbdf2965" class="outline-2">
-<h2 id="orgbdf2965"><span class="section-number-2">3</span> Your turn!</h2>
+<div id="outline-container-orgba00a87" class="outline-2">
+<h2 id="orgba00a87"><span class="section-number-2">3</span> Your turn!</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org776f106" class="outline-3">
-<h3 id="org776f106"><span class="section-number-3">3.1</span> Create new fake data</h3>
+<div id="outline-container-orga5dec93" class="outline-3">
+<h3 id="orga5dec93"><span class="section-number-3">3.1</span> Create new fake data</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 This time, imagine that bird1 to bird5 are kept in captivity. Their mass is monitored regularly to make sure they are not loosing weight.<br />
@@ -1113,8 +1122,8 @@ Spend 5 min brainstorming on this and feel free to talk to each other!<br />
 </div>
 </div>
 
-<div id="outline-container-org794880f" class="outline-3">
-<h3 id="org794880f"><span class="section-number-3">3.2</span> Apply functions to each variable</h3>
+<div id="outline-container-org3372a14" class="outline-3">
+<h3 id="org3372a14"><span class="section-number-3">3.2</span> Apply functions to each variable</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 How could you calculate the mean for each bird?<br />
@@ -1142,17 +1151,17 @@ Spend 2 min writing codes for these.<br />
 </div>
 </div>
 
-<div id="outline-container-org71b697c" class="outline-2">
-<h2 id="org71b697c"><span class="section-number-2">4</span> Summary of the map and walk functions family</h2>
+<div id="outline-container-org6492418" class="outline-2">
+<h2 id="org6492418"><span class="section-number-2">4</span> Summary of the map and walk functions family</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 We will use different <code class="src src-R">map</code> (or <code class="src src-R">walk</code>, if we want the side effects) function depending on:<br />
 </p>
-</div>
 
-<div id="outline-container-org094efd9" class="outline-3">
-<h3 id="org094efd9"><span class="section-number-3">4.1</span> How many lists we are using in the input</h3>
-<div class="outline-text-3" id="text-4-1">
+<p class="verse">
+- How many lists we are using in the input<br />
+</p>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1196,12 +1205,13 @@ We will use different <code class="src src-R">map</code> (or <code class="src sr
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 
-<div id="outline-container-orgf030ce5" class="outline-3">
-<h3 id="orgf030ce5"><span class="section-number-3">4.2</span> The class of the output we want</h3>
-<div class="outline-text-3" id="text-4-2">
+<br>
+
+<p class="verse">
+- The class of the output we want<br />
+</p>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1224,14 +1234,14 @@ We will use different <code class="src src-R">map</code> (or <code class="src sr
 </thead>
 <tbody>
 <tr>
-<td class="org-left">nothing</td>
+<td class="org-left">nothing*</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left"><code>walk</code></td>
 </tr>
 
 <tr>
-<td class="org-left">list</td>
+<td class="org-left">list*</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left"><code>map</code></td>
@@ -1284,8 +1294,13 @@ We will use different <code class="src src-R">map</code> (or <code class="src sr
 <br>
 
 <p>
-This is all very consistent. And as Jenny Bryan <a href="https://speakerdeck.com/jennybc/data-rectangling">presents it</a>:<br />
+Results are returned predictably and consistently, which is <a href="https://blog.rstudio.com/2016/01/06/purrr-0-2-0/">not the case</a> of <code class="src src-R"><span class="org-ess-function-call">sapply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>.<br />
 </p>
+
+<p>
+*As Jenny Bryan <a href="https://speakerdeck.com/jennybc/data-rectangling">said it nicely</a>:<br />
+</p>
+
 <blockquote>
 <p>
 "<code class="src src-R"><span class="org-ess-function-call">walk</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> can be thought of as <code class="src src-R"><span class="org-ess-function-call">map_nothing</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code><br />
@@ -1295,12 +1310,13 @@ This is all very consistent. And as Jenny Bryan <a href="https://speakerdeck.com
 <code class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> can be thought of as <code class="src src-R"><span class="org-ess-function-call">map_list</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>"<br />
 </p>
 </blockquote>
-</div>
-</div>
 
-<div id="outline-container-orgc2293e9" class="outline-3">
-<h3 id="orgc2293e9"><span class="section-number-3">4.3</span> How we want to select the input</h3>
-<div class="outline-text-3" id="text-4-3">
+<br>
+
+<p class="verse">
+- How we want to select the input<br />
+</p>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1339,13 +1355,16 @@ This is all very consistent. And as Jenny Bryan <a href="https://speakerdeck.com
 </table>
 </div>
 </div>
-</div>
 
-<div id="outline-container-orge2dd2ca" class="outline-2">
-<h2 id="orge2dd2ca"><span class="section-number-2">5</span> Formulas: a shorter notation for anonymous functions</h2>
+<div id="outline-container-org7ee9a78" class="outline-2">
+<h2 id="org7ee9a78"><span class="section-number-2">5</span> Formulas: a shorter notation for anonymous functions</h2>
 <div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orge90187f" class="outline-3">
+<h3 id="orge90187f"><span class="section-number-3">5.1</span> With one element</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
-With one element<br />
+The code:<br />
 </p>
 
 <div class="org-src-container">
@@ -1373,9 +1392,14 @@ Your turn: write the following anonymous function as a formula.<br />
 <pre class="src src-R"><span class="org-ess-keyword">function</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-function-call">mean</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>x<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-operator">+</span> <span class="org-ess-numbers">3</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-orgd1054d6" class="outline-3">
+<h3 id="orgd1054d6"><span class="section-number-3">5.2</span> With 2 elements</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
-With 2 elements:<br />
+The code:<br />
 </p>
 
 <div class="org-src-container">
@@ -1393,9 +1417,9 @@ can be shortened to:<br />
 </div>
 </div>
 
-<div id="outline-container-org741f9e1" class="outline-3">
-<h3 id="org741f9e1"><span class="section-number-3">5.1</span> Referring to elements</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-org72b9bff" class="outline-4">
+<h4 id="org72b9bff"><span class="section-number-4">5.2.1</span> Referring to elements</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1464,33 +1488,11 @@ Your turn: write the following anonymous function as a formula.<br />
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org31402c7" class="outline-2">
-<h2 id="org31402c7"><span class="section-number-2">6</span> Nested data frames</h2>
+<div id="outline-container-org1ad91c3" class="outline-2">
+<h2 id="org1ad91c3"><span class="section-number-2">6</span> Conclusion</h2>
 <div class="outline-text-2" id="text-6">
-<p>
-A nested data frame is a data frame of data frames: some of the cells of this master data frame contains data frames as values. Of course, there is no limit to that and you can have data frames nested within data frames nested within data frames nested within&#x2026; you get the idea. This leads to the concept of "depth".<br />
-</p>
-
-<div class="org-src-container">
-<pre class="src src-R">
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgfbcfbe6" class="outline-2">
-<h2 id="orgfbcfbe6"><span class="section-number-2">7</span> List columns</h2>
-<div class="outline-text-2" id="text-7">
-<p>
-A list column is a data frame in which some of the columns are made of lists instead of atomic vectors.<br />
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgc281c68" class="outline-2">
-<h2 id="orgc281c68"><span class="section-number-2">8</span> Conclusion</h2>
-<div class="outline-text-2" id="text-8">
 <p>
 These are the most important <code class="src src-R">purrr</code> functions. But there are others that you should explore :)<br />
 </p>

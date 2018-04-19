@@ -89,9 +89,9 @@ banding <- data.frame(
   bird = paste0("bird", 1:50),
   sex = sample(c("F", "M"), 50, replace = T),
   population = sample(LETTERS[1:3], 50, replace = T),
-  mass = rnorm(50, 43, 4),
-  tarsus = rnorm(50, 27, 1),
-  wing = rnorm(50, 112, 3)
+  mass = rnorm(50, 43, 4) %>% round(1),
+  tarsus = rnorm(50, 27, 1) %>% round(1),
+  wing = rnorm(50, 112, 3) %>% round(0)
 )
 
 banding
@@ -108,7 +108,7 @@ How would you do this?
 Spend 5 minutes writing code you would usually use.
 #+END_VERBATIM
 
-To modify the elements of a list, you can use the modify functions family:
+To modify the elements of a list, you can use the src_R[:eval no]{modify()} functions family.
 
 *** Usage
 
@@ -140,7 +140,7 @@ modify(list, function)
 
 Now, this is how all factors in our data frame can be converted into character vectors using src_R[:eval no]{modify_if()}:
 
-#+BEGIN_SRC R :exports none
+#+BEGIN_SRC R
 banding %<>%
   modify_if(is.factor, as.character) %T>%
   str()
@@ -156,7 +156,7 @@ Wait: what were all these weird looking pipes??
 
 src_R[:eval no]{%<>%} pipes the left expression to the right, and then back to the left. Instead of a right arrow, think of it as an arrow going from left to right, making a turn and going back to its starting place again.
 
-The code
+The code:
 
 #+BEGIN_SRC R
 banding %<>%
@@ -164,7 +164,7 @@ banding %<>%
   str()
 #+END_SRC
 
-that we used above, is equivalent to
+that we used above, is equivalent to:
 
 #+BEGIN_SRC R
 banding <-
@@ -191,7 +191,7 @@ How would you do this?
 Spend 5 minutes writing code you would usually use.
 #+END_VERBATIM
 
-To apply functions to elements of a list, you can use the src_R[:eval no]{map} functions family:
+To apply functions to elements of a list, you can use the src_R[:eval no]{map} functions family.
 
 *** Usage
 
@@ -245,7 +245,7 @@ How would you do this?
 Spend 5 minutes writing code you would usually use.
 #+END_VERBATIM
 
-To apply side effects to elements of a list, we use the src_R[:eval no]{walk} functions family:
+To apply side effects to elements of a list, we use the src_R[:eval no]{walk} functions family.
 
 *** Usage
 
@@ -284,7 +284,13 @@ walk2(.x, .y, .f, ...)
 ...       additional arguments passed to .f
 #+END_EXAMPLE
 
-Give it a try! Try to write a function using src_R[:eval no]{walk2} that will allow us to save the elements of src_R[:eval no]{graphs} into the elements of src_R[:eval no]{paths} using src_R[:eval no]{ggsave}. Don't hesitate to look up the help file for src_R[:eval no]{ggsave} with src_R[:eval no]{?ggsave} if you don't remember how to use it!
+#+BEGIN_VERBATIM
+Give it a try:
+use src_R[:eval no]{walk2} to save the elements of src_R[:eval no]{graphs} into the elements of src_R[:eval no]{paths} using src_R[:eval no]{ggsave}.
+Don't hesitate to look up the help file for src_R[:eval no]{ggsave} with src_R[:eval no]{?ggsave} if you don't remember how to use it!
+#+END_VERBATIM
+
+# *Answer:*
 
 #+BEGIN_SRC R :exports none
 walk2(paths, graphs, ggsave)
@@ -317,6 +323,8 @@ Using the src_R[:eval no]{map()} function to get to the same result, how would y
 Spend 5 min brainstorming on this and feel free to talk to each other!
 #+END_VERBATIM
 
+# *Answer:*
+
 #+BEGIN_SRC R :exports none
 n_birds <- 1:15
 
@@ -339,6 +347,8 @@ Spend 3 min to think about how to do this using src_R[:eval no]{map()}.
 Feel free to chat with whoever you'd like to.
 #+END_VERBATIM
 
+# *Answer:*
+
 #+BEGIN_SRC R :exports none
 map(df, mean)
 #+END_SRC
@@ -355,6 +365,8 @@ Similarly, you can calculate the variance, the sum, look for the largest value, 
 Spend 2 min writing codes for these.
 #+END_VERBATIM
 
+# *Answer:*
+
 #+BEGIN_SRC R :exports none
 map_dbl(df, var)
 map_dbl(df, sum)
@@ -365,7 +377,9 @@ map_dbl(df, max)
 
 We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want the side effects) function depending on:
 
-** How many lists we are using in the input
+#+BEGIN_VERSE
+- How many lists we are using in the input
+#+END_VERSE
 
 | number of arguments in input |   |   | purrr function    |
 |------------------------------+---+---+-------------------|
@@ -373,12 +387,16 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 |                            2 |   |   | =map2= or =walk2= |
 |                         more |   |   | =pmap= or =pwalk= |
 
-** The class of the output we want
+#+HTML: <br>
+
+#+BEGIN_VERSE
+- The class of the output we want
+#+END_VERSE
 
 | class we want for the output   |   |   | purrr function |
 |--------------------------------+---+---+----------------|
-| nothing                        |   |   | =walk=         |
-| list                           |   |   | =map=          |
+| nothing*                       |   |   | =walk=         |
+| list*                          |   |   | =map=          |
 | double                         |   |   | =map_dbl=      |
 | integer                        |   |   | =map_int=      |
 | character                      |   |   | =map_chr=      |
@@ -388,14 +406,21 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 
 #+HTML: <br>
 
-This is all very consistent. And as Jenny Bryan [[https://speakerdeck.com/jennybc/data-rectangling][presents it]]:
+Results are returned predictably and consistently, which is [[https://blog.rstudio.com/2016/01/06/purrr-0-2-0/][not the case]] of src_R[:eval no]{sapply()}.
+
+*As Jenny Bryan [[https://speakerdeck.com/jennybc/data-rectangling][said it nicely]]:
+
 #+BEGIN_QUOTE
 "src_R[:eval no]{walk()} can be thought of as src_R[:eval no]{map_nothing()}
 
 src_R[:eval no]{map()} can be thought of as src_R[:eval no]{map_list()}"
 #+END_QUOTE
 
-** How we want to select the input
+#+HTML: <br>
+
+#+BEGIN_VERSE
+- How we want to select the input
+#+END_VERSE
 
 | selecting input based on |   |   | purrr function |
 |--------------------------+---+---+----------------|
@@ -404,7 +429,9 @@ src_R[:eval no]{map()} can be thought of as src_R[:eval no]{map_list()}"
 
 * Formulas: a shorter notation for anonymous functions
 
-With one element
+** With one element
+
+The code:
 
 #+BEGIN_SRC R
 function(x) x + 3
@@ -424,11 +451,15 @@ Your turn: write the following anonymous function as a formula.
 function(x) mean(x) + 3
 #+END_SRC
 
+# *Answer:*
+
 #+BEGIN_SRC R :exports none
 ~ mean(.) + 3
 #+END_SRC
 
-With 2 elements:
+** With 2 elements
+
+The code:
 
 #+BEGIN_SRC R
 function(x, y) x + y
@@ -440,7 +471,7 @@ can be shortened to:
 ~ .x + .y
 #+END_SRC
 
-** Referring to elements
+*** Referring to elements
 
 | 1st element |   | 2nd element |   | 3rd element |
 |-------------+---+-------------+---+-------------|
@@ -458,21 +489,19 @@ Your turn: write the following anonymous function as a formula.
 function(x1, x2, y) lm(y ~ x1 + x2)
 #+END_SRC
 
+# *Answer:*
+
 #+BEGIN_SRC R :exports none
 ~ lm(..3 ~ ..1 + ..2)
 #+END_SRC
 
-* Nested data frames
+# * Nested data frames
 
-A nested data frame is a data frame of data frames: some of the cells of this master data frame contains data frames as values. Of course, there is no limit to that and you can have data frames nested within data frames nested within data frames nested within... you get the idea. This leads to the concept of "depth".
+# A nested data frame is a data frame of data frames: some of the cells of this master data frame contains data frames as values. Of course, there is no limit to that and you can have data frames nested within data frames nested within data frames nested within... you get the idea. This leads to the concept of "depth".
 
-#+BEGIN_SRC R
+# * List columns
 
-#+END_SRC
-
-* List columns
-
-A list column is a data frame in which some of the columns are made of lists instead of atomic vectors.
+# A list column is a data frame in which some of the columns are made of lists instead of atomic vectors.
 
 * Conclusion
 
