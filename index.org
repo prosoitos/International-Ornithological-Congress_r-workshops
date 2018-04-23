@@ -11,27 +11,57 @@
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-Most of us biologists, do not learn R properly: we do not have a computing science background, we do not necessarily have access to R courses, and when we do, these seldom make use of modern R tools. So, for the most part, we learn R as we go, on our own. And we become good at problem solving. But do we ever become good at solving R problems /well/?
+Most of us biologists, do not learn R properly: we do not have a computing science background, we do not necessarily have access to R courses, and when we do, these seldom make use of modern tools. So, for the most part, we learn R as we go and we become good at problem solving. But do we ever become good at writing good R code?
 
-Having code that works is great of course. But having code that is more efficient, easier to read, less prone to errors, shorter, clearer, cleaner, and which makes a better use of R's characteristics as a coding language, is certainly a whole lot better.
+This workshop focuses on two sets of considerations important for writing better code:
 
-# This tutorial follows the recommendations and "views" of the src_R[:eval no]{tidyverse}, a set of modern R packages. It will start with a very short introduction to best practices in R for reproducibility and readability, then dive into the subject of functional programming using the src_R[:eval no]{tidyverse} package src_R[:eval no]{purrr}.
+* 1. Portability, reproducibility, and readability
 
-* Part 1 (very briefly): Best practices in R
+Code that is portable, reproducible, and readable is critical when collaborating on projects. At the start of this workshop, we will briefly go over:
 
 - Self-contained projects for portability (as described by [[https://github.com/jennybc][Jenny Bryan]]),
-- Clean sessions for reproducibility
-- Formatting for better readability (as suggested by [[http://hadley.nz/][Hadley Wickham]]).
+- Clean sessions for reproducibility,
+- Standard formatting for better readability (as suggested by [[http://hadley.nz/][Hadley Wickham]]).
 
 The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html][here]].
 
-* Part 2: Functional programming in R with purrr
+* 2. Functional programming (with the package purrr)
 
-- Introduction to functional programming,
-- How to apply functions to many elements with some of the main src_R[:eval no]{purrr} functions,
-- Bonus sidetrack: a few of the less used pipes of the src_R[:eval no]{magrittr} package.
+What do you do when you  need to apply similar code to multiple datasets or multiple variables within datasets?
 
-The workshop material (without exercise solutions) can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html][here]].
+You wrote some code that works on tarsus length. Now, you would like to apply it to the rest of your banding data. Or you applied code to a population and you would like to apply it to other populations. Or you wrangled the data in a file, but you have a whole folder full of similar files...
+
+Copying and pasting code, besides being tedious, is a form of hard coding and is thus prone to errors. Loops provide a better approach, but they require a lot of code and still involve some level of repetition. Functional programming is a coding paradigm in which functions are applied to several elements in a vectorized fashion. This makes for compact code that is much easier to read and takes advantage of the vector-based nature of R. The src_R[:eval no]{purrr} package (part of the core src_R[:eval no]{tidyverse}) provides a collection of efficient and consistent tools to functional programming in R.
+
+Most of our workshop time will focus on:
+
+- A very brief introduction to functional programming,
+- How to apply functions to several elements of a list/vector with some of the main src_R[:eval no]{purrr} functions,
+- And a bonus unrelated sidetrack on a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
+
+The workshop material (without the solutions to the short challenges) can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html][here]].
+
+** Target audience
+
+- Intermediate R users comfortable with basic data manipulation and simple functions, or
+- Advanced users familiar with functional programming using the src_R[:eval no]{apply()} functions family and interested in discovering the "purrring" way.
+
+** Software requirements
+
+In order to make the best of this workshop, please bring a laptop with the following installed:
+
+- the *latest* R version (if you usually run R in RStudio, make sure that you also have the latest RStudio),
+- the *latest* version of the src_R[:eval no]{tidyverse} package,
+- the *latest* version of the src_R[:eval no]{patchwork} package.
+
+At the time of this writing, the src_R[:eval no]{patchwork} package is not yet on CRAN and can be installed by running:
+
+#+BEGIN_SRC R
+install.packages("devtools")                      # if you haven't installed it already
+devtools::install_github("thomasp85/patchwork")
+#+END_SRC
+
+No data file is needed for this workshop.
 
 #+HTML: <br>
 
