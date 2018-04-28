@@ -61,7 +61,7 @@ install.packages("devtools")                      # if you haven't installed it 
 devtools::install_github("thomasp85/patchwork")
 #+END_SRC
 
-No data file is needed for this workshop[[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_with-answer.html][.]]
+No data file is needed for this workshop[[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_with-answers.html][.]]
 
 #+HTML: <br>
 
