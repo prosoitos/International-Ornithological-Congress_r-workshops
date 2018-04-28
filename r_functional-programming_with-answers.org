@@ -15,25 +15,26 @@
 
 ** What is functional programming?
 
-It is a programming paradigm based on the evaluation of functions. This is opposed to /imperative  programming/. Some languages are based strictly on functional programming (e.g. Haskell), others 
+It is a programming paradigm based on the evaluation of functions. This is opposed to /imperative  programming/. While some languages are based strictly on functional programming (e.g. Haskell), R allows both imperative code (e.g. loops) and functional code (e.g. many base functions, the src_R[:eval no]{apply()} family, src_R[:eval no]{purrr}).
 
 ** Iterations
 
-Repetition of a process (e.g. applying the same function to several variables).
+Iterations are the repetition of a process (e.g. applying the same function to several variables, several datasets, or several files).
 
-Classic methods:
+The classic methods in R are:
+
 - loops
-- src_R[:eval no]{apply} functions family
+- src_R[:eval no]{apply()} functions family
 
 ** The purrr package
 
-One of the src_R[:eval no]{tidyverse} core packages, src_R[:eval no]{purrr} was written a few years ago by [[https://github.com/lionel-][Lionel Henry]] (also the maintainer), [[http://hadley.nz/][Hadley Wickham]], and [[https://www.rstudio.com/][RStudio inc.]] 
+One of the src_R[:eval no]{tidyverse} core packages, src_R[:eval no]{purrr} was written in 2015 ago by [[https://github.com/lionel-][Lionel Henry]] (also the maintainer), [[http://hadley.nz/][Hadley Wickham]], and [[https://www.rstudio.com/][RStudio inc.]] 
 
 *** Goal
 
 src_R[:eval no]{Purrr} is a set of tools allowing consistent functional programming in R in a src_R[:eval no]{tidyverse} style (using src_R[:eval no]{magrittr} pipes and following the same naming conventions found in other src_R[:eval no]{tidyverse} packages).
 
-As Hadley Wickham says, in many ways, src_R[:eval no]{purrr} is the equivalent of the src_R[:eval no]{dplyr}, but while src_R[:eval no]{dplyr} focuses on data frames, src_R[:eval no]{purrr} works on vectors: it works on the elements of atomic vectors, lists, and data frames.
+As Hadley Wickham says, in many ways, src_R[:eval no]{purrr} is the equivalent of the src_R[:eval no]{dplyr}, but while src_R[:eval no]{dplyr} focuses on data frames, src_R[:eval no]{purrr} works on vectors: it works on the elements of atomic vectors, lists, and data frames. Since R's most basic data structure is the vector, this makes src_R[:eval no]{purrr} extremely powerful and flexible.
 
 *** Logistics
 
