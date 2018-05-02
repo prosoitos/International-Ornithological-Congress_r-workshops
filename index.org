@@ -23,7 +23,7 @@ Code that is portable, reproducible, and readable is critical when collaborating
 - Clean sessions for reproducibility,
 - Standard formatting for better readability (as suggested by [[http://hadley.nz/][Hadley Wickham]]).
 
-The workshop material can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html][here]].
+The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_best-practices.html][here]].
 
 * 2. Functional programming (with the package purrr)
 
@@ -39,7 +39,7 @@ Most of our workshop time will focus on:
 - How to apply functions to several elements of a list/vector with some of the main src_R[:eval no]{purrr} functions,
 - And a bonus unrelated sidetrack on a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
 
-The workshop material (without the solutions to the short challenges) can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html][here]].
+The workshop material (without the solutions to the short challenges) can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_no-answer.html][here]].
 
 ** Target audience
 
@@ -61,7 +61,7 @@ install.packages("devtools")                      # if you haven't installed it 
 devtools::install_github("thomasp85/patchwork")
 #+END_SRC
 
-No data file is needed for this workshop[[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_with-answers.html][.]]
+No data file is needed for this workshop[[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html][.]]
 
 #+HTML: <br>
 

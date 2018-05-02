@@ -9,4 +9,4 @@
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-The workshop description can be found [[https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/][here]].
+The workshop description can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/][here]].

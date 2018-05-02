@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-27 Fri 18:52 -->
+<!-- 2018-05-02 Wed 10:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</title>
@@ -266,11 +266,20 @@
     border-radius: 5px;
     box-shadow: 0pt 0pt 0pt #eee8d5;
   }
+  pre[class="src src-sh"] {	/*for blocks src sh*/
+    background-color: #f1f1f1;
+    color: #262626;
+    padding: 0.8em;
+    font-size: 95%;
+    line-height: 22px;
+    border: 0.5pt solid #d9d9d9;
+    border-radius: 5px;
+    box-shadow: 0pt 0pt 0pt #eee8d5;
+  }
   .accordion {			/*for the button of the box that can hide/appear*/
     background-color: #c2d6d6;
     color: #262626;
-    padding: 0;
-    text-align: center;
+    padding: 0 0.8em;
     font-size: 95%;
     line-height: 22px;
     border: 0.5pt solid #b3cccc;
@@ -278,7 +287,6 @@
     box-shadow: 0pt 0pt 0pt #eee8d5;
     transition: 0.4s;
     cursor: pointer;
-    padding: 0;
     outline: none;
   }
   .active, .accordion:hover {	/*for the button of the box while hover*/
@@ -339,12 +347,16 @@
     line-height: 22px;
     width: max-content;
   }
-  div[class="HAND"] {		/*for block ascii*/
+  div[class="right"] {	/*for block right-aligned*/
+    text-align: right;
+    line-height: 22px;
+  }
+  div[class="HAND"] {		/*for block with handwriting font*/
     font-family: 'Montez';
     line-height: 26px;
     font-size: 130%;
   }
-  div[class="MONO"] {	/*for block verbatim*/
+  div[class="MONO"] {	/*for block with monospace font*/
     /* font-family: 'Anonymous Pro'; */
     font-family: 'Roboto Slab Thin';
     margin: auto;
@@ -493,7 +505,7 @@
     border-radius: 0.2em;
     background-color: #859900;
   }
-   
+  
   /* TOC inspired by http://jashkenas.github.com/coffee-script */
   #table-of-contents {
     font-size: 10pt;
@@ -602,7 +614,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>April 27, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>May 02, 2018</span>
 </div>
 <div id="content">
 <h1 class="title"><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</h1>
@@ -610,11 +622,11 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org06db1d0">1. Portability, reproducibility, and readability</a></li>
-<li><a href="#org0666ea9">2. Functional programming (with the package purrr)</a>
+<li><a href="#org3972a41">1. Portability, reproducibility, and readability</a></li>
+<li><a href="#org2e2b4ee">2. Functional programming (with the package purrr)</a>
 <ul>
-<li><a href="#orgf94c791">Target audience</a></li>
-<li><a href="#orga95af4c">Software requirements</a></li>
+<li><a href="#org768de9f">Target audience</a></li>
+<li><a href="#orgf2acf94">Software requirements</a></li>
 </ul>
 </li>
 </ul>
@@ -628,9 +640,9 @@ Most of us biologists, do not learn R properly: we do not have a computing scien
 This workshop focuses on two sets of considerations important for writing better code:<br />
 </p>
 
-<div id="outline-container-org06db1d0" class="outline-2">
-<h2 id="org06db1d0">1. Portability, reproducibility, and readability</h2>
-<div class="outline-text-2" id="text-org06db1d0">
+<div id="outline-container-org3972a41" class="outline-2">
+<h2 id="org3972a41">1. Portability, reproducibility, and readability</h2>
+<div class="outline-text-2" id="text-org3972a41">
 <p>
 Code that is portable, reproducible, and readable is critical when collaborating on projects. At the start of this workshop, we will briefly go over:<br />
 </p>
@@ -642,14 +654,14 @@ Code that is portable, reproducible, and readable is critical when collaborating
 </ul>
 
 <p>
-The workshop material can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_best-practices.html">here</a>.<br />
+The workshop material can be found <a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_best-practices.html">here</a>.<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0666ea9" class="outline-2">
-<h2 id="org0666ea9">2. Functional programming (with the package purrr)</h2>
-<div class="outline-text-2" id="text-org0666ea9">
+<div id="outline-container-org2e2b4ee" class="outline-2">
+<h2 id="org2e2b4ee">2. Functional programming (with the package purrr)</h2>
+<div class="outline-text-2" id="text-org2e2b4ee">
 <p>
 What do you do when you  need to apply similar code to multiple datasets or multiple variables within datasets?<br />
 </p>
@@ -673,13 +685,13 @@ Most of our workshop time will focus on:<br />
 </ul>
 
 <p>
-The workshop material (without the solutions to the short challenges) can be found <a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_no-answer.html">here</a>.<br />
+The workshop material (without the solutions to the short challenges) can be found <a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_no-answer.html">here</a>.<br />
 </p>
 </div>
 
-<div id="outline-container-orgf94c791" class="outline-3">
-<h3 id="orgf94c791">Target audience</h3>
-<div class="outline-text-3" id="text-orgf94c791">
+<div id="outline-container-org768de9f" class="outline-3">
+<h3 id="org768de9f">Target audience</h3>
+<div class="outline-text-3" id="text-org768de9f">
 <ul class="org-ul">
 <li>Intermediate R users comfortable with basic data manipulation and simple functions, or<br /></li>
 <li>Advanced users familiar with functional programming using the <code class="src src-R"><span class="org-ess-function-call">apply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> functions family and interested in discovering the "purrring" way.<br /></li>
@@ -687,9 +699,9 @@ The workshop material (without the solutions to the short challenges) can be fou
 </div>
 </div>
 
-<div id="outline-container-orga95af4c" class="outline-3">
-<h3 id="orga95af4c">Software requirements</h3>
-<div class="outline-text-3" id="text-orga95af4c">
+<div id="outline-container-orgf2acf94" class="outline-3">
+<h3 id="orgf2acf94">Software requirements</h3>
+<div class="outline-text-3" id="text-orgf2acf94">
 <p>
 In order to make the best of this workshop, please bring a laptop with the following installed:<br />
 </p>
@@ -711,7 +723,7 @@ devtools::<span class="org-ess-function-call">install_github</span><span class="
 </div>
 
 <p>
-No data file is needed for this workshop<a href="https://prosoitos.github.io/International-Ornithological-Congress_r-workshops/r_functional-programming_with-answers.html">.</a><br />
+No data file is needed for this workshop<a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html">.</a><br />
 </p>
 
 <br>
