@@ -1,0 +1,15 @@
+#+OPTIONS: title:t date:t author:t email:nil
+#+OPTIONS: toc:t h:6 num:nil |:t todo:nil
+#+OPTIONS: *:t -:t ::t <:t \n:t e:t creator:nil
+#+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
+#+OPTIONS: html-preamble:t html-postamble:nil
+
+#+TITLE:   IOC workshop volunteer list
+#+DATE:	   {{{time(%B %d\, %Y)}}}
+#+AUTHOR:  Marie-Hélène Burle
+#+EMAIL:   msb2@sfu.ca
+
+| name              | goes by | country | twitter          | email                  |
+|-------------------+---------+---------+------------------+------------------------|
+| Jez Smith         | Jez     | UK      | @PiedflyWales    | smithj53@cardiff.ac.uk |
+| Helen Claire Gath | Helen   | UK      | @HelenClaireGath | Helen.Gath@ioz.ac.uk   |

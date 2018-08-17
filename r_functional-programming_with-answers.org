@@ -28,7 +28,7 @@ The classic methods in R are:
 
 ** The purrr package
 
-One of the src_R[:eval no]{tidyverse} core packages, src_R[:eval no]{purrr} was written in 2015 ago by [[https://github.com/lionel-][Lionel Henry]] (also the maintainer), [[http://hadley.nz/][Hadley Wickham]], and [[https://www.rstudio.com/][RStudio inc.]] 
+One of the src_R[:eval no]{tidyverse} core packages, src_R[:eval no]{purrr} was written in 2015 by [[https://github.com/lionel-][Lionel Henry]] (also the maintainer), [[http://hadley.nz/][Hadley Wickham]], and [[https://www.rstudio.com/][RStudio inc.]] 
 
 *** Goal
 
