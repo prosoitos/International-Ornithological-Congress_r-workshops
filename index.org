@@ -27,12 +27,12 @@ Code that is portable, reproducible, and readable is critical when collaborating
 
 What do you do when you need to apply the same treatment to multiple datasets or multiple variables within a dataset?
 
-Imagine that you have a banding data file and you just wrote some code to transform the raw tarsus length data in a format suitable to analysis. Now, you would like to apply the same code to other variables of your banding data.
+Imagine that you have a banding data file and you just wrote some code to transform the raw tarsus length data in a format suitable to analysis. Now, you would like to apply the same code to other variables in your banding data.
 Or you wrangled the data in a file by a series of steps. But you have a whole folder full of similar files...
 
 How do you do this?
 
-Copying and pasting code, besides being tedious, is a form of hard coding and is thus prone to errors. Loops provide a much better approach, but they require a lot of code and still involve some level of repetition. They are also hard to read and the goal of your code might not be obvious right away when you will go back to it or if you give it to someone else. Functional programming is a coding paradigm in which functions are applied to several elements in a vectorized fashion. This makes for compact code that is much clearer and takes advantage of the vector-based nature of R. The src_R[:eval no]{purrr} package (part of the core src_R[:eval no]{tidyverse}) provides a collection of efficient and consistent tools to functional programming in R.
+Copying and pasting code, besides being tedious, is a form of hard coding and is thus prone to errors. Loops provide a much better approach, but they require a lot of code and still involve some level of repetition. They are also hard to read and the goal of your code might not be obvious right away when you go back to it or you give it to someone else. Functional programming is a coding paradigm in which functions are applied to several elements in a vectorized fashion. This makes for compact code that is much clearer and takes advantage of the vector-based nature of R. The src_R[:eval no]{purrr} package (part of the core src_R[:eval no]{tidyverse}) provides a collection of efficient and consistent tools to functional programming in R.
 
 Most of our workshop time will focus on:
 
