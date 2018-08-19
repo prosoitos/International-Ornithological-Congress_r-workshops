@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-05-02 Wed 10:31 -->
+<!-- 2018-08-18 Sat 20:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</title>
@@ -614,7 +614,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>May 02, 2018</span>
+<span style="color:#596a73; font-size:16px"><b>Marie-Hélène Burle</b><br>August 18, 2018</span>
 </div>
 <div id="content">
 <h1 class="title"><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</h1>
@@ -622,27 +622,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3972a41">1. Portability, reproducibility, and readability</a></li>
-<li><a href="#org2e2b4ee">2. Functional programming (with the package purrr)</a>
+<li><a href="#org1ede6f3">1. Portability, reproducibility, and readability</a></li>
+<li><a href="#orgdfc5a61">2. Functional programming</a>
 <ul>
-<li><a href="#org768de9f">Target audience</a></li>
-<li><a href="#orgf2acf94">Software requirements</a></li>
+<li><a href="#orga395d1a">Target audience</a></li>
+<li><a href="#org85ef4e7">Software requirements</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <p>
-Most of us biologists, do not learn R properly: we do not have a computing science background, we do not necessarily have access to R courses, and when we do, these seldom make use of modern tools. So, for the most part, we learn R as we go and we become good at problem solving. But do we ever become good at writing good R code?<br />
+Most of us biologists do not learn R properly: we do not have a computing science background, we do not necessarily have access to R courses, and when we do, these seldom make use of the latest tools. So, for the most part, we learn R as we go and we become good at problem solving. But do we ever become good at writing good R code?<br />
 </p>
 
 <p>
 This workshop focuses on two sets of considerations important for writing better code:<br />
 </p>
 
-<div id="outline-container-org3972a41" class="outline-2">
-<h2 id="org3972a41">1. Portability, reproducibility, and readability</h2>
-<div class="outline-text-2" id="text-org3972a41">
+<div id="outline-container-org1ede6f3" class="outline-2">
+<h2 id="org1ede6f3">1. Portability, reproducibility, and readability</h2>
+<div class="outline-text-2" id="text-org1ede6f3">
 <p>
 Code that is portable, reproducible, and readable is critical when collaborating on projects. At the start of this workshop, we will briefly go over:<br />
 </p>
@@ -652,26 +652,27 @@ Code that is portable, reproducible, and readable is critical when collaborating
 <li>Clean sessions for reproducibility,<br /></li>
 <li>Standard formatting for better readability (as suggested by <a href="http://hadley.nz/">Hadley Wickham</a>).<br /></li>
 </ul>
-
-<p>
-The workshop material can be found <a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_best-practices.html">here</a>.<br />
-</p>
 </div>
 </div>
 
-<div id="outline-container-org2e2b4ee" class="outline-2">
-<h2 id="org2e2b4ee">2. Functional programming (with the package purrr)</h2>
-<div class="outline-text-2" id="text-org2e2b4ee">
+<div id="outline-container-orgdfc5a61" class="outline-2">
+<h2 id="orgdfc5a61">2. Functional programming</h2>
+<div class="outline-text-2" id="text-orgdfc5a61">
 <p>
-What do you do when you  need to apply similar code to multiple datasets or multiple variables within datasets?<br />
+What do you do when you need to apply the same treatment to multiple datasets or multiple variables within a dataset?<br />
 </p>
 
 <p>
-You wrote some code that works on tarsus length. Now, you would like to apply it to the rest of your banding data. Or you applied code to a population and you would like to apply it to other populations. Or you wrangled the data in a file, but you have a whole folder full of similar files&#x2026;<br />
+Imagine that you have a banding data file and you just wrote some code to transform the raw tarsus length data in a format suitable to analysis. Now, you would like to apply the same code to other variables of your banding data.<br />
+Or you wrangled the data in a file by a series of steps. But you have a whole folder full of similar files&#x2026;<br />
 </p>
 
 <p>
-Copying and pasting code, besides being tedious, is a form of hard coding and is thus prone to errors. Loops provide a better approach, but they require a lot of code and still involve some level of repetition. Functional programming is a coding paradigm in which functions are applied to several elements in a vectorized fashion. This makes for compact code that is much easier to read and takes advantage of the vector-based nature of R. The <code class="src src-R">purrr</code> package (part of the core <code class="src src-R">tidyverse</code>) provides a collection of efficient and consistent tools to functional programming in R.<br />
+How do you do this?<br />
+</p>
+
+<p>
+Copying and pasting code, besides being tedious, is a form of hard coding and is thus prone to errors. Loops provide a much better approach, but they require a lot of code and still involve some level of repetition. They are also hard to read and the goal of your code might not be obvious right away when you will go back to it or if you give it to someone else. Functional programming is a coding paradigm in which functions are applied to several elements in a vectorized fashion. This makes for compact code that is much clearer and takes advantage of the vector-based nature of R. The <code class="src src-R">purrr</code> package (part of the core <code class="src src-R">tidyverse</code>) provides a collection of efficient and consistent tools to functional programming in R.<br />
 </p>
 
 <p>
@@ -683,47 +684,33 @@ Most of our workshop time will focus on:<br />
 <li>How to apply functions to several elements of a list/vector with some of the main <code class="src src-R">purrr</code> functions,<br /></li>
 <li>And a bonus unrelated sidetrack on a few of the less used pipes of the <code class="src src-R">magrittr</code> package which are so useful when playing in the <code class="src src-R">tidyverse</code>.<br /></li>
 </ul>
-
-<p>
-The workshop material (without the solutions to the short challenges) can be found <a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_no-answer.html">here</a>.<br />
-</p>
 </div>
 
-<div id="outline-container-org768de9f" class="outline-3">
-<h3 id="org768de9f">Target audience</h3>
-<div class="outline-text-3" id="text-org768de9f">
+<div id="outline-container-orga395d1a" class="outline-3">
+<h3 id="orga395d1a">Target audience</h3>
+<div class="outline-text-3" id="text-orga395d1a">
 <ul class="org-ul">
-<li>Intermediate R users comfortable with basic data manipulation and simple functions, or<br /></li>
-<li>Advanced users familiar with functional programming using the <code class="src src-R"><span class="org-ess-function-call">apply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> functions family and interested in discovering the "purrring" way.<br /></li>
+<li>Intermediate R users comfortable with basic data manipulation and simple functions,<br /></li>
+<li>Advanced users familiar with functional programming using the family of the <code class="src src-R"><span class="org-ess-function-call">apply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> functions and interested in discovering the "purrring" way.<br /></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf2acf94" class="outline-3">
-<h3 id="orgf2acf94">Software requirements</h3>
-<div class="outline-text-3" id="text-orgf2acf94">
+<div id="outline-container-org85ef4e7" class="outline-3">
+<h3 id="org85ef4e7">Software requirements</h3>
+<div class="outline-text-3" id="text-org85ef4e7">
 <p>
 In order to make the best of this workshop, please bring a laptop with the following installed:<br />
 </p>
 
 <ul class="org-ul">
-<li>the <b>latest</b> R version (if you usually run R in RStudio, make sure that you also have the latest RStudio),<br /></li>
+<li>the <b>latest</b> R release (3.5.1 <i>Feather Spray</i>),<br /></li>
 <li>the <b>latest</b> version of the <code class="src src-R">tidyverse</code> package,<br /></li>
-<li>the <b>latest</b> version of the <code class="src src-R">patchwork</code> package.<br /></li>
+<li>and if you usually run R in RStudio, please also make sure to have the <b>latest</b> RStudio.<br /></li>
 </ul>
 
 <p>
-At the time of this writing, the <code class="src src-R">patchwork</code> package is not yet on CRAN and can be installed by running:<br />
-</p>
-
-<div class="org-src-container">
-<pre class="src src-R"><span class="org-ess-function-call">install.packages</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"devtools"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>                      <span class="org-comment-delimiter"># </span><span class="org-comment">if you haven't installed it already</span>
-devtools::<span class="org-ess-function-call">install_github</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-string">"thomasp85/patchwork"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
-</pre>
-</div>
-
-<p>
-No data file is needed for this workshop<a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html">.</a><br />
+No data file is needed for this workshop.<br />
 </p>
 
 <br>
@@ -731,8 +718,9 @@ No data file is needed for this workshop<a href="https://prosoitos.github.io/r_w
 <p class="verse">
 About myself:<br />
 I am a PhD candidate in the <a href="https://www.sfu.ca/biology/wildberg/NewCWEPage/CWEnewTestHome.htm">Centre for Wildlife Ecology</a> at <a href="https://www.sfu.ca/">Simon Fraser University</a>,<br />
-an R Peer at the <a href="https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html">Research Commons</a>,<br />
+an R Data Peer at the <a href="https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html">Research Commons</a>,<br />
 a <a href="https://www.lib.sfu.ca/about/branches-depts/slc/slc-who/grad-facilitators/undergraduate-writing">Graduate Writing Facilitator</a> at the <a href="https://www.lib.sfu.ca/about/branches-depts/slc">Student Learning Commons</a>,<br />
+an admin of the <a href="http://sciprog.ca/">Scientific Programming Study Group</a>,<br />
 and a certified <a href="https://software-carpentry.org/">Software Carpentry</a> and <a href="http://www.datacarpentry.org/">Data Carpentry</a> instructor.<br />
 </p>
 </div>

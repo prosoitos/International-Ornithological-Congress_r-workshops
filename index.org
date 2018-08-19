@@ -42,15 +42,16 @@ Most of our workshop time will focus on:
 
 ** Target audience
 
-- Intermediate R users comfortable with basic data manipulation and simple functions
-- Advanced users familiar with functional programming using the src_R[:eval no]{apply()} functions and interested in discovering the "purrring" way
+- Intermediate R users comfortable with basic data manipulation and simple functions,
+- Advanced users familiar with functional programming using the family of the src_R[:eval no]{apply()} functions and interested in discovering the "purrring" way.
 
 ** Software requirements
 
 In order to make the best of this workshop, please bring a laptop with the following installed:
 
-- the *latest* R version (if you usually run R in RStudio, make sure that you also have the latest RStudio),
-- the *latest* version of the src_R[:eval no]{tidyverse} package.
+- the *latest* R release (3.5.1 /Feather Spray/),
+- the *latest* version of the src_R[:eval no]{tidyverse} package,
+- and if you usually run R in RStudio, please also make sure to have the *latest* RStudio.
 
 No data file is needed for this workshop.
 
@@ -61,6 +62,6 @@ About myself:
 I am a PhD candidate in the [[https://www.sfu.ca/biology/wildberg/NewCWEPage/CWEnewTestHome.htm][Centre for Wildlife Ecology]] at [[https://www.sfu.ca/][Simon Fraser University]],
 an R Data Peer at the [[https://www.sfu.ca/dean-gradstudies/new_graduate_students/campus_services/research-commons.html][Research Commons]],
 a [[https://www.lib.sfu.ca/about/branches-depts/slc/slc-who/grad-facilitators/undergraduate-writing][Graduate Writing Facilitator]] at the [[https://www.lib.sfu.ca/about/branches-depts/slc][Student Learning Commons]],
-a admin of the [[http://sciprog.ca/][Scientific Programming Study Group]],
+an admin of the [[http://sciprog.ca/][Scientific Programming Study Group]],
 and a certified [[https://software-carpentry.org/][Software Carpentry]] and [[http://www.datacarpentry.org/][Data Carpentry]] instructor.
 #+END_VERSE
