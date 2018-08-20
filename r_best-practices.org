@@ -6,20 +6,26 @@
 
 #+PROPERTY: header-args:R :session R:best-prac :results output :exports code :tangle yes :comments link :eval no
 
-#+TITLE:   Best practices in R
+#+TITLE:   Tips on best practices in R
 #+DATE:	   {{{time(%B %d\, %Y)}}}
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-* Self contained projects
+* Self-contained projects
+
+** What is a self-contained project?
 
 #+BEGIN_VERBATIM
-Work in projects.
+Work in self-contained projects
 #+END_VERBATIM
 
-If you use RStudio, create RStudio projects. If you don't, still create projects.
+This is important for collaboration, portability, version control, and it reduces the risk to break over time or to loose links to files necessary for the project.
 
-→ Create a folder that will contain the entirety of your project.
+→ Create a directory that contains all the necessary subdirectories and files for your project.
+
+This includes data, scripts, as well as the project outputs (graphs, results, etc.)
+
+If you use RStudio, create RStudio projects.
 
 ** Example possible project structure
 
@@ -35,48 +41,77 @@ A project structure could look like this:
                      - /ms
 #+END_EXAMPLE
 
-** Relative paths
+** The problem with absolute paths
 
-All paths used in any of your scripts should be relative to the project root. Why? Because that way, your project is /portable/. Something crucial for collaborations through GitHub, GitLab, Bitbucket, etc., or for someone to whom you would give the project, and, let's not forget, for future you.
-
-As [[https://github.com/jennybc][Jenny Bryan]] put it in her excellent [[https://www.tidyverse.org/articles/2017/12/workflow-vs-script/][blog]] about this example code with an absolute path:
+If this is how your script starts:
 
 #+BEGIN_SRC R
-setwd("/Users/jenny/cuddly_broccoli/verbose_funicular/foofy/data")
-df <- read.delim("raw_foofy_data.csv")
+setwd("C:\Users\charlie\some_very_personal_directory_structure\our_project")
 #+END_SRC
 
-#+BEGIN_QUOTE
-"The chance of the setwd() command having the desired effect – making the file paths work – for anyone besides its author is 0%. It’s also unlikely to work for the author one or two years or computers from now. "
-#+END_QUOTE
+what do you think the odds are that the person to whom you are giving that script
 
-There are various ways to use relative paths, but my favourite is to use the package [[https://github.com/r-lib/here][here]] from [[https://github.com/krlmlr][Kirill Müller]]. The function src_R[:eval no]{here()} starts from the working directory and walks up the directory path until it finds a src_R[:eval no]{.Rproj} file (if you use RStudio projects), a src_R[:eval no]{.git} or src_R[:eval no]{.svn} folder (if you version control your projects), a src_R[:eval no]{.projectile} file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file src_R[:eval no]{.here} in your project root with the function src_R[:eval no]{set_here()} (this should be unnecessary for the vast majority of people).
+- is called Charlie AND
+- is using Windows AND
+- is having the exact same directory structure in their computer?
 
-From there on, you will refer to /any/ file in your project by src_R[:eval no]{here("file-path-from-project-root")}.
+In order to run your script, your friend Lucy, who uses linux, will have to change all links to
 
-Now, you can move the project anywhere and the paths will still work, while any absolute path would get broken the minute you move the project to another machine.
+#+BEGIN_SRC R
+setwd("/home/lucy/totally_different_directory_structure/our_project")
+#+END_SRC
+
+** Solution: use paths relative to your project root
+
+Once your entire project lives within one directory (the project root), all paths used anywhere in your project (e.g. in your scripts) can now be relative to the project root.
+
+This makes your project /portable/. You can move it to another machine and links will not get broken.
+
+The way a lot of people go around this is by setting the working directory manually in RStudio (by clicking on "Set As Working Directory") to the project root. But for this to run in another machine, the user will have to do the same before running the script (unless the script is in the project root, but it probably is not and you certainly cannot assume that it is).
+
+A portable script should run as is, without this manual tinkering. Why?
+
+1. It is easy to forget to do the tinkering and wonder why nothing works
+2. This manual tinkering prevents automation and defeats the purpose of programming
+
+** Package src_R[:eval no]{here}
+
+One really easy way to use portable code with relative paths is the package [[https://github.com/r-lib/here][here]] from [[https://github.com/krlmlr][Kirill Müller]].
+
+The function src_R[:eval no]{here::here()} starts from the current working directory (the directory in which the script is) and walks up the directory chain until it finds a src_R[:eval no]{.Rproj} file (if you use RStudio projects), a src_R[:eval no]{.git} or src_R[:eval no]{.svn} folder (if you version control your projects), a src_R[:eval no]{.projectile} file (if you use emacs projectile), or other sensible files/folders which signify a project root. If you do not have any of these files, you can create a file src_R[:eval no]{.here} in your project root with the function src_R[:eval no]{set_here()} (this should be unnecessary for the vast majority of people).
+
+From there on, you will refer to any file in your project by src_R[:eval no]{here("file-path-from-project-root")}.
 
 The project functions as a self-contained unit (of course, R and your R libraries live elsewhere. But these will be called properly on another machine so it is not an issue).
 
 Example script:
 
 #+BEGIN_SRC R
-library(tidyverse) # for readxl
-library(here)      # obviously you have to install the package first
+library(readxl)
+library(here)
 
 my_var <- read_excel(here("data/raw/my-super-data.xlsx"))
 #+END_SRC
 
 * Clean session
 
-Never save your workspace upon closing a session (beware of RStudio settings!) and restart your R session frequently. This is the only way to make sure your script actually works and you aren't seeing the result of a combination of unreproducible bits of code from past sessions.
+#+BEGIN_EMPHASIS
+Never set anything that might change how your code runs.
+#+END_EMPHASIS
 
-Also, do not add anything in your src_R[:eval no]{.Rprofile} that would affect your code in any way, such as setting options, creating functions, loading packages, etc.
+For instance:
+
+- never save your workspace upon closing a session (beware of RStudio settings! go edit them)
+- restart your R session frequently to make sure that you are not running something depending on some previous code that you ran but that is not in your code. This is the only way to make sure your script actually works and you aren't seeing the result of a combination of unreproducible bits of code from past sessions.
+- do not add anything in your src_R[:eval no]{.Rprofile} or src_R[:eval no]{.Renviron} that would affect your code in any way, such as setting options, creating functions, loading packages, etc. This is tempting if you always use the same options or packages. But this make your scripts non-reproducible. It is much better to create snippets to add those lines of code very easily (even automatically) in your scripts.
 
 * Formatting
 
-[[http://hadley.nz/][Hadley Wickham]] wrote a [[http://style.tidyverse.org/][short book]] on R formatting. You do not have to agree with his formatting style as there is no official R formatting rule. However, with the increasing popularity of the src_R[:eval no]{tidyverse} and his efforts to standardize what is otherwise totally chaotic in R, adopting his style might be a good idea.
+There is no official R formatting. [[http://hadley.nz/][Hadley Wickham]] wrote a [[http://style.tidyverse.org/][short book]] on R formatting and this can be a great template to follow. The package src_R[:eval no]{lintr} by [[https://github.com/jimhester][Jim Hester]], which runs in emacs ESS, Sublime, Vim, and Atom, and some options in RStudio will highlight where your code does not follow his standards.
 
-*In any event, whatever style you choose, the most important point is to be consistent.*
+But most importantly:
+
+- be consistent
+- follow the same style as the people you collaborate with, particularly if you edit their scripts
 
 If you edit someone else's code, follow /their/ style so that the document remains consistent.
