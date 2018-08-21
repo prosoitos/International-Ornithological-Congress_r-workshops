@@ -94,9 +94,11 @@ A portable script should run as is, without this manual tinkering. Why?
 2. This manual tinkering prevents automation and defeats one of the main advantages of programming:
 Once you realize the advantages of writing over the use of a GUI software, you should realize that you have to be careful in how you use RStudio. Clicking around is ok for some tasks, but it is not if this does something necessary for the script to run successfully (such as setting the working directory).
 
-** Package src_R[:eval no]{here}
+If you use RStudio projects (and if you use RStudio, you definitely should create RStudio projects), RStudio will automatically, upon opening a project, move the current working directory to the project root. This is great. But you cannot assume that everybody running your script uses RStudio: R scripts can be run directly in R, in the command line, from a shell script, or using other tools or IDEs. So the script itself should ideally contain a way to refer to the project root, independent of RStudio.
 
-So how can a robust code allow for the use of relative paths?
+How?
+
+** Package src_R[:eval no]{here}
 
 There are various methods, but a wonderfully easy one is:
 
@@ -144,3 +146,17 @@ But the most important pieces of advice, when it comes to formatting code are:
 
 follow the style used by your collaborators, particularly if you edit their scripts
 #+END_VERBATIM
+
+* Things you do not want in a script
+
+#+BEGIN_VERBATIM
+Avoid anything that will make changes to a computer
+#+END_VERBATIM
+
+If someone runs your script, this should not install packages or make other changes to their machine. So, for instance, avoid
+
+#+BEGIN_SRC R
+install.packages()
+#+END_SRC
+
+in your scripts.
