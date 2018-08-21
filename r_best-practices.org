@@ -92,7 +92,7 @@ A portable script should run as is, without this manual tinkering. Why?
 
 1. It is easy to forget to do the tinkering and wonder why nothing works
 2. This manual tinkering prevents automation and defeats one of the main advantages of programming:
-Once you realize the advantages of writing over the use of a GUI software, you should realize that you have to be careful in how you use RStudio. Clicking around is ok for some tasks, but it is not if this does something necessary for the script to run successfully (such as setting the working directory).
+once you realize the advantages of writing code over the use of a GUI software, you should realize that you have to be careful in how you use RStudio. Clicking around is ok for some tasks, but it is not if this does something necessary for the script to run successfully (such as setting the working directory).
 
 If you use RStudio projects (and if you use RStudio, you definitely should create RStudio projects), RStudio will automatically, upon opening a project, move the current working directory to the project root. This is great. But you cannot assume that everybody running your script uses RStudio: R scripts can be run directly in R, in the command line, from a shell script, or using other tools or IDEs. So the script itself should ideally contain a way to refer to the project root, independent of RStudio.
 
