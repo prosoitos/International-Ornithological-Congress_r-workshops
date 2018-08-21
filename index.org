@@ -40,10 +40,22 @@ Most of our workshop time will focus on:
 - How to apply functions to several elements of a list/vector with some of the main src_R[:eval no]{purrr} functions,
 - And a bonus unrelated sidetrack on a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
 
+* Logistical considerations
+
 ** Target audience
 
 - Intermediate R users comfortable with basic data manipulation and simple functions,
 - Advanced users familiar with functional programming using the family of the src_R[:eval no]{apply()} functions and interested in discovering the "purrring" way.
+
+** Where and when?
+
+*Date:* Thursday 23
+*Time:* 8pm-10pm
+*Place:* TBA (look at the on-line schedule)
+
+** No fee nor registration
+
+There is no fee nor registration for this event. Just show up with a laptop ready for the workshop (see below).
 
 ** Software requirements
 
