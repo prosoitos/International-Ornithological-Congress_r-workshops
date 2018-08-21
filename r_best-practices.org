@@ -150,13 +150,11 @@ follow the style used by your collaborators, particularly if you edit their scri
 * Things you do not want in a script
 
 #+BEGIN_VERBATIM
-Avoid anything that will make changes to a computer
+Avoid anything that will make changes to a computer in your scripts
 #+END_VERBATIM
 
-If someone runs your script, this should not install packages or make other changes to their machine. So, for instance, avoid
+If someone runs your script, this should not install packages or make any other change to their machine. So, for instance, avoid
 
 #+BEGIN_SRC R
 install.packages()
 #+END_SRC
-
-in your scripts.
