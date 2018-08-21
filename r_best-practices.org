@@ -21,7 +21,7 @@ Advantages:
 - allows collaboration
 - makes projects portable
 - facilitates version control
-- reduces the risk to end up with broken links or missing files necessary for projects
+- reduces the risk to end up with broken links or missing files necessary for the projects
 
 #+BEGIN_EMPHASIS
 Create a directory that contains all the necessary subdirectories and files for your project
