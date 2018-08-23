@@ -1,5 +1,5 @@
 #+OPTIONS: title:t date:t author:t email:t
-#+OPTIONS: toc:t h:6 num:t |:t todo:nil
+#+OPTIONS: toc:t h:6 num:nil |:t todo:nil
 #+OPTIONS: *:t -:t ::t <:t \n:t e:t creator:nil
 #+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
 #+OPTIONS: html-preamble:t html-postamble:nil
@@ -11,57 +11,7 @@
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
 
-* Introduction: an example
-
-#+BEGIN_VERBATIM
-Create a named vector with the maximum values of all the variables in the mtcars dataset.
-#+END_VERBATIM
-
-#+BEGIN_VERSE
-Copy-paste method:
-#+END_VERSE
-
-Don't do this! It is a hard-coding practice prone to error. Not to mention, very tedious...
-
-#+BEGIN_SRC R
-setNames(
-  c(max(mtcars[1]),
-    max(mtcars[2]),
-    max(mtcars[3]),
-    max(mtcars[4]),
-    max(mtcars[5]),
-    max(mtcars[6]),
-    max(mtcars[7]),
-    max(mtcars[8]),
-    max(mtcars[9]),
-    max(mtcars[10]),
-    max(mtcars[11])
-    ),
-  names(mtcars)
-)
-#+END_SRC
-
-#+BEGIN_VERSE
-For loop method:
-#+END_VERSE
-
-#+BEGIN_SRC R
-max <- vector("double", ncol(mtcars))
-
-for (i in seq_along(mtcars)) {
-  max[[i]] <- max(mtcars[[i]])
-}
-
-setNames(max, names(mtcars))
-#+END_SRC
-
-#+BEGIN_VERSE
-Purrr method (yeah!):
-#+END_VERSE
-
-#+BEGIN_SRC R
-map_dbl(mtcars, max)
-#+END_SRC
+* Introduction
 
 ** What is functional programming?
 
@@ -114,7 +64,6 @@ and on any of its functions with:
 
 #+BEGIN_SRC R
 ?function
-
 ## e.g. for the map function
 ?map
 #+END_SRC
@@ -145,154 +94,300 @@ banding <- tibble(
 )
 
 banding
-
-banding[4:6] %>% map(mean)
-banding[4:6] %>% map_dbl(mean)
-
-## for loop here to print for each pop
-
-## purrr method
-banding %>%
-  split(.$population) %>%
-  map(~ ggplot(., aes(tarsus, mass)) + geom_point())
-
 #+END_SRC
-
-** Modify: modify elements of a list
-
-As is the case with data frames, we can see that the 3 string variables (bird, sex, and population) have been converted to factors. What if we decide to convert all those factors into character vectors.
-
-#+BEGIN_VERBATIM
-How would you do this?
-Spend 5 minutes writing code you would usually use.
-#+END_VERBATIM
-
-To modify the elements of a list, you can use the src_R[:eval no]{modify()} functions family.
-
-*** Usage
-
-#+BEGIN_SRC R
-modify(.x, .f, ...)
-modify_if(.x, .p, .f, ...)
-modify_at(.x, .at, .f, ...)
-#+END_SRC
-
-#+BEGIN_EXAMPLE
-.x     a list or atomic vector
-.f     a function, formula, or atomic vector
-...    additional arguments passed to .f
-.p     a predicate function.
-       Only the elements for which .p evaluates to TRUE will be modified
-.at    a character vector of names or a numeric vector of positions.
-       Only the elements corresponding to .at will be modified
-#+END_EXAMPLE
-
-For every element of src_R[:eval no]{.x}, apply src_R[:eval no]{.f}, and return a modified version of src_R[:eval no]{.x}.
-
-So basically, in its simplest form, we have:
-
-#+BEGIN_MONO
-modify(list, function)
-#+END_MONO
-
-*** Apply to our example
-
-Now, this is how all factors in our data frame can be converted into character vectors using src_R[:eval no]{modify_if()}:
-
-#+BEGIN_SRC R
-banding %<>%
-  modify_if(is.factor, as.character) %T>%
-  str()
-#+END_SRC
-
-The modify family includes src_R[:eval no]{modify()}, src_R[:eval no]{modify_if()}, src_R[:eval no]{modify_at()}, and src_R[:eval no]{modify_depth}. That last one will make sense later.
-
-#+BEGIN_QUOTE
-Wait: what were all these weird looking pipes??
-#+END_QUOTE
-
-*** Magrittr digression: less used piping treasures
-
-src_R[:eval no]{%<>%} pipes the left expression to the right, and then back to the left. Instead of a right arrow, think of it as an arrow going from left to right, making a turn and going back to its starting place again.
-
-The code:
-
-#+BEGIN_SRC R
-banding %<>%
-  modify_if(is.factor, as.character) %T>%
-  str()
-#+END_SRC
-
-that we used above, is equivalent to:
-
-#+BEGIN_SRC R
-banding <-
-  banding %>%
-  modify_if(is.factor, as.character) %T>%
-  str()
-#+END_SRC
-
-src_R[:eval no]{%T%} pipes the effect of the left expression to the right, but does not pipe the object itself (so the object is "free" to be used by another pipe). This is very useful when you want to produce to output from one object. Or produce a side effect (e.g. printing) without interrupting a pipeline. I like to think of the "T" as a branching which represents the 2 outputs produced by a single object.
-
-#+BEGIN_VERBATIM
-Try replacing src_R[:eval no]{%T%} with the regular pipe src_R[:eval no]{%>%} in our code and see what happens.
-Can you explain it?
-#+END_VERBATIM
-
-There are other pipes in [[https://github.com/tidyverse/magrittr][this amazing package]]. You should explore them at your own time!
 
 ** Map: apply functions to elements of a list
 
-Now, let's imagine that we want to plot the effect of tarsus length on mass, but that we want to graph each population separately.
+Imagine that you want to calculate the mean for each of the morphometric measurements (mass, tarsus, and wing).
 
 #+BEGIN_VERBATIM
-How would you do this?
+How would you usually do this?
 Spend 5 minutes writing code you would usually use.
 #+END_VERBATIM
 
-To apply functions to elements of a list, you can use the src_R[:eval no]{map} functions family.
+To apply functions to elements of a list, you can use src_R[:eval no]{map}, one of the key function of the src_R[:eval no]{purrr} package.
 
 *** Usage
 
 #+BEGIN_SRC R
 map(.x, .f, ...)
-map_if(.x, .p, .f, ...)
-map_at(.x, .at, .f, ...)
 #+END_SRC
 
 #+BEGIN_EXAMPLE
 .x     a list or atomic vector
 .f     a function, formula, or atomic vector
 ...     additional arguments passed to .f
-.p     a predicate function.
-       Only the elements for which .p evaluates to TRUE will be modified
-.at    a character vector of names or a numeric vector of positions.
-       Only the elements corresponding to .at will be modified
 #+END_EXAMPLE
 
 For every element of src_R[:eval no]{.x}, apply src_R[:eval no]{.f}.
 
 What we have, in the simplest case, is:
 
-#+BEGIN_MONO
+#+BEGIN_SRC R
 map(list, function)
-#+END_MONO
+#+END_SRC
 
-*** Apply to our example
+*** In our example
 
-This is how we can do this, using src_R[:eval no]{map()}:
+#+BEGIN_VERBATIM
+How could we use src_R[:eval no]{map()} to calculate the means of all 3 measurement types?
+#+END_VERBATIM
+
+#+BEGIN_RED
+A data frame is a list! It is a list of vectors.
+
+Without running it in your computer, try to guess what the result of the following will be:
 
 #+BEGIN_SRC R
-graphs <-
-  banding %>%
+length(banding)
+#+END_SRC
+
+Now, run it. What do you get? Why?
+#+END_RED
+
+So, back to our example, we do have a list: a list of vectors. That's what our banding data frame is! So no problem about applying src_R[:eval no]{map()} to it.
+
+#+BEGIN_accordion
+Answer
+#+END_accordion
+
+#+HTML: <div class="panel">
+#+BEGIN_SRC R
+map(banding[4:6], mean)
+#+END_SRC
+
+or, using a pipe
+
+#+BEGIN_SRC R
+banding[4:6] %>% map(mean)
+#+END_SRC
+#+HTML: </div>
+
+However, the output of src_R[:eval no]{map()} is always a list. And a list as output is not really convenient here. There are other map functions which have vector or data frame outputs. To get a numeric vector as the output, we use src_R[:eval no]{map_dbl()}:
+
+#+BEGIN_accordion
+Answer
+#+END_accordion
+
+#+HTML: <div class="panel">
+#+BEGIN_SRC R
+map_dbl(banding[4:6], mean)
+#+END_SRC
+
+or
+
+#+BEGIN_SRC R
+banding[4:6] %>% map_dbl(mean)
+#+END_SRC
+#+HTML: </div>
+
+Similarly, you can calculate the variance, the sum, look for the largest value, or apply any other function to our data.
+
+#+BEGIN_VERBATIM
+Spend 2 min writing codes for these.
+#+END_VERBATIM
+
+#+BEGIN_accordion
+Answer
+#+END_accordion
+
+#+HTML: <div class="panel">
+#+BEGIN_SRC R
+map_dbl(banding[4:6], var)
+map_dbl(banding[4:6], sum)
+map_dbl(banding[4:6], max)
+#+END_SRC
+#+HTML: </div>
+
+*** Stepping things up
+
+Now, imagine that you would like to plot the relationship between tarsus and mass for each population.
+
+#+BEGIN_VERBATIM
+How would you usually do that?
+Spend 5 min writing code for this.
+And feel free to chat.
+#+END_VERBATIM
+
+#+BEGIN_accordion
+Answer
+#+END_accordion
+
+#+HTML: <div class="panel">
+You could write a for loop:
+
+#+BEGIN_SRC R
+for (i in unique(banding$population)) {
+  print(ggplot(banding %>% filter(population == i),
+               aes(tarsus, mass)) + geom_point())
+}
+#+END_SRC
+
+But this is the functional programming method:
+
+#+BEGIN_SRC R
+banding %>%
   split(.$population) %>%
   map(~ ggplot(., aes(tarsus, mass)) + geom_point())
 #+END_SRC
+#+HTML: </div>
 
-And using the amazingly easily package [[https://github.com/thomasp85/patchwork][patchwork]], we can plot them all side by side very easily with:
+*** Important note on notation: formulas
+
+#+BEGIN_RED
+Formulas = a shorter notation for anonymous functions
+#+END_RED
+
+**** With one element
+
+The code:
 
 #+BEGIN_SRC R
-graphs[[1]] + graphs[[2]] + graphs[[3]]
+map(function(x) x + 3)
+#+END_SRC
+
+which contains the anonymous function src_R[:eval no]{function(x) x + 3} can be written as:
+
+#+BEGIN_SRC R
+map(~ . + 3)
+#+END_SRC
+
+This code abbreviation is called a "formula".
+
+#+BEGIN_VERBATIM
+Your turn: write the following anonymous function as a formula.
+#+END_VERBATIM
+
+#+BEGIN_SRC R
+map(function(x) mean(x) + 3)
+#+END_SRC
+
+#+BEGIN_accordion
+Answer
+#+END_accordion
+
+#+HTML: <div class="panel">
+#+BEGIN_SRC R
+map(~ mean(.) + 3)
+#+END_SRC
+#+HTML: </div>
+
+**** With 2 elements
+
+The code:
+
+#+BEGIN_SRC R
+map(function(x, y) x + y)
+#+END_SRC
+
+can be shortened to:
+
+#+BEGIN_SRC R
+map(~ .x + .y)
+#+END_SRC
+
+**** Referring to elements
+
+| 1st element |   | 2nd element |   | 3rd element |
+|-------------+---+-------------+---+-------------|
+| =.=         |   |             |   |             |
+| =.x=        |   | =.y=        |   |             |
+| =..1=       |   | =..2=       |   | =..3=       |
+
+etc.
+
+#+BEGIN_VERBATIM
+Your turn: write the following anonymous function as a formula.
+#+END_VERBATIM
+
+#+BEGIN_SRC R
+map(function(x1, x2, y) lm(y ~ x1 + x2))
+#+END_SRC
+
+#+BEGIN_accordion
+Answer
+#+END_accordion
+
+#+HTML: <div class="panel">
+#+BEGIN_SRC R
+map(~ lm(..3 ~ ..1 + ..2))
+#+END_SRC
+#+HTML: </div>
+
+** src_R[:eval no]{map_if}/src_R[:eval no]{modify_if} and src_R[:eval no]{map_at}/src_R[:eval no]{modify_at}
+
+We built our data frame with src_R[:eval no]{tibble()} which, as is the norm in the src_R[:eval no]{tidyverse}, does not transform strings into factors:
+
+#+BEGIN_SRC R
+banding <-
+  tibble(
+    bird = paste0("bird", 1:50),
+    sex = sample(c("F", "M"), 50, replace = T),
+    population = sample(LETTERS[1:3], 50, replace = T),
+    mass = rnorm(50, 43, 4) %>% round(1),
+    tarsus = rnorm(50, 27, 1) %>% round(1),
+    wing = rnorm(50, 112, 3) %>% round(0)
+  ) %>%
+  str()
+#+END_SRC
+
+Several base R functions however, do.
+
+Let's build the same data with the base R function src_R[:eval no]{data.frame()}:
+
+#+BEGIN_SRC R
+banding <-
+  data.frame(
+    bird = paste0("bird", 1:50),
+    sex = sample(c("F", "M"), 50, replace = T),
+    population = sample(LETTERS[1:3], 50, replace = T),
+    mass = rnorm(50, 43, 4) %>% round(1),
+    tarsus = rnorm(50, 27, 1) %>% round(1),
+    wing = rnorm(50, 112, 3) %>% round(0)
+  ) %>%
+  str()
+#+END_SRC
+
+#+BEGIN_RED
+The reason several base R functions transform strings into factors is historic. This used to be essential to save space. But this is not relevant anymore and has become somewhat of an annoyance.
+#+END_RED
+
+If you have such a data frame, you may wish to transform the factors into characters.
+
+#+BEGIN_VERBATIM
+How can you do this?
+#+END_VERBATIM
+
+src_R[:eval no]{map()} has the derivatives src_R[:eval no]{map_if()} and src_R[:eval no]{map_at()} which allow to apply functions when conditions are met or at certain locations. Here, we can use src_R[:eval no]{map_if()}:
+
+#+BEGIN_SRC R
+banding %>% map_if(is.character, as.factor)
+#+END_SRC
+
+However, src_R[:eval no]{map_if} and src_R[:eval no]{map_at} always return lists. If you want the output to be of the same type of the input (a data frame in our case), use src_R[:eval no]{modify_if} and src_R[:eval no]{modify_at} instead.
+
+#+BEGIN_SRC R
+banding %>% modify_if(is.character, as.factor)
+#+END_SRC
+
+#+BEGIN_RED
+Note that this could also be accomplished with src_R[:eval no]{mutate_if()}:
+
+#+BEGIN_SRC R
+banding %>% mutate_if(is.character, as.factor)
+#+END_SRC
+
+But the src_R[:eval no]{map()} functions also work with lists and are more flexible than src_R[:eval no]{mutate()} and its derivatives.
+#+END_RED
+
+** map2 and pmap
+
+
+
+** Apply several functions to elements of a list
+
+#+BEGIN_SRC R
+invoque_map(c("mean", "var", "sum", "max"), banding[4:6])
 #+END_SRC
 
 ** Walk: apply side effects to elements of a list
@@ -359,101 +454,6 @@ walk2(paths, graphs, ggsave)
 #+END_SRC
 #+HTML: </div>
 
-* Your turn!
-
-** Create new fake data
-
-This time, imagine that bird1 to bird5 are kept in captivity. Their mass is monitored regularly to make sure they are not loosing weight.
-
-How can we create such data?
-
-We could, of course, write it a tedious way:
-
-#+BEGIN_SRC R
-mass <- data.frame(
-  bird1 = runif(15, 35, 55) %>% round(1),
-  bird2 = runif(15, 35, 55) %>% round(1),
-  bird3 = runif(15, 35, 55) %>% round(1),
-  bird4 = runif(15, 35, 55) %>% round(1),
-  bird5 = runif(15, 35, 55) %>% round(1)
-)
-#+END_SRC
-
-But Hadley Wickham's rule is that we should never copy-paste more than twice. Uh hum... we have 5 copies of the same line of code already :P And if we wanted to create a larger data frame, we could have many more than that!
-
-#+BEGIN_VERBATIM
-Using the src_R[:eval no]{map()} function to get to the same result, how would you do this?
-Spend 5 min brainstorming on this and feel free to talk to each other!
-#+END_VERBATIM
-
-#+BEGIN_accordion
-Answer
-#+END_accordion
-
-#+HTML: <div class="panel">
-#+BEGIN_SRC R
-n_birds <- 1:15
-
-df <-
-  map(n_birds, ~ runif(10, 35, 55) %>% round(1)) %>%
-  data.frame() %>%
-  set_names(map(n_birds, ~ paste0("bird", .)))
-
-df
-
-df %>% str()
-#+END_SRC
-#+HTML: </div>
-
-** Apply functions to each variable
-
-How could you calculate the mean for each bird?
-
-#+BEGIN_VERBATIM
-Spend 3 min to think about how to do this using src_R[:eval no]{map()}.
-Feel free to chat with whoever you'd like to.
-#+END_VERBATIM
-
-#+BEGIN_accordion
-Answer
-#+END_accordion
-
-#+HTML: <div class="panel">
-#+BEGIN_SRC R
-map(df, mean)
-#+END_SRC
-#+HTML: </div>
-
-However, the output of src_R[:eval no]{map()} is always a list. And a list as output is not really convenient here. There are other map functions which have vector or data frame outputs. To get a numeric vector as the output, we use src_R[:eval no]{map_dbl()}:
-
-#+BEGIN_accordion
-Answer
-#+END_accordion
-
-#+HTML: <div class="panel">
-#+BEGIN_SRC R
-map_dbl(df, mean)
-#+END_SRC
-#+HTML: </div>
-
-Similarly, you can calculate the variance, the sum, look for the largest value, or apply any other function to our data.
-
-#+BEGIN_VERBATIM
-Spend 2 min writing codes for these.
-#+END_VERBATIM
-
-#+BEGIN_accordion
-Answer
-#+END_accordion
-
-#+HTML: <div class="panel">
-#+BEGIN_SRC R
-map_dbl(df, var)
-map_dbl(df, sum)
-map_dbl(df, max)
-#+END_SRC
-#+HTML: </div>
-
 * Summary of the map and walk functions family
 
 We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want the side effects) function depending on:
@@ -467,6 +467,14 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 |                            1 |   |   | =map= or =walk=   |
 |                            2 |   |   | =map2= or =walk2= |
 |                         more |   |   | =pmap= or =pwalk= |
+
+#+HTML: <br>
+
+#+BEGIN_VERSE
+- Do we want to apply several functions?
+#+END_VERSE
+
+=invoque_map=
 
 #+HTML: <br>
 
@@ -489,7 +497,7 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 
 Results are returned predictably and consistently, which is [[https://blog.rstudio.com/2016/01/06/purrr-0-2-0/][not the case]] of src_R[:eval no]{sapply()}.
 
-*As Jenny Bryan [[https://speakerdeck.com/jennybc/data-rectangling][said nicely]]:
+*As [[https://github.com/jennybc][Jenny Bryan]] said [[https://speakerdeck.com/jennybc/data-rectangling][nicely]]:
 
 #+BEGIN_QUOTE
 "src_R[:eval no]{walk()} can be thought of as src_R[:eval no]{map_nothing()}
@@ -508,92 +516,17 @@ src_R[:eval no]{map()} can be thought of as src_R[:eval no]{map_list()}"
 | condition                |   |   | =map_if=       |
 | location                 |   |   | =map_at=       |
 
-* Formulas: a shorter notation for anonymous functions
-
-** With one element
-
-The code:
-
-#+BEGIN_SRC R
-function(x) x + 3
-#+END_SRC
-
-can be written as:
-
-#+BEGIN_SRC R
-~ . + 3
-#+END_SRC
-
-#+BEGIN_VERBATIM
-Your turn: write the following anonymous function as a formula.
-#+END_VERBATIM
-
-#+BEGIN_SRC R
-function(x) mean(x) + 3
-#+END_SRC
-
-#+BEGIN_accordion
-Answer
-#+END_accordion
-
-#+HTML: <div class="panel">
-#+BEGIN_SRC R
-~ mean(.) + 3
-#+END_SRC
-#+HTML: </div>
-
-** With 2 elements
-
-The code:
-
-#+BEGIN_SRC R
-function(x, y) x + y
-#+END_SRC
-
-can be shortened to:
-
-#+BEGIN_SRC R
-~ .x + .y
-#+END_SRC
-
-*** Referring to elements
-
-| 1st element |   | 2nd element |   | 3rd element |
-|-------------+---+-------------+---+-------------|
-| =.=         |   |             |   |             |
-| =.x=        |   | =.y=        |   |             |
-| =..1=       |   | =..2=       |   | =..3=       |
-
-etc.
-
-#+BEGIN_VERBATIM
-Your turn: write the following anonymous function as a formula.
-#+END_VERBATIM
-
-#+BEGIN_SRC R
-function(x1, x2, y) lm(y ~ x1 + x2)
-#+END_SRC
-
-#+BEGIN_accordion
-Answer
-#+END_accordion
-
-#+HTML: <div class="panel">
-#+BEGIN_SRC R
-~ lm(..3 ~ ..1 + ..2)
-#+END_SRC
-#+HTML: </div>
-
-# * Nested data frames
-
-# A nested data frame is a data frame of data frames: some of the cells of this master data frame contains data frames as values. Of course, there is no limit to that and you can have data frames nested within data frames nested within data frames nested within... you get the idea. This leads to the concept of "depth".
-
-# * List columns
-
-# A list column is a data frame in which some of the columns are made of lists instead of atomic vectors.
-
 * Conclusion
 
-These are the most important src_R[:eval no]{purrr} functions. But there are others that you should explore :)
+These are some of the most important src_R[:eval no]{purrr} functions. But there are many others and I encourage you to explore them by yourself.
+
+Great resources for this are:
+
+- The [[http://r4ds.had.co.nz/iteration.html#shortcuts][iteration chapter]] of [[http://hadley.nz/][Hadley Wickham]]'s book [[http://r4ds.had.co.nz/index.html][R for data science]]
+- The [[https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf][purrr cheatsheet]]
+- The [[https://cran.r-project.org/web/packages/purrr/purrr.pdf][purrr CRAN manual]]
+- The vignettes and help files for the many purrr functions
+
+Have fun!!!
 
 #+HTML: <script>; var acc = document.getElementsByClassName("accordion"); var i; for (i = 0; i < acc.length; i++) {; acc[i].addEventListener("click", function() {; this.classList.toggle("active"); var panel = this.nextElementSibling; if (panel.style.maxHeight){; panel.style.maxHeight = null; } else {; panel.style.maxHeight = panel.scrollHeight + "px"; }; }); }; </script>
