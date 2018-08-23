@@ -1,0 +1,18 @@
+#+OPTIONS: title:t date:t author:t email:t
+#+OPTIONS: toc:t h:6 num:nil |:t todo:nil
+#+OPTIONS: *:t -:t ::t <:t \n:t e:t creator:nil
+#+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
+#+OPTIONS: html-preamble:t html-postamble:nil
+
+#+TITLE:   Before we start
+#+DATE:	  {{{time(%B %d\, %Y)}}}
+#+AUTHOR:  Marie-Hélène Burle
+#+EMAIL:   msb2@sfu.ca
+
+**** Font size and microphone volume ok?
+
+**** The helpers
+
+**** All material available online
+
+https://github.com/prosoitos/r_workshop_international-ornithological-congress
