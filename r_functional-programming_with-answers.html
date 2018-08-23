@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-08-23 Thu 02:56 -->
+<!-- 2018-08-23 Thu 09:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Functional programming in R (with <i>purrr</i>)</title>
@@ -654,72 +654,71 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org009d01e">Introduction</a>
+<li><a href="#orgfb4ee72">Introduction</a>
 <ul>
-<li><a href="#orge8abcba">What is functional programming?</a></li>
-<li><a href="#orgac4bb10">Iterations</a></li>
-<li><a href="#org1133fa9">The purrr package</a>
+<li><a href="#org8466d9d">What is functional programming?</a></li>
+<li><a href="#org3cda99e">Iterations</a></li>
+<li><a href="#org4a6aac8">The purrr package</a>
 <ul>
-<li><a href="#org3f6e2e2">Goal</a></li>
-<li><a href="#orgaba3000">Logistics</a></li>
+<li><a href="#org9e8074d">Goal</a></li>
+<li><a href="#org009c617">Logistics</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orge63600a">Let's dive in</a>
+<li><a href="#org8438183">Let's dive in</a>
 <ul>
-<li><a href="#orge3449db">Load packages</a></li>
-<li><a href="#org74eeda3">Create some fake banding data</a></li>
-<li><a href="#orgc993861">Map: apply functions to elements of a list</a>
+<li><a href="#org27ad228">Load packages</a></li>
+<li><a href="#org3c02818">Create some fake banding data</a></li>
+<li><a href="#org7500847">Map: apply functions to elements of a list</a>
 <ul>
-<li><a href="#org8f80e74">Usage</a></li>
-<li><a href="#org1607975">In our example</a></li>
-<li><a href="#orga4b4e07">Stepping things up</a></li>
-<li><a href="#org854b715">Formulas</a>
+<li><a href="#org16cad36">Usage</a></li>
+<li><a href="#orgfe4215d">In our example</a></li>
+<li><a href="#org1483f11">Stepping things up</a></li>
+<li><a href="#org85b2adc">Formulas</a>
 <ul>
-<li><a href="#orgdb38c22">With one element</a></li>
-<li><a href="#org55b93e1">With 2 elements</a></li>
-<li><a href="#orgd4f22c9">Referring to elements</a></li>
+<li><a href="#orge3f3d90">With one element</a></li>
+<li><a href="#orgf2e16c2">With 2 elements</a></li>
+<li><a href="#org2d51234">Referring to elements</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org056cf51"><code class="src src-R">modify_if</code> and <code class="src src-R">modify_at</code></a>
+<li><a href="#orgfd24097"><code class="src src-R">map_if</code>/<code class="src src-R">modify_if</code> and <code class="src src-R">map_at</code>/<code class="src src-R">modify_at</code></a>
 <ul>
-<li><a href="#orgb57afd4">Usage</a></li>
-<li><a href="#org6ba4db3">Apply several functions to elements of a list</a></li>
+<li><a href="#orgc93c35f">Usage</a></li>
 </ul>
 </li>
-<li><a href="#org9704c95">Walk: apply side effects to elements of a list</a>
+<li><a href="#org15e2c1d">Walk: apply side effects to elements of a list</a>
 <ul>
-<li><a href="#org8e6d8df">Usage</a></li>
-<li><a href="#org702b36c">Apply to our example</a></li>
+<li><a href="#org6373602">Usage</a></li>
+<li><a href="#org3031b40">Apply to our example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgb8865e7">Summary of the map and walk functions family</a></li>
-<li><a href="#org6a6827f">Conclusion</a></li>
+<li><a href="#org5a4646a">Summary of the map and walk functions family</a></li>
+<li><a href="#org959bf06">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org009d01e" class="outline-2">
-<h2 id="org009d01e">Introduction</h2>
-<div class="outline-text-2" id="text-org009d01e">
+<div id="outline-container-orgfb4ee72" class="outline-2">
+<h2 id="orgfb4ee72">Introduction</h2>
+<div class="outline-text-2" id="text-orgfb4ee72">
 </div>
-<div id="outline-container-orge8abcba" class="outline-3">
-<h3 id="orge8abcba">What is functional programming?</h3>
-<div class="outline-text-3" id="text-orge8abcba">
+<div id="outline-container-org8466d9d" class="outline-3">
+<h3 id="org8466d9d">What is functional programming?</h3>
+<div class="outline-text-3" id="text-org8466d9d">
 <p>
 It is a programming paradigm based on the evaluation of functions. This is opposed to <i>imperative  programming</i>. While some languages are based strictly on functional programming (e.g. Haskell), R allows both imperative code (e.g. loops) and functional code (e.g. many base functions, the <code class="src src-R"><span class="org-ess-function-call">apply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> family, <code class="src src-R">purrr</code>).<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgac4bb10" class="outline-3">
-<h3 id="orgac4bb10">Iterations</h3>
-<div class="outline-text-3" id="text-orgac4bb10">
+<div id="outline-container-org3cda99e" class="outline-3">
+<h3 id="org3cda99e">Iterations</h3>
+<div class="outline-text-3" id="text-org3cda99e">
 <p>
 Iterations are the repetition of a process (e.g. applying the same function to several variables, several datasets, or several files).<br />
 </p>
@@ -735,17 +734,17 @@ The classic methods in R are:<br />
 </div>
 </div>
 
-<div id="outline-container-org1133fa9" class="outline-3">
-<h3 id="org1133fa9">The purrr package</h3>
-<div class="outline-text-3" id="text-org1133fa9">
+<div id="outline-container-org4a6aac8" class="outline-3">
+<h3 id="org4a6aac8">The purrr package</h3>
+<div class="outline-text-3" id="text-org4a6aac8">
 <p>
 One of the <code class="src src-R">tidyverse</code> core packages, <code class="src src-R">purrr</code> was written in 2015 by <a href="https://github.com/lionel-">Lionel Henry</a> (also the maintainer), <a href="http://hadley.nz/">Hadley Wickham</a>, and <a href="https://www.rstudio.com/">RStudio inc.</a> <br />
 </p>
 </div>
 
-<div id="outline-container-org3f6e2e2" class="outline-4">
-<h4 id="org3f6e2e2">Goal</h4>
-<div class="outline-text-4" id="text-org3f6e2e2">
+<div id="outline-container-org9e8074d" class="outline-4">
+<h4 id="org9e8074d">Goal</h4>
+<div class="outline-text-4" id="text-org9e8074d">
 <p>
 <code class="src src-R">Purrr</code> is a set of tools allowing consistent functional programming in R in a <code class="src src-R">tidyverse</code> style (using <code class="src src-R">magrittr</code> pipes and following the same naming conventions found in other <code class="src src-R">tidyverse</code> packages).<br />
 </p>
@@ -756,9 +755,9 @@ As Hadley Wickham says, in many ways, <code class="src src-R">purrr</code> is th
 </div>
 </div>
 
-<div id="outline-container-orgaba3000" class="outline-4">
-<h4 id="orgaba3000">Logistics</h4>
-<div class="outline-text-4" id="text-orgaba3000">
+<div id="outline-container-org009c617" class="outline-4">
+<h4 id="org009c617">Logistics</h4>
+<div class="outline-text-4" id="text-org009c617">
 <p>
 Install it with:<br />
 </p>
@@ -805,13 +804,13 @@ and on any of its functions with:<br />
 </div>
 </div>
 
-<div id="outline-container-orge63600a" class="outline-2">
-<h2 id="orge63600a">Let's dive in</h2>
-<div class="outline-text-2" id="text-orge63600a">
+<div id="outline-container-org8438183" class="outline-2">
+<h2 id="org8438183">Let's dive in</h2>
+<div class="outline-text-2" id="text-org8438183">
 </div>
-<div id="outline-container-orge3449db" class="outline-3">
-<h3 id="orge3449db">Load packages</h3>
-<div class="outline-text-3" id="text-orge3449db">
+<div id="outline-container-org27ad228" class="outline-3">
+<h3 id="org27ad228">Load packages</h3>
+<div class="outline-text-3" id="text-org27ad228">
 <p>
 First, let's load the packages that we will use. It is always a good idea to write all the packages that you will be using at the top of the script. This will help others, using your script, to know what is required to run it.<br />
 </p>
@@ -824,9 +823,9 @@ First, let's load the packages that we will use. It is always a good idea to wri
 </div>
 </div>
 
-<div id="outline-container-org74eeda3" class="outline-3">
-<h3 id="org74eeda3">Create some fake banding data</h3>
-<div class="outline-text-3" id="text-org74eeda3">
+<div id="outline-container-org3c02818" class="outline-3">
+<h3 id="org3c02818">Create some fake banding data</h3>
+<div class="outline-text-3" id="text-org3c02818">
 <p>
 Let's create some imaginary bird banding data:<br />
 </p>
@@ -847,9 +846,9 @@ banding
 </div>
 </div>
 
-<div id="outline-container-orgc993861" class="outline-3">
-<h3 id="orgc993861">Map: apply functions to elements of a list</h3>
-<div class="outline-text-3" id="text-orgc993861">
+<div id="outline-container-org7500847" class="outline-3">
+<h3 id="org7500847">Map: apply functions to elements of a list</h3>
+<div class="outline-text-3" id="text-org7500847">
 <p>
 Imagine that you want to calculate the mean for each of the morphometric measurements (mass, tarsus, and wing).<br />
 </p>
@@ -867,9 +866,9 @@ To apply functions to elements of a list, you can use <code class="src src-R">ma
 </p>
 </div>
 
-<div id="outline-container-org8f80e74" class="outline-4">
-<h4 id="org8f80e74">Usage</h4>
-<div class="outline-text-4" id="text-org8f80e74">
+<div id="outline-container-org16cad36" class="outline-4">
+<h4 id="org16cad36">Usage</h4>
+<div class="outline-text-4" id="text-org16cad36">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
@@ -896,9 +895,9 @@ What we have, in the simplest case, is:<br />
 </div>
 </div>
 
-<div id="outline-container-org1607975" class="outline-4">
-<h4 id="org1607975">In our example</h4>
-<div class="outline-text-4" id="text-org1607975">
+<div id="outline-container-orgfe4215d" class="outline-4">
+<h4 id="orgfe4215d">In our example</h4>
+<div class="outline-text-4" id="text-orgfe4215d">
 <div class="VERBATIM">
 <p>
 How could we use <code class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> to calculate the means of all 3 measurement types?<br />
@@ -1009,9 +1008,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-orga4b4e07" class="outline-4">
-<h4 id="orga4b4e07">Stepping things up</h4>
-<div class="outline-text-4" id="text-orga4b4e07">
+<div id="outline-container-org1483f11" class="outline-4">
+<h4 id="org1483f11">Stepping things up</h4>
+<div class="outline-text-4" id="text-org1483f11">
 <p>
 Now, imagine that you would like to plot the relationship between tarsus and mass for each population.<br />
 </p>
@@ -1071,9 +1070,9 @@ Let's save those graphs in a variable called <code class="src src-R">graphs</cod
 </div>
 </div>
 
-<div id="outline-container-org854b715" class="outline-4">
-<h4 id="org854b715">Formulas</h4>
-<div class="outline-text-4" id="text-org854b715">
+<div id="outline-container-org85b2adc" class="outline-4">
+<h4 id="org85b2adc">Formulas</h4>
+<div class="outline-text-4" id="text-org85b2adc">
 <div class="RED">
 <p>
 Formulas = a shorter notation for anonymous functions<br />
@@ -1082,9 +1081,9 @@ Formulas = a shorter notation for anonymous functions<br />
 </div>
 </div>
 
-<div id="outline-container-orgdb38c22" class="outline-5">
-<h5 id="orgdb38c22">With one element</h5>
-<div class="outline-text-5" id="text-orgdb38c22">
+<div id="outline-container-orge3f3d90" class="outline-5">
+<h5 id="orge3f3d90">With one element</h5>
+<div class="outline-text-5" id="text-orge3f3d90">
 <p>
 The code:<br />
 </p>
@@ -1135,9 +1134,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-org55b93e1" class="outline-5">
-<h5 id="org55b93e1">With 2 elements</h5>
-<div class="outline-text-5" id="text-org55b93e1">
+<div id="outline-container-orgf2e16c2" class="outline-5">
+<h5 id="orgf2e16c2">With 2 elements</h5>
+<div class="outline-text-5" id="text-orgf2e16c2">
 <p>
 The code:<br />
 </p>
@@ -1158,9 +1157,9 @@ can be shortened to:<br />
 </div>
 </div>
 
-<div id="outline-container-orgd4f22c9" class="outline-5">
-<h5 id="orgd4f22c9">Referring to elements</h5>
-<div class="outline-text-5" id="text-orgd4f22c9">
+<div id="outline-container-org2d51234" class="outline-5">
+<h5 id="org2d51234">Referring to elements</h5>
+<div class="outline-text-5" id="text-org2d51234">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1245,9 +1244,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-org056cf51" class="outline-3">
-<h3 id="org056cf51"><code class="src src-R">modify_if</code> and <code class="src src-R">modify_at</code></h3>
-<div class="outline-text-3" id="text-org056cf51">
+<div id="outline-container-orgfd24097" class="outline-3">
+<h3 id="orgfd24097"><code class="src src-R">map_if</code>/<code class="src src-R">modify_if</code> and <code class="src src-R">map_at</code>/<code class="src src-R">modify_at</code></h3>
+<div class="outline-text-3" id="text-orgfd24097">
 <p>
 We built our data frame with <code class="src src-R"><span class="org-ess-function-call">tibble</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> which, as is the norm in the <code class="src src-R">tidyverse</code>, does not transform strings into factors:<br />
 </p>
@@ -1261,7 +1260,7 @@ We built our data frame with <code class="src src-R"><span class="org-ess-functi
     mass <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">43</span>, <span class="org-ess-numbers">4</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
     tarsus <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">27</span>, <span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
     wing <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">112</span>, <span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
-  <span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%T&gt;%</span> 
   <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
 </pre>
 </div>
@@ -1283,7 +1282,7 @@ Let's build the same data with the base R function <code class="src src-R"><span
     mass <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">43</span>, <span class="org-ess-numbers">4</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
     tarsus <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">27</span>, <span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
     wing <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">112</span>, <span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
-  <span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%T&gt;%</span> 
   <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
 </pre>
 </div>
@@ -1311,17 +1310,30 @@ How can you do this?<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">map_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.character, as.factor<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">map_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.factor, as.character<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%T&gt;%</span> 
+  <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
 </pre>
 </div>
 
 <p>
-However, <code class="src src-R">map_if</code> and <code class="src src-R">map_at</code> always return lists. If you want the output to be of the same type of the input (a data frame in our case), use <code class="src src-R">modify_if</code> and <code class="src src-R">modify_at</code> instead.<br />
+However, <code class="src src-R">map_if</code> and <code class="src src-R">map_at</code> always return lists. If you want the output to be of the same type of the input, use <code class="src src-R">modify_if</code> and <code class="src src-R">modify_at</code> instead.<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span>
-  <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.character, as.factor<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+<pre class="src src-R">banding <span class="org-ess-assignment">&lt;-</span>
+  <span class="org-ess-function-call">data.frame</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>
+    bird <span class="org-ess-operator">=</span> <span class="org-ess-function-call">paste0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"bird"</span>, <span class="org-ess-numbers">1</span>:<span class="org-ess-numbers">50</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+    sex <span class="org-ess-operator">=</span> <span class="org-ess-function-call">sample</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-function-call">c</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">(</span></span><span class="org-string">"F"</span>, <span class="org-string">"M"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">)</span></span>, <span class="org-ess-numbers">50</span>, replace <span class="org-ess-operator">=</span> <span class="org-ess-f-t">T</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+    population <span class="org-ess-operator">=</span> <span class="org-ess-function-call">sample</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>LETTERS<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">[</span></span><span class="org-ess-numbers">1</span>:<span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">]</span></span>, <span class="org-ess-numbers">50</span>, replace <span class="org-ess-operator">=</span> <span class="org-ess-f-t">T</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+    mass <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">43</span>, <span class="org-ess-numbers">4</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+    tarsus <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">27</span>, <span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">1</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>,
+    wing <span class="org-ess-operator">=</span> <span class="org-ess-function-call">rnorm</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">50</span>, <span class="org-ess-numbers">112</span>, <span class="org-ess-numbers">3</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">round</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-ess-numbers">0</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+
+banding <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.factor, as.character<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">head</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span> <span class="org-ess-XopX">%T&gt;%</span> 
   <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
 </pre>
 </div>
@@ -1332,7 +1344,7 @@ This could also be accomplished with <code class="src src-R"><span class="org-es
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">mutate_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.character, as.factor<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">mutate_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.factor, as.character<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -1343,9 +1355,9 @@ But the <code class="src src-R"><span class="org-ess-function-call">map</span><s
 </div>
 </div>
 
-<div id="outline-container-orgb57afd4" class="outline-4">
-<h4 id="orgb57afd4">Usage</h4>
-<div class="outline-text-4" id="text-orgb57afd4">
+<div id="outline-container-orgc93c35f" class="outline-4">
+<h4 id="orgc93c35f">Usage</h4>
+<div class="outline-text-4" id="text-orgc93c35f">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .p, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
@@ -1377,21 +1389,11 @@ So basically, in its simplest form, we have:<br />
 </div>
 </div>
 </div>
-
-<div id="outline-container-org6ba4db3" class="outline-4">
-<h4 id="org6ba4db3">Apply several functions to elements of a list</h4>
-<div class="outline-text-4" id="text-org6ba4db3">
-<div class="org-src-container">
-<pre class="src src-R"><span class="org-ess-function-call">invoque_map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-ess-function-call">c</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"mean"</span>, <span class="org-string">"var"</span>, <span class="org-string">"sum"</span>, <span class="org-string">"max"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>, banding<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">[</span></span><span class="org-ess-numbers">4</span>:<span class="org-ess-numbers">6</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">]</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
-</pre>
-</div>
-</div>
-</div>
 </div>
 
-<div id="outline-container-org9704c95" class="outline-3">
-<h3 id="org9704c95">Walk: apply side effects to elements of a list</h3>
-<div class="outline-text-3" id="text-org9704c95">
+<div id="outline-container-org15e2c1d" class="outline-3">
+<h3 id="org15e2c1d">Walk: apply side effects to elements of a list</h3>
+<div class="outline-text-3" id="text-org15e2c1d">
 <p>
 Now, we want to save the 3 graphs we previously drew into 3 files.<br />
 </p>
@@ -1409,9 +1411,9 @@ To apply side effects to elements of a list, we use the <code class="src src-R">
 </p>
 </div>
 
-<div id="outline-container-org8e6d8df" class="outline-4">
-<h4 id="org8e6d8df">Usage</h4>
-<div class="outline-text-4" id="text-org8e6d8df">
+<div id="outline-container-org6373602" class="outline-4">
+<h4 id="org6373602">Usage</h4>
+<div class="outline-text-4" id="text-org6373602">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">walk</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
@@ -1425,9 +1427,9 @@ To apply side effects to elements of a list, we use the <code class="src src-R">
 </div>
 </div>
 
-<div id="outline-container-org702b36c" class="outline-4">
-<h4 id="org702b36c">Apply to our example</h4>
-<div class="outline-text-4" id="text-org702b36c">
+<div id="outline-container-org3031b40" class="outline-4">
+<h4 id="org3031b40">Apply to our example</h4>
+<div class="outline-text-4" id="text-org3031b40">
 <p>
 We already have a list of graphs: <code class="src src-R">graphs</code>. Now, we can create a list of paths where we want to save them:<br />
 </p>
@@ -1488,9 +1490,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-orgb8865e7" class="outline-2">
-<h2 id="orgb8865e7">Summary of the map and walk functions family</h2>
-<div class="outline-text-2" id="text-orgb8865e7">
+<div id="outline-container-org5a4646a" class="outline-2">
+<h2 id="org5a4646a">Summary of the map and walk functions family</h2>
+<div class="outline-text-2" id="text-org5a4646a">
 <p>
 We will use different <code class="src src-R">map</code> (or <code class="src src-R">walk</code>, if we want the side effects) function depending on:<br />
 </p>
@@ -1703,9 +1705,9 @@ Results are returned predictably and consistently, which is <a href="https://blo
 </div>
 </div>
 
-<div id="outline-container-org6a6827f" class="outline-2">
-<h2 id="org6a6827f">Conclusion</h2>
-<div class="outline-text-2" id="text-org6a6827f">
+<div id="outline-container-org959bf06" class="outline-2">
+<h2 id="org959bf06">Conclusion</h2>
+<div class="outline-text-2" id="text-org959bf06">
 <p>
 These are some of the most important <code class="src src-R">purrr</code> functions. But there are many others and I encourage you to explore them by yourself.<br />
 </p>

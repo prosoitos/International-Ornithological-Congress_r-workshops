@@ -323,7 +323,7 @@ map(~ lm(..3 ~ ..1 + ..2))
 #+END_SRC
 #+HTML: </div>
 
-** src_R[:eval no]{modify_if} and src_R[:eval no]{modify_at}
+** src_R[:eval no]{map_if}/src_R[:eval no]{modify_if} and src_R[:eval no]{map_at}/src_R[:eval no]{modify_at}
 
 We built our data frame with src_R[:eval no]{tibble()} which, as is the norm in the src_R[:eval no]{tidyverse}, does not transform strings into factors:
 
@@ -336,7 +336,7 @@ banding <-
     mass = rnorm(50, 43, 4) %>% round(1),
     tarsus = rnorm(50, 27, 1) %>% round(1),
     wing = rnorm(50, 112, 3) %>% round(0)
-  ) %>%
+  ) %T>% 
   str()
 #+END_SRC
 
@@ -353,7 +353,7 @@ banding <-
     mass = rnorm(50, 43, 4) %>% round(1),
     tarsus = rnorm(50, 27, 1) %>% round(1),
     wing = rnorm(50, 112, 3) %>% round(0)
-  ) %>%
+  ) %T>% 
   str()
 #+END_SRC
 
@@ -370,14 +370,27 @@ How can you do this?
 src_R[:eval no]{map()} has the derivatives src_R[:eval no]{map_if()} and src_R[:eval no]{map_at()} which allow to apply functions when conditions are met or at certain locations. Here, we can use src_R[:eval no]{map_if()}:
 
 #+BEGIN_SRC R
-banding %>% map_if(is.character, as.factor)
+banding %>%
+  map_if(is.factor, as.character) %T>% 
+  str()
 #+END_SRC
 
-However, src_R[:eval no]{map_if} and src_R[:eval no]{map_at} always return lists. If you want the output to be of the same type of the input (a data frame in our case), use src_R[:eval no]{modify_if} and src_R[:eval no]{modify_at} instead.
+However, src_R[:eval no]{map_if} and src_R[:eval no]{map_at} always return lists. If you want the output to be of the same type of the input, use src_R[:eval no]{modify_if} and src_R[:eval no]{modify_at} instead.
 
 #+BEGIN_SRC R
+banding <-
+  data.frame(
+    bird = paste0("bird", 1:50),
+    sex = sample(c("F", "M"), 50, replace = T),
+    population = sample(LETTERS[1:3], 50, replace = T),
+    mass = rnorm(50, 43, 4) %>% round(1),
+    tarsus = rnorm(50, 27, 1) %>% round(1),
+    wing = rnorm(50, 112, 3) %>% round(0)
+  )
+
 banding %>%
-  modify_if(is.character, as.factor) %>%
+  modify_if(is.factor, as.character) %>%
+  head() %T>% 
   str()
 #+END_SRC
 
@@ -385,7 +398,7 @@ banding %>%
 This could also be accomplished with src_R[:eval no]{mutate_if()}:
 
 #+BEGIN_SRC R
-banding %>% mutate_if(is.character, as.factor)
+banding %>% mutate_if(is.factor, as.character)
 #+END_SRC
 
 But the src_R[:eval no]{map()} functions also work with lists and are more flexible than src_R[:eval no]{mutate()} and its derivatives.
@@ -415,12 +428,6 @@ So basically, in its simplest form, we have:
 
 #+BEGIN_SRC R
 modify(list, function)
-#+END_SRC
-
-*** Apply several functions to elements of a list
-
-#+BEGIN_SRC R
-invoque_map(c("mean", "var", "sum", "max"), banding[4:6])
 #+END_SRC
 
 ** Walk: apply side effects to elements of a list
