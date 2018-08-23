@@ -156,7 +156,7 @@ Answer
 map(banding[4:6], mean)
 #+END_SRC
 
-or, using a pipe
+or using a pipe
 
 #+BEGIN_SRC R
 banding[4:6] %>% map(mean)
@@ -511,14 +511,6 @@ We will use different src_R[:eval no]{map} (or src_R[:eval no]{walk}, if we want
 #+HTML: <br>
 
 #+BEGIN_VERSE
-- Do we want to apply several functions?
-#+END_VERSE
-
-=invoque_map=
-
-#+HTML: <br>
-
-#+BEGIN_VERSE
 - The class of the output we want
 #+END_VERSE
 
@@ -562,7 +554,7 @@ These are some of the most important src_R[:eval no]{purrr} functions. But there
 
 Great resources for this are:
 
-- The [[http://r4ds.had.co.nz/iteration.html#shortcuts][iteration chapter]] of [[http://hadley.nz/][Hadley Wickham]]'s book [[http://r4ds.had.co.nz/index.html][R for data science]]
+- The [[http://r4ds.had.co.nz/iteration.html][iteration chapter]] of [[http://hadley.nz/][Hadley Wickham]]'s book [[http://r4ds.had.co.nz/index.html][R for data science]]
 - The [[https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf][purrr cheatsheet]]
 - The [[https://cran.r-project.org/web/packages/purrr/purrr.pdf][purrr CRAN manual]]
 - The vignettes and help files for the many purrr functions
