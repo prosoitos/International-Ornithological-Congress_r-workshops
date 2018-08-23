@@ -15,7 +15,9 @@ Most of us biologists do not learn R properly: we do not have a computing scienc
 
 This workshop focuses on two sets of considerations important for writing better code:
 
-* 1. Portability, reproducibility, and readability
+* A. Program
+
+** 1. Portability, reproducibility, and readability
 
 Code that is portable, reproducible, and readable is critical when collaborating on projects. At the start of this workshop, we will briefly go over:
 
@@ -23,7 +25,9 @@ Code that is portable, reproducible, and readable is critical when collaborating
 - Clean sessions for reproducibility,
 - Standard formatting for better readability (as suggested by [[http://hadley.nz/][Hadley Wickham]]).
 
-* 2. Functional programming
+The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_best-practices.html][here]].
+
+** 2. Functional programming
 
 What do you do when you need to apply the same treatment to multiple datasets or multiple variables within a dataset?
 
@@ -40,7 +44,13 @@ Most of our workshop time will focus on:
 - How to apply functions to several elements of a list/vector with some of the main src_R[:eval no]{purrr} functions,
 - And a bonus unrelated sidetrack on a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
 
-* Logistical considerations
+The workshop material (without the solutions to the short challenges) can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_no-answer.html][here]]. I will post the version with the challenge answers at the end of the workshop.
+
+** 3. (Bonus if time allows): src_R[:eval no]{magrittr} less used pipes
+
+The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_magrittr-bonus.html][here]].
+
+* B. Logistical considerations
 
 ** Target audience
 
