@@ -158,3 +158,7 @@ If someone runs your script, this should not install packages or make any other 
 #+BEGIN_SRC R
 install.packages()
 #+END_SRC
+
+#+BEGIN_RED
+I owe these better coding habits to [[https://github.com/jennybc][Jenny Bryan]] and [[http://hadley.nz/][Hadley Wickham]]. Do not hesitate to look for their books, workshops, and other material that are very useful and open source.
+#+END_RED
