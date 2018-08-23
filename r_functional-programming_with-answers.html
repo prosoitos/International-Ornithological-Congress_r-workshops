@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-08-23 Thu 02:38 -->
+<!-- 2018-08-23 Thu 02:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Functional programming in R (with <i>purrr</i>)</title>
@@ -654,69 +654,72 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4b5958c">Introduction</a>
+<li><a href="#org009d01e">Introduction</a>
 <ul>
-<li><a href="#org99c1624">What is functional programming?</a></li>
-<li><a href="#org419611a">Iterations</a></li>
-<li><a href="#org6049630">The purrr package</a>
+<li><a href="#orge8abcba">What is functional programming?</a></li>
+<li><a href="#orgac4bb10">Iterations</a></li>
+<li><a href="#org1133fa9">The purrr package</a>
 <ul>
-<li><a href="#orgb852777">Goal</a></li>
-<li><a href="#org1cedfb0">Logistics</a></li>
+<li><a href="#org3f6e2e2">Goal</a></li>
+<li><a href="#orgaba3000">Logistics</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org203c3ba">Let's dive in</a>
+<li><a href="#orge63600a">Let's dive in</a>
 <ul>
-<li><a href="#org7432053">Load packages</a></li>
-<li><a href="#org37c1c12">Create some fake banding data</a></li>
-<li><a href="#orgee1247e">Map: apply functions to elements of a list</a>
+<li><a href="#orge3449db">Load packages</a></li>
+<li><a href="#org74eeda3">Create some fake banding data</a></li>
+<li><a href="#orgc993861">Map: apply functions to elements of a list</a>
 <ul>
-<li><a href="#orgc0cea8a">Usage</a></li>
-<li><a href="#org2a01687">In our example</a></li>
-<li><a href="#org37c7ea4">Stepping things up</a></li>
-<li><a href="#org9fefd1c">Important note on notation: formulas</a>
+<li><a href="#org8f80e74">Usage</a></li>
+<li><a href="#org1607975">In our example</a></li>
+<li><a href="#orga4b4e07">Stepping things up</a></li>
+<li><a href="#org854b715">Formulas</a>
 <ul>
-<li><a href="#orga23c766">With one element</a></li>
-<li><a href="#org49b7f37">With 2 elements</a></li>
-<li><a href="#orgdc95ef1">Referring to elements</a></li>
+<li><a href="#orgdb38c22">With one element</a></li>
+<li><a href="#org55b93e1">With 2 elements</a></li>
+<li><a href="#orgd4f22c9">Referring to elements</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org682c0a2"><code class="src src-R">map_if</code>/<code class="src src-R">modify_if</code> and <code class="src src-R">map_at</code>/<code class="src src-R">modify_at</code></a></li>
-<li><a href="#org031b438">map2 and pmap</a></li>
-<li><a href="#org39b4ca9">Apply several functions to elements of a list</a></li>
-<li><a href="#orgb98e52d">Walk: apply side effects to elements of a list</a>
+<li><a href="#org056cf51"><code class="src src-R">modify_if</code> and <code class="src src-R">modify_at</code></a>
 <ul>
-<li><a href="#org4fd9ae5">Usage</a></li>
-<li><a href="#org101083a">Apply to our example</a></li>
+<li><a href="#orgb57afd4">Usage</a></li>
+<li><a href="#org6ba4db3">Apply several functions to elements of a list</a></li>
+</ul>
+</li>
+<li><a href="#org9704c95">Walk: apply side effects to elements of a list</a>
+<ul>
+<li><a href="#org8e6d8df">Usage</a></li>
+<li><a href="#org702b36c">Apply to our example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgbee0a11">Summary of the map and walk functions family</a></li>
-<li><a href="#org4b999af">Conclusion</a></li>
+<li><a href="#orgb8865e7">Summary of the map and walk functions family</a></li>
+<li><a href="#org6a6827f">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org4b5958c" class="outline-2">
-<h2 id="org4b5958c">Introduction</h2>
-<div class="outline-text-2" id="text-org4b5958c">
+<div id="outline-container-org009d01e" class="outline-2">
+<h2 id="org009d01e">Introduction</h2>
+<div class="outline-text-2" id="text-org009d01e">
 </div>
-<div id="outline-container-org99c1624" class="outline-3">
-<h3 id="org99c1624">What is functional programming?</h3>
-<div class="outline-text-3" id="text-org99c1624">
+<div id="outline-container-orge8abcba" class="outline-3">
+<h3 id="orge8abcba">What is functional programming?</h3>
+<div class="outline-text-3" id="text-orge8abcba">
 <p>
 It is a programming paradigm based on the evaluation of functions. This is opposed to <i>imperative  programming</i>. While some languages are based strictly on functional programming (e.g. Haskell), R allows both imperative code (e.g. loops) and functional code (e.g. many base functions, the <code class="src src-R"><span class="org-ess-function-call">apply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> family, <code class="src src-R">purrr</code>).<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org419611a" class="outline-3">
-<h3 id="org419611a">Iterations</h3>
-<div class="outline-text-3" id="text-org419611a">
+<div id="outline-container-orgac4bb10" class="outline-3">
+<h3 id="orgac4bb10">Iterations</h3>
+<div class="outline-text-3" id="text-orgac4bb10">
 <p>
 Iterations are the repetition of a process (e.g. applying the same function to several variables, several datasets, or several files).<br />
 </p>
@@ -732,17 +735,17 @@ The classic methods in R are:<br />
 </div>
 </div>
 
-<div id="outline-container-org6049630" class="outline-3">
-<h3 id="org6049630">The purrr package</h3>
-<div class="outline-text-3" id="text-org6049630">
+<div id="outline-container-org1133fa9" class="outline-3">
+<h3 id="org1133fa9">The purrr package</h3>
+<div class="outline-text-3" id="text-org1133fa9">
 <p>
 One of the <code class="src src-R">tidyverse</code> core packages, <code class="src src-R">purrr</code> was written in 2015 by <a href="https://github.com/lionel-">Lionel Henry</a> (also the maintainer), <a href="http://hadley.nz/">Hadley Wickham</a>, and <a href="https://www.rstudio.com/">RStudio inc.</a> <br />
 </p>
 </div>
 
-<div id="outline-container-orgb852777" class="outline-4">
-<h4 id="orgb852777">Goal</h4>
-<div class="outline-text-4" id="text-orgb852777">
+<div id="outline-container-org3f6e2e2" class="outline-4">
+<h4 id="org3f6e2e2">Goal</h4>
+<div class="outline-text-4" id="text-org3f6e2e2">
 <p>
 <code class="src src-R">Purrr</code> is a set of tools allowing consistent functional programming in R in a <code class="src src-R">tidyverse</code> style (using <code class="src src-R">magrittr</code> pipes and following the same naming conventions found in other <code class="src src-R">tidyverse</code> packages).<br />
 </p>
@@ -753,9 +756,9 @@ As Hadley Wickham says, in many ways, <code class="src src-R">purrr</code> is th
 </div>
 </div>
 
-<div id="outline-container-org1cedfb0" class="outline-4">
-<h4 id="org1cedfb0">Logistics</h4>
-<div class="outline-text-4" id="text-org1cedfb0">
+<div id="outline-container-orgaba3000" class="outline-4">
+<h4 id="orgaba3000">Logistics</h4>
+<div class="outline-text-4" id="text-orgaba3000">
 <p>
 Install it with:<br />
 </p>
@@ -802,13 +805,13 @@ and on any of its functions with:<br />
 </div>
 </div>
 
-<div id="outline-container-org203c3ba" class="outline-2">
-<h2 id="org203c3ba">Let's dive in</h2>
-<div class="outline-text-2" id="text-org203c3ba">
+<div id="outline-container-orge63600a" class="outline-2">
+<h2 id="orge63600a">Let's dive in</h2>
+<div class="outline-text-2" id="text-orge63600a">
 </div>
-<div id="outline-container-org7432053" class="outline-3">
-<h3 id="org7432053">Load packages</h3>
-<div class="outline-text-3" id="text-org7432053">
+<div id="outline-container-orge3449db" class="outline-3">
+<h3 id="orge3449db">Load packages</h3>
+<div class="outline-text-3" id="text-orge3449db">
 <p>
 First, let's load the packages that we will use. It is always a good idea to write all the packages that you will be using at the top of the script. This will help others, using your script, to know what is required to run it.<br />
 </p>
@@ -821,9 +824,9 @@ First, let's load the packages that we will use. It is always a good idea to wri
 </div>
 </div>
 
-<div id="outline-container-org37c1c12" class="outline-3">
-<h3 id="org37c1c12">Create some fake banding data</h3>
-<div class="outline-text-3" id="text-org37c1c12">
+<div id="outline-container-org74eeda3" class="outline-3">
+<h3 id="org74eeda3">Create some fake banding data</h3>
+<div class="outline-text-3" id="text-org74eeda3">
 <p>
 Let's create some imaginary bird banding data:<br />
 </p>
@@ -844,9 +847,9 @@ banding
 </div>
 </div>
 
-<div id="outline-container-orgee1247e" class="outline-3">
-<h3 id="orgee1247e">Map: apply functions to elements of a list</h3>
-<div class="outline-text-3" id="text-orgee1247e">
+<div id="outline-container-orgc993861" class="outline-3">
+<h3 id="orgc993861">Map: apply functions to elements of a list</h3>
+<div class="outline-text-3" id="text-orgc993861">
 <p>
 Imagine that you want to calculate the mean for each of the morphometric measurements (mass, tarsus, and wing).<br />
 </p>
@@ -864,9 +867,9 @@ To apply functions to elements of a list, you can use <code class="src src-R">ma
 </p>
 </div>
 
-<div id="outline-container-orgc0cea8a" class="outline-4">
-<h4 id="orgc0cea8a">Usage</h4>
-<div class="outline-text-4" id="text-orgc0cea8a">
+<div id="outline-container-org8f80e74" class="outline-4">
+<h4 id="org8f80e74">Usage</h4>
+<div class="outline-text-4" id="text-org8f80e74">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
@@ -893,9 +896,9 @@ What we have, in the simplest case, is:<br />
 </div>
 </div>
 
-<div id="outline-container-org2a01687" class="outline-4">
-<h4 id="org2a01687">In our example</h4>
-<div class="outline-text-4" id="text-org2a01687">
+<div id="outline-container-org1607975" class="outline-4">
+<h4 id="org1607975">In our example</h4>
+<div class="outline-text-4" id="text-org1607975">
 <div class="VERBATIM">
 <p>
 How could we use <code class="src src-R"><span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> to calculate the means of all 3 measurement types?<br />
@@ -1006,9 +1009,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-org37c7ea4" class="outline-4">
-<h4 id="org37c7ea4">Stepping things up</h4>
-<div class="outline-text-4" id="text-org37c7ea4">
+<div id="outline-container-orga4b4e07" class="outline-4">
+<h4 id="orga4b4e07">Stepping things up</h4>
+<div class="outline-text-4" id="text-orga4b4e07">
 <p>
 Now, imagine that you would like to plot the relationship between tarsus and mass for each population.<br />
 </p>
@@ -1052,13 +1055,25 @@ But this is the functional programming method:<br />
   <span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>~ <span class="org-ess-function-call">ggplot</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>., <span class="org-ess-function-call">aes</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">(</span></span>tarsus, mass<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-operator">+</span> <span class="org-ess-function-call">geom_point</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">()</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
+
+<p>
+Let's save those graphs in a variable called <code class="src src-R">graphs</code> that we will use later.<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">graphs <span class="org-ess-assignment">&lt;-</span>
+  banding <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">split</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.$population<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>~ <span class="org-ess-function-call">ggplot</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span>., <span class="org-ess-function-call">aes</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">(</span></span>tarsus, mass<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span> <span class="org-ess-operator">+</span> <span class="org-ess-function-call">geom_point</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">()</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9fefd1c" class="outline-4">
-<h4 id="org9fefd1c">Important note on notation: formulas</h4>
-<div class="outline-text-4" id="text-org9fefd1c">
+<div id="outline-container-org854b715" class="outline-4">
+<h4 id="org854b715">Formulas</h4>
+<div class="outline-text-4" id="text-org854b715">
 <div class="RED">
 <p>
 Formulas = a shorter notation for anonymous functions<br />
@@ -1067,9 +1082,9 @@ Formulas = a shorter notation for anonymous functions<br />
 </div>
 </div>
 
-<div id="outline-container-orga23c766" class="outline-5">
-<h5 id="orga23c766">With one element</h5>
-<div class="outline-text-5" id="text-orga23c766">
+<div id="outline-container-orgdb38c22" class="outline-5">
+<h5 id="orgdb38c22">With one element</h5>
+<div class="outline-text-5" id="text-orgdb38c22">
 <p>
 The code:<br />
 </p>
@@ -1120,9 +1135,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-org49b7f37" class="outline-5">
-<h5 id="org49b7f37">With 2 elements</h5>
-<div class="outline-text-5" id="text-org49b7f37">
+<div id="outline-container-org55b93e1" class="outline-5">
+<h5 id="org55b93e1">With 2 elements</h5>
+<div class="outline-text-5" id="text-org55b93e1">
 <p>
 The code:<br />
 </p>
@@ -1143,9 +1158,9 @@ can be shortened to:<br />
 </div>
 </div>
 
-<div id="outline-container-orgdc95ef1" class="outline-5">
-<h5 id="orgdc95ef1">Referring to elements</h5>
-<div class="outline-text-5" id="text-orgdc95ef1">
+<div id="outline-container-orgd4f22c9" class="outline-5">
+<h5 id="orgd4f22c9">Referring to elements</h5>
+<div class="outline-text-5" id="text-orgd4f22c9">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1230,9 +1245,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-org682c0a2" class="outline-3">
-<h3 id="org682c0a2"><code class="src src-R">map_if</code>/<code class="src src-R">modify_if</code> and <code class="src src-R">map_at</code>/<code class="src src-R">modify_at</code></h3>
-<div class="outline-text-3" id="text-org682c0a2">
+<div id="outline-container-org056cf51" class="outline-3">
+<h3 id="org056cf51"><code class="src src-R">modify_if</code> and <code class="src src-R">modify_at</code></h3>
+<div class="outline-text-3" id="text-org056cf51">
 <p>
 We built our data frame with <code class="src src-R"><span class="org-ess-function-call">tibble</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> which, as is the norm in the <code class="src src-R">tidyverse</code>, does not transform strings into factors:<br />
 </p>
@@ -1305,13 +1320,15 @@ However, <code class="src src-R">map_if</code> and <code class="src src-R">map_a
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span> <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.character, as.factor<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+<pre class="src src-R">banding <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>is.character, as.factor<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span> <span class="org-ess-XopX">%&gt;%</span>
+  <span class="org-ess-function-call">str</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span>
 </pre>
 </div>
 
 <div class="RED">
 <p>
-Note that this could also be accomplished with <code class="src src-R"><span class="org-ess-function-call">mutate_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>:<br />
+This could also be accomplished with <code class="src src-R"><span class="org-ess-function-call">mutate_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code>:<br />
 </p>
 
 <div class="org-src-container">
@@ -1325,29 +1342,58 @@ But the <code class="src src-R"><span class="org-ess-function-call">map</span><s
 
 </div>
 </div>
+
+<div id="outline-container-orgb57afd4" class="outline-4">
+<h4 id="orgb57afd4">Usage</h4>
+<div class="outline-text-4" id="text-orgb57afd4">
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+<span class="org-ess-function-call">modify_if</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .p, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+<span class="org-ess-function-call">modify_at</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .at, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
 </div>
 
-<div id="outline-container-org031b438" class="outline-3">
-<h3 id="org031b438">map2 and pmap</h3>
+<pre class="example">
+.x     a list or atomic vector
+.f     a function, formula, or atomic vector
+...    additional arguments passed to .f
+.p     a predicate function.
+       Only the elements for which .p evaluates to TRUE will be modified
+.at    a character vector of names or a numeric vector of positions.
+       Only the elements corresponding to .at will be modified
+</pre>
+
+<p>
+For every element of <code class="src src-R">.x</code>, apply <code class="src src-R">.f</code>, and return a modified version of <code class="src src-R">.x</code>.<br />
+</p>
+
+<p>
+So basically, in its simplest form, we have:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span class="org-ess-function-call">modify</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>list, function<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
+</pre>
+</div>
+</div>
 </div>
 
-
-
-<div id="outline-container-org39b4ca9" class="outline-3">
-<h3 id="org39b4ca9">Apply several functions to elements of a list</h3>
-<div class="outline-text-3" id="text-org39b4ca9">
+<div id="outline-container-org6ba4db3" class="outline-4">
+<h4 id="org6ba4db3">Apply several functions to elements of a list</h4>
+<div class="outline-text-4" id="text-org6ba4db3">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">invoque_map</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-ess-function-call">c</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"mean"</span>, <span class="org-string">"var"</span>, <span class="org-string">"sum"</span>, <span class="org-string">"max"</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">)</span></span>, banding<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">[</span></span><span class="org-ess-numbers">4</span>:<span class="org-ess-numbers">6</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-2">]</span></span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgb98e52d" class="outline-3">
-<h3 id="orgb98e52d">Walk: apply side effects to elements of a list</h3>
-<div class="outline-text-3" id="text-orgb98e52d">
+<div id="outline-container-org9704c95" class="outline-3">
+<h3 id="org9704c95">Walk: apply side effects to elements of a list</h3>
+<div class="outline-text-3" id="text-org9704c95">
 <p>
-Now that we have our 3 graphs, we want to save them to 3 files.<br />
+Now, we want to save the 3 graphs we previously drew into 3 files.<br />
 </p>
 
 <div class="VERBATIM">
@@ -1363,9 +1409,9 @@ To apply side effects to elements of a list, we use the <code class="src src-R">
 </p>
 </div>
 
-<div id="outline-container-org4fd9ae5" class="outline-4">
-<h4 id="org4fd9ae5">Usage</h4>
-<div class="outline-text-4" id="text-org4fd9ae5">
+<div id="outline-container-org8e6d8df" class="outline-4">
+<h4 id="org8e6d8df">Usage</h4>
+<div class="outline-text-4" id="text-org8e6d8df">
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-function-call">walk</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">(</span></span>.x, .f, ...<span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
@@ -1379,9 +1425,9 @@ To apply side effects to elements of a list, we use the <code class="src src-R">
 </div>
 </div>
 
-<div id="outline-container-org101083a" class="outline-4">
-<h4 id="org101083a">Apply to our example</h4>
-<div class="outline-text-4" id="text-org101083a">
+<div id="outline-container-org702b36c" class="outline-4">
+<h4 id="org702b36c">Apply to our example</h4>
+<div class="outline-text-4" id="text-org702b36c">
 <p>
 We already have a list of graphs: <code class="src src-R">graphs</code>. Now, we can create a list of paths where we want to save them:<br />
 </p>
@@ -1392,7 +1438,7 @@ We already have a list of graphs: <code class="src src-R">graphs</code>. Now, we
 </div>
 
 <p>
-So we want to save each element of <code class="src src-R">graph</code> (a graph) into an element of <code class="src src-R">paths</code> (a path). The function we will use is <code class="src src-R">ggsave</code>. To apply it to all of our elements, instead of using <code class="src src-R">map</code>, we will use <code class="src src-R">walk</code> because we are not trying to create a new object.<br />
+So we want to save each element of <code class="src src-R">graphs</code> into an element of <code class="src src-R">paths</code>. The function we will use is <code class="src src-R">ggsave</code>. To apply it to all of our elements, instead of using <code class="src src-R">map</code>, we will use <code class="src src-R">walk</code> because we are not trying to create a new object.<br />
 </p>
 
 <p>
@@ -1442,9 +1488,9 @@ Answer<br />
 </div>
 </div>
 
-<div id="outline-container-orgbee0a11" class="outline-2">
-<h2 id="orgbee0a11">Summary of the map and walk functions family</h2>
-<div class="outline-text-2" id="text-orgbee0a11">
+<div id="outline-container-orgb8865e7" class="outline-2">
+<h2 id="orgb8865e7">Summary of the map and walk functions family</h2>
+<div class="outline-text-2" id="text-orgb8865e7">
 <p>
 We will use different <code class="src src-R">map</code> (or <code class="src src-R">walk</code>, if we want the side effects) function depending on:<br />
 </p>
@@ -1657,9 +1703,9 @@ Results are returned predictably and consistently, which is <a href="https://blo
 </div>
 </div>
 
-<div id="outline-container-org4b999af" class="outline-2">
-<h2 id="org4b999af">Conclusion</h2>
-<div class="outline-text-2" id="text-org4b999af">
+<div id="outline-container-org6a6827f" class="outline-2">
+<h2 id="org6a6827f">Conclusion</h2>
+<div class="outline-text-2" id="text-org6a6827f">
 <p>
 These are some of the most important <code class="src src-R">purrr</code> functions. But there are many others and I encourage you to explore them by yourself.<br />
 </p>

@@ -230,9 +230,18 @@ banding %>%
   split(.$population) %>%
   map(~ ggplot(., aes(tarsus, mass)) + geom_point())
 #+END_SRC
+
+Let's save those graphs in a variable called src_R[:eval no]{graphs} that we will use later.
+
+#+BEGIN_SRC R
+graphs <-
+  banding %>%
+  split(.$population) %>%
+  map(~ ggplot(., aes(tarsus, mass)) + geom_point())
+#+END_SRC
 #+HTML: </div>
 
-*** Important note on notation: formulas
+*** Formulas
 
 #+BEGIN_RED
 Formulas = a shorter notation for anonymous functions
@@ -314,7 +323,7 @@ map(~ lm(..3 ~ ..1 + ..2))
 #+END_SRC
 #+HTML: </div>
 
-** src_R[:eval no]{map_if}/src_R[:eval no]{modify_if} and src_R[:eval no]{map_at}/src_R[:eval no]{modify_at}
+** src_R[:eval no]{modify_if} and src_R[:eval no]{modify_at}
 
 We built our data frame with src_R[:eval no]{tibble()} which, as is the norm in the src_R[:eval no]{tidyverse}, does not transform strings into factors:
 
@@ -367,11 +376,13 @@ banding %>% map_if(is.character, as.factor)
 However, src_R[:eval no]{map_if} and src_R[:eval no]{map_at} always return lists. If you want the output to be of the same type of the input (a data frame in our case), use src_R[:eval no]{modify_if} and src_R[:eval no]{modify_at} instead.
 
 #+BEGIN_SRC R
-banding %>% modify_if(is.character, as.factor)
+banding %>%
+  modify_if(is.character, as.factor) %>%
+  str()
 #+END_SRC
 
 #+BEGIN_RED
-Note that this could also be accomplished with src_R[:eval no]{mutate_if()}:
+This could also be accomplished with src_R[:eval no]{mutate_if()}:
 
 #+BEGIN_SRC R
 banding %>% mutate_if(is.character, as.factor)
@@ -380,11 +391,33 @@ banding %>% mutate_if(is.character, as.factor)
 But the src_R[:eval no]{map()} functions also work with lists and are more flexible than src_R[:eval no]{mutate()} and its derivatives.
 #+END_RED
 
-** map2 and pmap
+*** Usage
 
+#+BEGIN_SRC R
+modify(.x, .f, ...)
+modify_if(.x, .p, .f, ...)
+modify_at(.x, .at, .f, ...)
+#+END_SRC
 
+#+BEGIN_EXAMPLE
+.x     a list or atomic vector
+.f     a function, formula, or atomic vector
+...    additional arguments passed to .f
+.p     a predicate function.
+       Only the elements for which .p evaluates to TRUE will be modified
+.at    a character vector of names or a numeric vector of positions.
+       Only the elements corresponding to .at will be modified
+#+END_EXAMPLE
 
-** Apply several functions to elements of a list
+For every element of src_R[:eval no]{.x}, apply src_R[:eval no]{.f}, and return a modified version of src_R[:eval no]{.x}.
+
+So basically, in its simplest form, we have:
+
+#+BEGIN_SRC R
+modify(list, function)
+#+END_SRC
+
+*** Apply several functions to elements of a list
 
 #+BEGIN_SRC R
 invoque_map(c("mean", "var", "sum", "max"), banding[4:6])
@@ -392,7 +425,7 @@ invoque_map(c("mean", "var", "sum", "max"), banding[4:6])
 
 ** Walk: apply side effects to elements of a list
 
-Now that we have our 3 graphs, we want to save them to 3 files.
+Now, we want to save the 3 graphs we previously drew into 3 files.
 
 #+BEGIN_VERBATIM
 How would you do this?
@@ -421,7 +454,7 @@ We already have a list of graphs: src_R[:eval no]{graphs}. Now, we can create a 
 paths <- paste0("population_", names(graphs), ".png")
 #+END_SRC
 
-So we want to save each element of src_R[:eval no]{graph} (a graph) into an element of src_R[:eval no]{paths} (a path). The function we will use is src_R[:eval no]{ggsave}. To apply it to all of our elements, instead of using src_R[:eval no]{map}, we will use src_R[:eval no]{walk} because we are not trying to create a new object.
+So we want to save each element of src_R[:eval no]{graphs} into an element of src_R[:eval no]{paths}. The function we will use is src_R[:eval no]{ggsave}. To apply it to all of our elements, instead of using src_R[:eval no]{map}, we will use src_R[:eval no]{walk} because we are not trying to create a new object.
 
 The problem is that we have 2 lists to deal with. src_R[:eval no]{Map} and src_R[:eval no]{walk} only allow to deal with one list. But src_R[:eval no]{map2} and src_R[:eval no]{walk2} allow to deal with 2 lists (src_R[:eval no]{pmap} and src_R[:eval no]{pwalk} allow to deal with any number of lists).
 
