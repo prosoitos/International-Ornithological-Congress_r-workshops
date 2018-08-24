@@ -200,13 +200,13 @@ map(function(x) mean(x) + 3)
 The code:
 
 #+BEGIN_SRC R
-map(function(x, y) x + y)
+map2(function(x, y) x + y)
 #+END_SRC
 
 can be shortened to:
 
 #+BEGIN_SRC R
-map(~ .x + .y)
+map2(~ .x + .y)
 #+END_SRC
 
 **** Referring to elements
@@ -224,7 +224,7 @@ Your turn: write the following anonymous function as a formula.
 #+END_VERBATIM
 
 #+BEGIN_SRC R
-map(function(x1, x2, y) lm(y ~ x1 + x2))
+pmap(function(x1, x2, y) lm(y ~ x1 + x2))
 #+END_SRC
 
 ** src_R[:eval no]{map_if}/src_R[:eval no]{modify_if} and src_R[:eval no]{map_at}/src_R[:eval no]{modify_at}

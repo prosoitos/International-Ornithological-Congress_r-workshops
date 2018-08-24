@@ -286,13 +286,13 @@ map(~ mean(.) + 3)
 The code:
 
 #+BEGIN_SRC R
-map(function(x, y) x + y)
+map2(function(x, y) x + y)
 #+END_SRC
 
 can be shortened to:
 
 #+BEGIN_SRC R
-map(~ .x + .y)
+map2(~ .x + .y)
 #+END_SRC
 
 **** Referring to elements
@@ -310,7 +310,7 @@ Your turn: write the following anonymous function as a formula.
 #+END_VERBATIM
 
 #+BEGIN_SRC R
-map(function(x1, x2, y) lm(y ~ x1 + x2))
+pmap(function(x1, x2, y) lm(y ~ x1 + x2))
 #+END_SRC
 
 #+BEGIN_accordion
@@ -319,7 +319,7 @@ Answer
 
 #+HTML: <div class="panel">
 #+BEGIN_SRC R
-map(~ lm(..3 ~ ..1 + ..2))
+pmap(~ lm(..3 ~ ..1 + ..2))
 #+END_SRC
 #+HTML: </div>
 
