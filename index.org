@@ -15,6 +15,19 @@ Most of us biologists do not learn R properly: we do not have a computing scienc
 
 This workshop focuses on two sets of considerations important for writing better code:
 
+#+BEGIN_SRC emacs-lisp :results html :exports results
+(defun tob64 (filename)
+(base64-encode-string
+(with-temp-buffer
+(insert-file-contents filename)
+(buffer-string))))
+
+(format "<img src=\"data:image/ico;base64,%s\">"
+(tob64 "./email.ico"))
+#+END_SRC
+
+
+
 * A. Program
 
 ** 1. Portability, reproducibility, and readability
