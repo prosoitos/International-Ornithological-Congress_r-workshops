@@ -15,6 +15,9 @@ Most of us biologists do not learn R properly: we do not have a computing scienc
 
 This workshop focuses on two sets of considerations important for writing better code:
 
+- portability, reproducibility, and readability of code
+- functional programming
+
 * A. Program
 
 ** 1. Portability, reproducibility, and readability
