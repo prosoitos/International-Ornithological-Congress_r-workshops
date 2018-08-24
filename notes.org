@@ -4,7 +4,7 @@
 #+OPTIONS: f:t inline:t tasks:t tex:t timestamp:t
 #+OPTIONS: html-preamble:t html-postamble:nil
 
-#+TITLE:   Notes for IOC R workshop
+#+TITLE:   Before we start
 #+DATE:	  {{{time(%B %d\, %Y)}}}
 #+AUTHOR:  Marie-Hélène Burle
 #+EMAIL:   msb2@sfu.ca
@@ -16,6 +16,12 @@
 - stop skype
 
 * Information to give at the start of the workshop
+
+** Start in a fun tone
+
+Thursday night... hola... Are you all still alive?
+
+** Check that they can see (font size ok?) and hear me ok
 
 ** Introduce myself and the helpers
 
