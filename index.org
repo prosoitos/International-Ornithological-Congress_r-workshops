@@ -46,7 +46,7 @@ Most of our workshop time will focus on:
 
 The workshop material (without the solutions to the short challenges) can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html][here]]. I will post the version with the challenge answers at the end of the workshop.
 
-** 3. (Bonus if time allows): src_R[:eval no]{magrittr} less used pipes
+** Bonus: src_R[:eval no]{magrittr} less used pipes
 
 The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_magrittr-bonus.html][here]].
 
