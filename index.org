@@ -47,7 +47,7 @@ Most of our workshop time will focus on:
 - How to apply functions to several elements of a list/vector with some of the main src_R[:eval no]{purrr} functions,
 - And a bonus unrelated sidetrack on a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
 
-The workshop material (without the solutions to the short challenges) can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html][here]]. I will post the version with the challenge answers at the end of the workshop.
+The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html][here]].
 
 ** Bonus: src_R[:eval no]{magrittr} less used pipes
 
