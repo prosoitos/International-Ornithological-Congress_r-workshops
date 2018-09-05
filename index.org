@@ -18,9 +18,9 @@ This workshop focuses on two sets of considerations important for writing better
 - portability, reproducibility, and readability of code
 - functional programming
 
-* A. Program
+* Program
 
-** 1. Portability, reproducibility, and readability
+** Portability, reproducibility, and readability
 
 Code that is portable, reproducible, and readable is critical when collaborating on projects. At the start of this workshop, we will briefly go over:
 
@@ -30,7 +30,7 @@ Code that is portable, reproducible, and readable is critical when collaborating
 
 The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_best-practices.html][here]].
 
-** 2. Functional programming
+** Functional programming
 
 What do you do when you need to apply the same treatment to multiple datasets or multiple variables within a dataset?
 
@@ -41,19 +41,20 @@ How do you do this?
 
 Copying and pasting code, besides being tedious, is a form of hard coding and is thus prone to errors. Loops provide a much better approach, but they require a lot of code and still involve some level of repetition. They are also hard to read and the goal of your code might not be obvious right away when you go back to it or you give it to someone else. Functional programming is a coding paradigm in which functions are applied to several elements in a vectorized fashion. This makes for compact code that is much clearer and takes advantage of the vector-based nature of R. The src_R[:eval no]{purrr} package (part of the core src_R[:eval no]{tidyverse}) provides a collection of efficient and consistent tools to functional programming in R.
 
-Most of our workshop time will focus on:
+This section constitutes the main part of the workshop. In it, we will focus on:
 
 - A very brief introduction to functional programming,
 - How to apply functions to several elements of a list/vector with some of the main src_R[:eval no]{purrr} functions,
-- And a bonus unrelated sidetrack on a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
 
 The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_functional-programming_with-answers.html][here]].
 
 ** Bonus: src_R[:eval no]{magrittr} less used pipes
 
+A detour to a few of the less used pipes of the src_R[:eval no]{magrittr} package which are so useful when playing in the src_R[:eval no]{tidyverse}.
+
 The workshop material can be found [[https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_magrittr-bonus.html][here]].
 
-* B. Logistical considerations
+* Logistical considerations
 
 ** Target audience
 

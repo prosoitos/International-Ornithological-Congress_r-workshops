@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-08-29 Wed 13:35 -->
+<!-- 2018-09-05 Wed 10:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</title>
@@ -230,13 +230,15 @@
     padding: 1em;
   } 
   a {
-    color: #b58900;
+    color: #db4000;
+    text-decoration: none;
   }
   a:visited {
-    color: #cb4b16;
+    color: #8a5640;
   }
   a:hover {
-    color: #e65719;
+    background-color: #fbc7b1;
+    color: #211d1b;
   }
   h1 {
     color: #890c0c;
@@ -646,7 +648,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<span style="color:#596a73; font-size:17px"><b>Marie-Hélène Burle</b></span><br><span style="color:#596a73; font-size:15px"><img src="./favicons/email.ico" alt="email" height="16" width="16"> <a href="mailto:msb2@sfu.ca">msb2@sfu.ca</a>&nbsp;&nbsp;<img src="./favicons/twitter.ico" alt="twitter" height="17" width="17"> <a href="https://twitter.com/MHBurle">@MHBurle</a>&nbsp;&nbsp;<img src="./favicons/gh.ico" alt="github" height="15" width="15"> <a href="https://github.com/prosoitos">prosoitos</a></span><br><span style="color:#596a73; font-size:16px">August 29, 2018</span>
+<span style="color:#596a73; font-size:17px"><b>Marie-Hélène Burle</b></span><br><span style="color:#8a8a8a; font-size:15px"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-----------</b></span><br><span style="color:#596a73; font-size:15px"><img src="./favicons/email.ico" alt="email" height="16" width="16"> <a href="mailto:msb2@sfu.ca">msb2@sfu.ca</a>&nbsp;&nbsp;<img src="./favicons/twitter.ico" alt="twitter" height="17" width="17"> <a href="https://twitter.com/MHBurle">@MHBurle</a>&nbsp;&nbsp;<img src="./favicons/gh.ico" alt="github" height="15" width="15"> <a href="https://github.com/prosoitos">prosoitos</a></span><br><span style="color:#596a73; font-size:16px">September 05, 2018</span>
 </div>
 <div id="content">
 <h1 class="title"><span style="font-size: 60%; color: #460606;">R workshop for the</span><span style="font-size: 75%; color: #460606;"> International Ornithological Congress 2018</span></span><br>Better practices in R,<br>no more copy-paste, no more loops</h1>
@@ -654,19 +656,19 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb4c9060">A. Program</a>
+<li><a href="#orgb2cf135">Program</a>
 <ul>
-<li><a href="#org8008158">1. Portability, reproducibility, and readability</a></li>
-<li><a href="#org2f588be">2. Functional programming</a></li>
-<li><a href="#org2d8b33a">Bonus: <code class="src src-R">magrittr</code> less used pipes</a></li>
+<li><a href="#orga3bbd27">Portability, reproducibility, and readability</a></li>
+<li><a href="#org3959cf4">Functional programming</a></li>
+<li><a href="#orgfaffb78">Bonus: <code class="src src-R">magrittr</code> less used pipes</a></li>
 </ul>
 </li>
-<li><a href="#org1c6edd4">B. Logistical considerations</a>
+<li><a href="#orgc22b5a5">Logistical considerations</a>
 <ul>
-<li><a href="#orga35d22d">Target audience</a></li>
-<li><a href="#orgce377a5">Where and when?</a></li>
-<li><a href="#org55b8385">No fee nor registration</a></li>
-<li><a href="#orgf0bb560">Software requirements</a></li>
+<li><a href="#org93817c4">Target audience</a></li>
+<li><a href="#orgae02489">Where and when?</a></li>
+<li><a href="#org9671ef3">No fee nor registration</a></li>
+<li><a href="#org40ac442">Software requirements</a></li>
 </ul>
 </li>
 </ul>
@@ -685,13 +687,13 @@ This workshop focuses on two sets of considerations important for writing better
 <li>functional programming<br /></li>
 </ul>
 
-<div id="outline-container-orgb4c9060" class="outline-2">
-<h2 id="orgb4c9060">A. Program</h2>
-<div class="outline-text-2" id="text-orgb4c9060">
+<div id="outline-container-orgb2cf135" class="outline-2">
+<h2 id="orgb2cf135">Program</h2>
+<div class="outline-text-2" id="text-orgb2cf135">
 </div>
-<div id="outline-container-org8008158" class="outline-3">
-<h3 id="org8008158">1. Portability, reproducibility, and readability</h3>
-<div class="outline-text-3" id="text-org8008158">
+<div id="outline-container-orga3bbd27" class="outline-3">
+<h3 id="orga3bbd27">Portability, reproducibility, and readability</h3>
+<div class="outline-text-3" id="text-orga3bbd27">
 <p>
 Code that is portable, reproducible, and readable is critical when collaborating on projects. At the start of this workshop, we will briefly go over:<br />
 </p>
@@ -708,9 +710,9 @@ The workshop material can be found <a href="https://prosoitos.github.io/r_worksh
 </div>
 </div>
 
-<div id="outline-container-org2f588be" class="outline-3">
-<h3 id="org2f588be">2. Functional programming</h3>
-<div class="outline-text-3" id="text-org2f588be">
+<div id="outline-container-org3959cf4" class="outline-3">
+<h3 id="org3959cf4">Functional programming</h3>
+<div class="outline-text-3" id="text-org3959cf4">
 <p>
 What do you do when you need to apply the same treatment to multiple datasets or multiple variables within a dataset?<br />
 </p>
@@ -729,13 +731,12 @@ Copying and pasting code, besides being tedious, is a form of hard coding and is
 </p>
 
 <p>
-Most of our workshop time will focus on:<br />
+This section constitutes the main part of the workshop. In it, we will focus on:<br />
 </p>
 
 <ul class="org-ul">
 <li>A very brief introduction to functional programming,<br /></li>
 <li>How to apply functions to several elements of a list/vector with some of the main <code class="src src-R">purrr</code> functions,<br /></li>
-<li>And a bonus unrelated sidetrack on a few of the less used pipes of the <code class="src src-R">magrittr</code> package which are so useful when playing in the <code class="src src-R">tidyverse</code>.<br /></li>
 </ul>
 
 <p>
@@ -744,9 +745,13 @@ The workshop material can be found <a href="https://prosoitos.github.io/r_worksh
 </div>
 </div>
 
-<div id="outline-container-org2d8b33a" class="outline-3">
-<h3 id="org2d8b33a">Bonus: <code class="src src-R">magrittr</code> less used pipes</h3>
-<div class="outline-text-3" id="text-org2d8b33a">
+<div id="outline-container-orgfaffb78" class="outline-3">
+<h3 id="orgfaffb78">Bonus: <code class="src src-R">magrittr</code> less used pipes</h3>
+<div class="outline-text-3" id="text-orgfaffb78">
+<p>
+A detour to a few of the less used pipes of the <code class="src src-R">magrittr</code> package which are so useful when playing in the <code class="src src-R">tidyverse</code>.<br />
+</p>
+
 <p>
 The workshop material can be found <a href="https://prosoitos.github.io/r_workshop_international-ornithological-congress/r_magrittr-bonus.html">here</a>.<br />
 </p>
@@ -754,13 +759,13 @@ The workshop material can be found <a href="https://prosoitos.github.io/r_worksh
 </div>
 </div>
 
-<div id="outline-container-org1c6edd4" class="outline-2">
-<h2 id="org1c6edd4">B. Logistical considerations</h2>
-<div class="outline-text-2" id="text-org1c6edd4">
+<div id="outline-container-orgc22b5a5" class="outline-2">
+<h2 id="orgc22b5a5">Logistical considerations</h2>
+<div class="outline-text-2" id="text-orgc22b5a5">
 </div>
-<div id="outline-container-orga35d22d" class="outline-3">
-<h3 id="orga35d22d">Target audience</h3>
-<div class="outline-text-3" id="text-orga35d22d">
+<div id="outline-container-org93817c4" class="outline-3">
+<h3 id="org93817c4">Target audience</h3>
+<div class="outline-text-3" id="text-org93817c4">
 <ul class="org-ul">
 <li>Intermediate R users comfortable with basic data manipulation and simple functions,<br /></li>
 <li>Advanced users familiar with functional programming using the family of the <code class="src src-R"><span class="org-ess-function-call">apply</span><span class="org-ess-paren"><span class="org-rainbow-delimiters-depth-1">()</span></span></code> functions and interested in discovering the "purrring" way.<br /></li>
@@ -768,9 +773,9 @@ The workshop material can be found <a href="https://prosoitos.github.io/r_worksh
 </div>
 </div>
 
-<div id="outline-container-orgce377a5" class="outline-3">
-<h3 id="orgce377a5">Where and when?</h3>
-<div class="outline-text-3" id="text-orgce377a5">
+<div id="outline-container-orgae02489" class="outline-3">
+<h3 id="orgae02489">Where and when?</h3>
+<div class="outline-text-3" id="text-orgae02489">
 <p>
 <b>Date:</b> Thursday 23<br />
 <b>Time:</b> 8pm-10pm<br />
@@ -779,18 +784,18 @@ The workshop material can be found <a href="https://prosoitos.github.io/r_worksh
 </div>
 </div>
 
-<div id="outline-container-org55b8385" class="outline-3">
-<h3 id="org55b8385">No fee nor registration</h3>
-<div class="outline-text-3" id="text-org55b8385">
+<div id="outline-container-org9671ef3" class="outline-3">
+<h3 id="org9671ef3">No fee nor registration</h3>
+<div class="outline-text-3" id="text-org9671ef3">
 <p>
 There is no fee nor registration for this event. Simply join us with your laptop ready for the workshop (see below).<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgf0bb560" class="outline-3">
-<h3 id="orgf0bb560">Software requirements</h3>
-<div class="outline-text-3" id="text-orgf0bb560">
+<div id="outline-container-org40ac442" class="outline-3">
+<h3 id="org40ac442">Software requirements</h3>
+<div class="outline-text-3" id="text-org40ac442">
 <p>
 In order to make the best of this workshop, please bring a laptop with the following installed:<br />
 </p>
